@@ -73,3 +73,6 @@ For example:
     - `index.tsx` // The page component
     - `styles.scss` // The page styles
 
+## Helper functions
+
+Sometimes you'd want to use some logic written for one component for another. These pieces of logic can easily be extracted into a helper function in the `/helpers` directory. It is recommended that all helper functions have a unit test `*.test.ts` associated with them.

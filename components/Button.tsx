@@ -5,6 +5,7 @@ import React, {
 } from "react";
 import styles from "./Button.scss";
 import classNames from "classnames";
+import ucfirst from "helpers/ucfirst";
 
 /**
  * Used for rendering a semantically correct button.
@@ -16,9 +17,7 @@ export const Button: React.FC<
   > & { variantColor?: "red" | "blue" | "dark" }
 > = ({ children, className, variantColor, ...props }) => {
   const variant = variantColor
-    ? styles[
-        `is${variantColor.charAt(0).toUpperCase() + variantColor.slice(1)}`
-      ]
+    ? styles[`is${ucfirst(variantColor)}`]
     : undefined;
 
   return (
@@ -42,9 +41,7 @@ export const ButtonLink: React.FC<
   > & { variantColor?: "red" | "blue" | "dark" }
 > = React.forwardRef(({ children, variantColor, className, ...props }, ref) => {
   const variant = variantColor
-    ? styles[
-        `is${variantColor.charAt(0).toUpperCase() + variantColor.slice(1)}`
-      ]
+    ? styles[`is${ucfirst(variantColor)}`]
     : undefined;
 
   return (
