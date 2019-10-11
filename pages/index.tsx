@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "./index.scss";
-import { ButtonLink } from "../components/Button";
+import { ButtonLink } from "components/Button";
 
 const Home = () => (
   <>
