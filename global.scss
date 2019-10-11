@@ -5,6 +5,10 @@
 
 html {
   font-family: "Inter", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+  text-rendering: optimizelegibility;
+  color: $text;
 }
 
 @supports (font-variation-settings: normal) {
