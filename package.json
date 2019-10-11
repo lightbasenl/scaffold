@@ -1,0 +1,23 @@
+{
+  "name": "frontend-scaffold",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@zeit/next-sass": "^1.0.1",
+    "next": "9.1.1",
+    "node-sass": "^4.12.0",
+    "react": "16.10.2",
+    "react-dom": "16.10.2",
+    "tsconfig-paths-webpack-plugin": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.7.12",
+    "@types/react": "^16.9.5",
+    "typescript": "^3.6.4"
+  }
+}

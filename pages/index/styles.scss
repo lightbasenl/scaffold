@@ -1,0 +1,28 @@
+@import "variables";
+
+.root {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 4rem 0;
+}
+
+.logo {
+  width: 100px;
+  max-width: 90%;
+  margin-bottom: 2rem;
+}
+
+.heading {
+  font-size: 4rem;
+  font-weight: 700;
+  color: $primary;
+  margin-bottom: 1.5rem;
+}
+
+.description {
+  font-size: 1.5rem;
+}
