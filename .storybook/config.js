@@ -1,7 +1,7 @@
-import "../global.scss";
+import "../src/global.scss";
 import { configure } from "@storybook/react";
 
-const req = require.context("../components", true, /.story.tsx$/);
+const req = require.context("../src", true, /.story.tsx$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

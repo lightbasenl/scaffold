@@ -5,7 +5,7 @@ import { ButtonLink } from "components/Button";
 const Home = () => (
   <>
     <Head>
-      <title>Lightbase</title>
+      <title>Scaffold</title>
     </Head>
 
     <div className={styles.root}>

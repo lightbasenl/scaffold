@@ -1,5 +1,41 @@
-module.exports = ({ config, mode }) => {
-  // TypeScript resolution
+const path = require("path");
+
+module.exports = async ({ config, mode }) => {
+  // SCSS (modules) support
+  config.module.rules.push({
+    test: /\.scss$/,
+    use: [
+      {
+        loader: "style-loader"
+      },
+      {
+        loader: "css-loader",
+        options: {
+          importLoaders: 1,
+          modules: {
+            localIdentName: "[local]__[hash:base64:5]"
+          }
+        }
+      },
+      {
+        loader: "sass-loader",
+        options: {
+          includePaths: [path.resolve(__dirname, "../src")]
+        }
+      },
+      {
+        loader: "postcss-loader",
+        options: {
+          config: {
+            path: path.resolve(__dirname, "../")
+          }
+        }
+      }
+    ],
+    include: path.resolve(__dirname, "../src")
+  });
+
+  // TypeScript support
   config.module.rules.push({
     test: /\.(ts|tsx)$/,
     loader: require.resolve("babel-loader"),
@@ -8,34 +44,7 @@ module.exports = ({ config, mode }) => {
     }
   });
 
-  // SCSS resolution
-  config.module.rules.push({
-    test: /\.scss$/,
-    loaders: [
-      require.resolve("style-loader"),
-      {
-        loader: require.resolve("css-loader"),
-        options: {
-          importLoaders: 1,
-          modules: {
-            localIdentName: "[name]__[local]___[hash:base64:5]"
-          }
-        }
-      },
-      {
-        loader: require.resolve("postcss-loader"),
-        options: {
-          sourceMap: true,
-          config: {
-            path: ".storybook/postcss.config.js"
-          }
-        }
-      },
-      require.resolve("sass-loader")
-    ]
-  });
-
-  config.resolve.extensions.push(".ts", ".tsx", ".scss");
+  config.resolve.extensions.push(".ts", ".tsx");
 
   return config;
 };

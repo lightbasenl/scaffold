@@ -7,6 +7,6 @@ module.exports = withSass({
     localIdentName: "[local]___[hash:base64:5]"
   },
   sassLoaderOptions: {
-    includePaths: ["./"]
+    includePaths: ["./src"]
   }
 });
