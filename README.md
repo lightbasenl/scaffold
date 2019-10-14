@@ -1,18 +1,30 @@
 # Scaffold
 
+A Next.js setup with:
+- Typescript
+- Root imports (no `../../../../components/SomeComponent`)
+- SCSS modules
+- Storybook
+- Jest
+- CSS autoprefixer
+- Example components
+- CSS reset
+- All Next.js features
+
 ## Commands
 
-- `yarn dev` runs the development server
-- `yarn build` builds the production app
-- `yarn start` start a server running the latest build
+- `yarn dev` run the development server
+- `yarn build` build the production app
+- `yarn start` run the latest build
 - `yarn storybook` start up storybook
+- `yarn test` run unit tests
 
 ## CSS Modules with Sass
 
 For CSS we're using locally scoped `.scss` files. These should be named the same as it's Typescript counterpart and live in the same directory.
 
 For example:
-- components
+- `src/components`
   - `Button.tsx`
   - `Button.scss`
 
@@ -38,7 +50,7 @@ See [css-modules](https://github.com/css-modules/css-modules) for more.
 
 ## Storybook
 
-Storybook allows us to quickly prototype and develop base components (components typically living inside the `/components` directory).
+Storybook allows us to quickly prototype and develop base components (components typically living inside the `src/components` directory).
 
 To view storybook run `yarn storybook`
 
@@ -55,17 +67,17 @@ For more documentation see [https://storybook.js.org/docs/guides/guide-react/](h
 
 ### Base components
 
-Base components like `<Button>`, `<Checkbox>`, `<Input>`, etc. that are used throughout the entire app should live in the root `/components` directory. This way they are easily referenced and found. It is recommended that base components always have a story (see storybook) that shows most intended usages.
+Base components like `<Button>`, `<Checkbox>`, `<Input>`, etc. that are used throughout the entire app should live in the `src/components` directory. This way they are easily referenced and found. It is recommended that base components always have a story (see storybook) that shows most intended usages.
 
 ### Pages
 
-Pages live in the root `/pages` directory. This is a NextJS convention. As this is related to routing. See [https://nextjs.org/](https://nextjs.org/) for more.
+Pages live in the `src/pages` directory. This is a Next.js convention. As this is related to routing. See [https://nextjs.org/](https://nextjs.org/) for more.
 
 Try to keep components only used in a certain page or certain pages as close to the page component as possible, within the directory structure.
 
 For example:
 
-- `/pages`
+- `src/pages`
   - `/about-us`
     - `/components`
       - `Employee.tsx`
@@ -75,4 +87,4 @@ For example:
 
 ## Helper functions
 
-Sometimes you'd want to use some logic written for one component for another. These pieces of logic can easily be extracted into a helper function in the `/helpers` directory. It is recommended that all helper functions have a unit test `*.test.ts` associated with them.
+Sometimes you'd want to use some logic written for one component for another. These pieces of logic can easily be extracted into a helper function in the `src/helpers` directory. It is recommended that all helper functions have a unit test `*.test.ts` associated with them.

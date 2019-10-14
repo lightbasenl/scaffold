@@ -1,8 +1,9 @@
 import Head from "next/head";
 import styles from "./index.scss";
 import { ButtonLink } from "components/Button";
+import { NextPage } from "next";
 
-const Home = () => (
+const Home: NextPage = () => (
   <>
     <Head>
       <title>Scaffold</title>
