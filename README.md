@@ -20,6 +20,8 @@ A Next.js setup with:
 - `yarn start` run the latest build
 - `yarn storybook` start up storybook
 - `yarn test` run unit tests
+- `yarn pretty` run prettier
+- `yarn lint` run eslint
 
 ## CSS Modules with Sass
 
