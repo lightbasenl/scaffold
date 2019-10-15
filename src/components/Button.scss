@@ -1,4 +1,5 @@
 @import "variables";
+@import "mixins";
 
 .button {
   display: inline-flex;
@@ -31,10 +32,7 @@
     background-color: darken($catskillWhite, 2%);
   }
 
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(darken($catskillWhite, 5%), 1);
-  }
+  @include focus-ring(darken($catskillWhite, 5%));
 }
 
 .isBlue {
@@ -46,9 +44,7 @@
     background-color: darken($blueRibbon, 5%);
   }
 
-  &:focus {
-    box-shadow: 0 0 0 3px rgba($blueRibbon, 0.4);
-  }
+  @include focus-ring(rgba($blueRibbon, 0.4));
 }
 
 .isRed {
@@ -60,9 +56,7 @@
     background-color: darken($persimmon, 5%);
   }
 
-  &:focus {
-    box-shadow: 0 0 0 3px rgba($persimmon, 0.4);
-  }
+  @include focus-ring(rgba($persimmon, 0.4));
 }
 
 .isDark {
@@ -74,7 +68,5 @@
     background-color: darken($martinique, 5%);
   }
 
-  &:focus {
-    box-shadow: 0 0 0 3px rgba($martinique, 0.4);
-  }
+  @include focus-ring(rgba($martinique, 0.4));
 }
