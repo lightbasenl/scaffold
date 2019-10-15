@@ -19,13 +19,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
+    "@lightbase/eslint-config-lightbase": "^2.2.1",
     "@storybook/react": "^5.2.3",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.12",
     "@types/react": "^16.9.5",
     "babel-loader": "^8.0.6",
     "babel-plugin-module-resolver": "^3.2.0",
+    "eslint": "^6.5.1",
     "jest": "^24.9.0",
+    "prettier": "^1.18.2",
     "ts-jest": "^24.1.0",
     "typescript": "^3.6.4"
   },
