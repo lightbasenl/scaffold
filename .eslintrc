@@ -1,3 +1,6 @@
 {
-  "extends": ["@lightbase/eslint-config-lightbase/react"]
+  "extends": ["@lightbase/eslint-config-lightbase/react"],
+  "rules": {
+    "react/react-in-jsx-scope": "off"
+  }
 }

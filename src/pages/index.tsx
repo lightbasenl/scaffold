@@ -10,11 +10,16 @@ const Home: NextPage = () => (
     </Head>
 
     <div className={styles.root}>
-      <img src="/icon.svg" className={styles.logo} />
+      <img src="/icon.svg" className={styles.logo} alt="Lightbase" />
 
       <h1 className={styles.heading}>Scaffold</h1>
 
-      <p className={styles.description}>Let's get some work done! 🔥</p>
+      <p className={styles.description}>
+        Let's get some work done!{" "}
+        <span role="img" aria-label="fire">
+          🔥
+        </span>
+      </p>
 
       <div className={styles.buttonContainer}>
         <ButtonLink
