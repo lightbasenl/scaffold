@@ -88,3 +88,12 @@ For example:
 ## Helper functions
 
 Sometimes you'd want to use some logic written for one component for another. These pieces of logic can easily be extracted into a helper function in the `src/helpers` directory. It is recommended that all helper functions have a unit test `*.test.ts` associated with them.
+
+## Using Mobx
+
+In order to use MobX, you need to follow a few steps:
+
+- Add `experimentalDecorators: true` to `src/tsconfig.json` if you want to be able to use Mobx's built-in decorators.
+- Install `mobx-react-lite` and `mobx`. (NOTE: For projects that require support for IE11, see: [MobX: Browser support](https://mobx.js.org/README.html#browser-support))
+
+If you need to add an app-level ContextProvider, you can add it to `src/pages/_app.tsx`.
