@@ -6,6 +6,8 @@ A Next.js setup with:
 - SCSS modules
 - Storybook
 - Jest
+- Prettier
+- Eslint
 - CSS autoprefixer
 - Example components
 - CSS reset
