@@ -30,14 +30,14 @@ Project related documentation can be found in [`/docs`](./docs).
 
 ## CSS Modules with Sass
 
-For CSS we're using locally scoped `.scss` files. These should be named the same as it's Typescript
+For CSS we're using locally scoped `.module.scss` files. These should be named the same as it's Typescript
 counterpart and live in the same directory.
 
 For example:
 
 - `src/components`
   - `Button.tsx`
-  - `Button.scss`
+  - `Button.module.scss`
 
 ```tsx
 // Button.tsx
@@ -46,10 +46,10 @@ import styles from "./Button.scss";
 const Button = () => <button className={styles.button}>I'm a button!</button>;
 ```
 
-`styles.button` is a hashed classname for `.button` in `Button.scss`
+`styles.button` is a hashed classname for `.button` in `Button.module.scss`
 
 ```scss
-// Button.scss
+// Button.module.scss
 .button {
   color: red;
 }
