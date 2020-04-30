@@ -14,7 +14,7 @@
   "dependencies": {
     "babel-preset-react-app": "^9.1.2",
     "classnames": "^2.2.6",
-    "next": "9.3.1",
+    "next": "9.3.6",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "sass": "^1.26.5"
@@ -23,8 +23,8 @@
     "@babel/core": "^7.6.4",
     "@lightbase/eslint-config-lightbase": "^2.2.1",
     "@storybook/react": "^5.3.18",
-    "@types/jest": "^24.0.18",
-    "@types/node": "^12.7.12",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.4",
     "@types/react": "^16.9.5",
     "babel-loader": "^8.1.0",
     "babel-plugin-module-resolver": "^4.0.0",
