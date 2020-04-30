@@ -12,27 +12,27 @@
     "pretty": "prettier --check 'src/**/*.{ts,tsx}' --write"
   },
   "dependencies": {
-    "@zeit/next-sass": "^1.0.1",
+    "babel-preset-react-app": "^9.1.2",
     "classnames": "^2.2.6",
-    "next": "9.1.1",
-    "node-sass": "^4.12.0",
-    "react": "16.10.2",
-    "react-dom": "16.10.2"
+    "next": "9.3.1",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "sass": "^1.26.5"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@lightbase/eslint-config-lightbase": "^2.2.1",
-    "@storybook/react": "^5.2.3",
+    "@storybook/react": "^5.3.18",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.12",
     "@types/react": "^16.9.5",
-    "babel-loader": "^8.0.6",
-    "babel-plugin-module-resolver": "^3.2.0",
-    "eslint": "^6.5.1",
-    "jest": "^24.9.0",
-    "prettier": "^1.18.2",
-    "ts-jest": "^24.1.0",
-    "typescript": "^3.6.4"
+    "babel-loader": "^8.1.0",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "prettier": "^2.0.1",
+    "ts-jest": "^25.2.1",
+    "typescript": "^3.8.3"
   },
   "browserslist": [
     "defaults",

@@ -1,5 +1,5 @@
 import React, { ButtonHTMLAttributes, DetailedHTMLProps, AnchorHTMLAttributes } from "react";
-import styles from "./Button.scss";
+import styles from "./Button.module.scss";
 import classNames from "classnames";
 import ucfirst from "helpers/ucfirst";
 

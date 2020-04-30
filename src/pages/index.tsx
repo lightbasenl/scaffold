@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { NextPage } from "next";
-import styles from "./index.scss";
+import styles from "./index.module.scss";
 import { ButtonLink } from "components/Button";
 
 const Home: NextPage = () => (

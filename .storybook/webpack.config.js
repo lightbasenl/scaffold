@@ -6,33 +6,27 @@ module.exports = async ({ config, mode }) => {
     test: /\.scss$/,
     use: [
       {
-        loader: "style-loader"
+        loader: "style-loader",
       },
       {
         loader: "css-loader",
         options: {
           importLoaders: 1,
           modules: {
-            localIdentName: "[local]__[hash:base64:5]"
-          }
-        }
+            localIdentName: "[local]__[hash:base64:5]",
+          },
+        },
       },
       {
         loader: "sass-loader",
         options: {
-          includePaths: [path.resolve(__dirname, "../src")]
-        }
+          sassOptions: {
+            includePaths: [path.resolve(__dirname, "../src")],
+          },
+        },
       },
-      {
-        loader: "postcss-loader",
-        options: {
-          config: {
-            path: path.resolve(__dirname, "../")
-          }
-        }
-      }
     ],
-    include: path.resolve(__dirname, "../src")
+    include: path.resolve(__dirname, "../src"),
   });
 
   // TypeScript support
@@ -40,8 +34,8 @@ module.exports = async ({ config, mode }) => {
     test: /\.(ts|tsx)$/,
     loader: require.resolve("babel-loader"),
     options: {
-      presets: [["react-app", { flow: false, typescript: true }]]
-    }
+      presets: [["react-app", { flow: false, typescript: true }]],
+    },
   });
 
   config.resolve.extensions.push(".ts", ".tsx");
