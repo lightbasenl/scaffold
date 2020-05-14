@@ -6,7 +6,7 @@ import { ButtonLink } from "components/Button";
 const Home: NextPage = () => (
   <>
     <Head>
-      <title>Scaffold</title>
+      <title>Scaffold Branch Deployment</title>
     </Head>
 
     <div className={styles.root}>
