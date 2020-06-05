@@ -1,0 +1,22 @@
+@import "tailwindcss/components";
+@import "@reach/checkbox/styles.css";
+@import "@reach/dialog/styles.css";
+
+.heading {
+  @apply font-bold tracking-tight leading-tight;
+  @screen lg {
+    @apply tracking-tighter;
+  }
+}
+
+.button {
+  @apply inline-flex items-center justify-center text-lg text-white font-bold h-16 px-8 rounded-lg tracking-tight bg-gray-500;
+}
+
+.button:disabled {
+  @apply opacity-75 cursor-not-allowed;
+}
+
+.button:focus {
+  @apply outline-none shadow-outline;
+}
