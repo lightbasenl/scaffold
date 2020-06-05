@@ -7,7 +7,7 @@ module.exports = fail => {
   const files = fs.readdirSync(hooksPath);
 
   files.forEach(file => {
-    if (!file.match(/^use/)) {
+    if (!file.match(/^use/) && file.charAt(0) !== ".") {
       fail(`There is a file that doesn't start with "use" in src/hooks: ${file}`);
     }
   });
