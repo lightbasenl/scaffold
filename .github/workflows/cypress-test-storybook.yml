@@ -1,0 +1,27 @@
+name: Cypress storybook tests
+on: [push]
+jobs:
+  cypress-run:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [14]
+    runs-on: ${{ matrix.os }}
+    name: Storybook on Chrome on Node v${{ matrix.node }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v1
+        with:
+          browser: chrome
+          config: pageLoadTimeout=100000,watchForFileChanges=false
+          start: yarn storybook
+          wait-on: http://localhost:6006
+          wait-on-timeout: 120
+          spec: cypress/integration/storybook/**/*

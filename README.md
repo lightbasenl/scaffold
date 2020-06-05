@@ -3,15 +3,12 @@
 A Next.js setup with:
 
 - Typescript
-- Root imports (no `../../../../components/SomeComponent`)
-- SCSS modules
 - Storybook
 - Jest
 - Prettier
 - Eslint
-- CSS autoprefixer
+- TailwindCSS
 - Example components
-- CSS reset
 - All Next.js features
 
 ## Commands
@@ -23,39 +20,23 @@ A Next.js setup with:
 - `yarn test` run unit tests
 - `yarn pretty` run prettier
 - `yarn lint` run eslint
+- `yarn cy:run` run cypress test
+- `yarn checks:run` run project validation checks
 
-## Docs
+## Styling
 
-Project related documentation can be found in [`/docs`](./docs).
-
-## CSS Modules with Sass
-
-For CSS we're using locally scoped `.module.scss` files. These should be named the same as it's Typescript
-counterpart and live in the same directory.
-
-For example:
-
-- `src/components`
-  - `Button.tsx`
-  - `Button.module.scss`
+For styling we're using [TailwindCSS](https://tailwindcss.com/).
 
 ```tsx
 // Button.tsx
-import styles from "./Button.scss";
-
-const Button = () => <button className={styles.button}>I'm a button!</button>;
+const Button = () => (
+  <button className="bg-blue-500 hover:bg-blue-700 text-xl text-white font-medium py-3 px-6 rounded">
+    I'm a button!
+  </button>
+);
 ```
 
-`styles.button` is a hashed classname for `.button` in `Button.module.scss`
-
-```scss
-// Button.module.scss
-.button {
-  color: red;
-}
-```
-
-See [css-modules](https://github.com/css-modules/css-modules) for more.
+Any unused Tailwind utilities are stripped out in production builds.
 
 ## Storybook
 
@@ -89,18 +70,22 @@ base components always have a story (see storybook) that shows most intended usa
 Pages live in the `src/pages` directory. This is a Next.js convention. As this is related to routing. See
 [https://nextjs.org/](https://nextjs.org/) for more.
 
-Try to keep components only used in a certain page or certain pages as close to the page component as
-possible, within the directory structure.
+### Views
+
+Views are medium to large parts of the User Interface that are re-usable.
+
+Views that are specific to a certain page should be put in the `/views/<page>/**` directory.
 
 For example:
 
 - `src/pages`
+  - `about-us.tsx` // The page component
+- `src/views`
   - `/about-us`
-    - `/components`
-      - `Employee.tsx`
-      - `Employee.scss`
-    - `index.tsx` // The page component
-    - `styles.scss` // The page styles
+    - `Employee.tsx` // The component
+
+This convention is not optimal, but it is required in order to safely use Next.js' file-based routing and have
+a clear directory structure.
 
 ## Helper functions
 
@@ -108,16 +93,56 @@ Sometimes you'd want to use some logic written for one component for another. Th
 be extracted into a helper function in the `src/helpers` directory. It is recommended that all helper
 functions have a unit test `*.test.ts` associated with them.
 
-## Using Mobx
+## End-to-End testing
 
-In order to use MobX, you need to follow a few steps:
+End-to-end testing is performed using Cypress
 
-- Add `experimentalDecorators: true` to `src/tsconfig.json` if you want to be able to use Mobx's built-in
-  decorators.
-- Install `mobx-react-lite` and `mobx`. (NOTE: For projects that require support for IE11, see:
-  [MobX: Browser support](https://mobx.js.org/README.html#browser-support))
+### Running tests
 
-If you need to add an app-level ContextProvider, you can add it to `src/pages/_app.tsx`.
+1. Make sure your dev server and Storybook are running
+2. Run `yarn cy:run`.
+
+### Creating tests
+
+Tests targeting the app should be placed within `cypress/integration/app`.
+
+Tests targeting a story in Storybook should be placed within `cypress/integration/storybook`.
+
+Navigating to a story can be done using the `getStoryAddress` helper function.
+
+E.g. if you need Cypress to visit the `default` story of the `button` module:
+
+```js
+import { getStoryAddress } from "../../support/utils";
+
+describe("Storybook", () => {
+  it("has button", () => {
+    cy.visit(getStoryAddress("button", "default"));
+    cy.findByText("I'm a button!").should("exist");
+  });
+});
+```
+
+Cypress's `cy` commands are extended by
+[Cypress Testing Library](https://testing-library.com/docs/cypress-testing-library/intro)
+
+## State management
+
+For managing state coming from a non-graphql API we recommend using
+[react-query](https://github.com/tannerlinsley/react-query).
+
+For GraphQL APIs we recommend using [react-apollo](https://github.com/apollographql/react-apollo).
+
+## Accessibility
+
+This setup includes eslint rules for accessibility.
+
+Included in the `package.json` are a few [Reach UI](https://reacttraining.com/reach-ui/) components, that
+provide accessible primitives for components many projects require.
+
+## Animations
+
+Our animation library of choice is [Framer Motion](https://www.framer.com/api/motion/).
 
 ## License
 

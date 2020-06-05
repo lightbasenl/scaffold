@@ -1,38 +1,48 @@
 import Head from "next/head";
-import { NextPage } from "next";
-import styles from "./index.module.scss";
-import { ButtonLink } from "components/Button";
+import { motion } from "framer-motion";
 
-const Home: NextPage = () => (
-  <>
-    <Head>
-      <title>Scaffold</title>
-    </Head>
+export default function Home() {
+  return (
+    <>
+      <Head>
+        <title>Scaffold</title>
+      </Head>
 
-    <div className={styles.root}>
-      <img src="/icon.svg" className={styles.logo} alt="Lightbase" />
-
-      <h1 className={styles.heading}>Scaffold</h1>
-
-      <p className={styles.description}>
-        Let's get some work done!{" "}
-        <span role="img" aria-label="fire">
-          🔥
-        </span>
-      </p>
-
-      <div className={styles.buttonContainer}>
-        <ButtonLink
-          href="https://github.com/lightbasenl/scaffold"
-          variantColor="blue"
-          className={styles.getStartedButton}
+      <div className="container mx-auto min-h-screen flex flex-col justify-center items-center">
+        <motion.div
+          animate={{
+            scale: [1.5, 1.5, 1],
+            rotate: [90, 90, 0],
+          }}
+          transition={{
+            ease: "linear",
+            duration: 1,
+          }}
         >
-          Documentation
-        </ButtonLink>
-        <ButtonLink href="http://lightbase.nl">About us</ButtonLink>
-      </div>
-    </div>
-  </>
-);
+          <img src="/icon.svg" className="h-32" alt="Lightbase" />
+        </motion.div>
 
-export default Home;
+        <h1 className="heading text-6xl">Scaffold</h1>
+
+        <p className="text-3xl text-gray-500">
+          Let's get some work done!{" "}
+          <span role="img" aria-label="fire">
+            🔥
+          </span>
+        </p>
+
+        <div className="h-16" />
+
+        <div className="flex">
+          <a href="https://github.com/lightbasenl/scaffold" className="button bg-blue-500">
+            Documentation
+          </a>
+          <div className="w-3" />
+          <a href="https://lightbase.nl/" className="button">
+            About us
+          </a>
+        </div>
+      </div>
+    </>
+  );
+}
