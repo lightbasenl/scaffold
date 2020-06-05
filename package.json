@@ -1,6 +1,6 @@
 {
-  "name": "scaffold",
-  "version": "0.0.1",
+  "name": "@lightbasenl/scaffold",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
