@@ -23,7 +23,7 @@
     "babel-preset-react-app": "^9.1.2",
     "classnames": "^2.2.6",
     "framer-motion": "^1.11.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.25.3",
     "next": "9.4.0",
     "react": "16.13.1",
