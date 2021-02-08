@@ -1,22 +1,11 @@
 const path = require("path");
 
 module.exports = {
-  addons: [
-    {
-      name: "@storybook/preset-typescript",
-      options: {
-        tsLoaderOptions: {
-          configFile: path.resolve(__dirname, "./tsconfig.json"),
-        },
-        forkTsCheckerWebpackPluginOptions: {
-          colors: false,
-        },
-        include: [path.resolve(__dirname, "../src")],
-        transpileManager: true,
-      },
-    },
-    "@storybook/addon-docs",
-    "@storybook/addon-knobs/register",
-    "@storybook/addon-a11y/register",
-  ],
+  stories: ["../stories/*.story.@(ts|tsx|js|jsx|mdx)"],
+  addons: ["@storybook/addon-essentials"],
+  webpackFinal: async (config, { configType }) => {
+    config.resolve.modules = [path.resolve(__dirname, "../src"), "node_modules"];
+
+    return config;
+  }
 };

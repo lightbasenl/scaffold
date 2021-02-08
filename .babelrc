@@ -1,12 +1,3 @@
 {
-  "presets": ["next/babel"],
-  "plugins": [
-    [
-      "module-resolver",
-      {
-        "root": ["./src"],
-        "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"]
-      }
-    ]
-  ]
+  "presets": ["next/babel"]
 }

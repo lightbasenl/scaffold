@@ -6,7 +6,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: [14]
+        node: [15]
     runs-on: ${{ matrix.os }}
     env:
       CI: true
@@ -28,8 +28,8 @@ jobs:
         run: |
           yarn
           yarn format
-          yarn checks:run
       - name: Test, Build
         run: |
           yarn test
           yarn build
+          yarn es-check

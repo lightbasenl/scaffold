@@ -8,7 +8,6 @@ A Next.js setup with:
 - Prettier
 - Eslint
 - TailwindCSS
-- Example components
 - All Next.js features
 
 ## Commands
@@ -21,7 +20,7 @@ A Next.js setup with:
 - `yarn pretty` run prettier
 - `yarn lint` run eslint
 - `yarn cy:run` run cypress test
-- `yarn checks:run` run project validation checks
+- `yarn es-check` check whether any dependencies have broken support for older browsers
 
 ## Styling
 
@@ -40,18 +39,19 @@ Any unused Tailwind utilities are stripped out in production builds.
 
 ## Storybook
 
-Storybook allows us to quickly prototype and develop base components (components typically living inside the
+Storybook allows us to write documentation as well as quickly prototype and develop base components (components typically living inside the
 `src/components` directory).
 
 To view storybook run `yarn storybook`
 
 To add a story to storybook you can create a `*.story.tsx` file with the name of your component, this file
-should be in the same directory as the component.
+should be put in the `/stories` directory.
 
 For example:
 
 - components
   - `Button.tsx`
+- stories
   - `Button.story.tsx`
 
 For more documentation see
@@ -59,7 +59,7 @@ For more documentation see
 
 ## Directory structure
 
-### Base components
+### Components
 
 Base components like `<Button>`, `<Checkbox>`, `<Input>`, etc. that are used throughout the entire app should
 live in the `src/components` directory. This way they are easily referenced and found. It is recommended that
@@ -70,28 +70,26 @@ base components always have a story (see storybook) that shows most intended usa
 Pages live in the `src/pages` directory. This is a Next.js convention. As this is related to routing. See
 [https://nextjs.org/](https://nextjs.org/) for more.
 
-### Views
+#### Page components
 
-Views are medium to large parts of the User Interface that are re-usable.
-
-Views that are specific to a certain page should be put in the `/views/<page>/**` directory.
+Page components are parts of a page that you don't want to keep in the page's file.
+Components that are specific to a certain page should be put in the closest directory.
 
 For example:
 
 - `src/pages`
-  - `about-us.tsx` // The page component
-- `src/views`
-  - `/about-us`
-    - `Employee.tsx` // The component
+  - `about-us`
+    - `components`
+        - `Employee.tsx` // The component
+    - `index.page.tsx` // The page component
 
 This convention is not optimal, but it is required in order to safely use Next.js' file-based routing and have
 a clear directory structure.
 
-## Helper functions
+## Unit tests
 
 Sometimes you'd want to use some logic written for one component for another. These pieces of logic can easily
-be extracted into a helper function in the `src/helpers` directory. It is recommended that all helper
-functions have a unit test `*.test.ts` associated with them.
+be extracted into a function in the `src/lib` directory. It is recommended that all functions have a unit test `*.test.ts` associated with them.
 
 ## End-to-End testing
 
@@ -137,8 +135,12 @@ For GraphQL APIs we recommend using [react-apollo](https://github.com/apollograp
 
 This setup includes eslint rules for accessibility.
 
-Included in the `package.json` are a few [Reach UI](https://reacttraining.com/reach-ui/) components, that
-provide accessible primitives for components many projects require.
+Included in the `package.json` are a few libraries that provide accessible primitives for components many projects require.
+
+### react-focus-on
+For creating accessible modals and more.
+### @reach/skip-nav
+For creating a "Skip to main content" button for screen reader users.
 
 ## Animations
 
