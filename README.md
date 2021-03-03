@@ -139,8 +139,6 @@ Included in the `package.json` are a few libraries that provide accessible primi
 
 ### react-focus-on
 For creating accessible modals and more.
-### @reach/skip-nav
-For creating a "Skip to main content" button for screen reader users.
 
 ## Animations
 
