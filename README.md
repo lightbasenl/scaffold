@@ -122,6 +122,10 @@ Concrete examples for more accessible applications:
 ### react-focus-on
 react-focus-on is a nice library for creating modals and other interactive "dialog"-like interfaces. It manages focus states for you and provides accessible defaults.
 
+
+## Localisation
+We're using [next-i18next](https://github.com/isaachinman/next-i18next) for handling localisation. This allows us to only ship the required translations to pages, reducing bundle size and network load.
+
 ## Animations
 
 Our animation library of choice is [Framer Motion](https://www.framer.com/api/motion/).
