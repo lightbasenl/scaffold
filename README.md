@@ -19,7 +19,6 @@ A Next.js setup with:
 - `yarn test` run unit tests
 - `yarn pretty` run prettier
 - `yarn lint` run eslint
-- `yarn cy:run` run cypress test
 - `yarn es-check` check whether any dependencies have broken support for older browsers
 
 ## Styling
@@ -90,39 +89,6 @@ a clear directory structure.
 
 Sometimes you'd want to use some logic written for one component for another. These pieces of logic can easily
 be extracted into a function in the `src/lib` directory. It is recommended that all functions have a unit test `*.test.ts` associated with them.
-
-## End-to-End testing
-
-End-to-end testing is performed using Cypress
-
-### Running tests
-
-1. Make sure your dev server and Storybook are running
-2. Run `yarn cy:run`.
-
-### Creating tests
-
-Tests targeting the app should be placed within `cypress/integration/app`.
-
-Tests targeting a story in Storybook should be placed within `cypress/integration/storybook`.
-
-Navigating to a story can be done using the `getStoryAddress` helper function.
-
-E.g. if you need Cypress to visit the `default` story of the `button` module:
-
-```js
-import { getStoryAddress } from "../../support/utils";
-
-describe("Storybook", () => {
-  it("has button", () => {
-    cy.visit(getStoryAddress("button", "default"));
-    cy.findByText("I'm a button!").should("exist");
-  });
-});
-```
-
-Cypress's `cy` commands are extended by
-[Cypress Testing Library](https://testing-library.com/docs/cypress-testing-library/intro)
 
 ## State management
 

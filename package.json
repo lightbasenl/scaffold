@@ -11,7 +11,6 @@
     "lint": "eslint 'src/**/*.{ts,tsx}' --fix",
     "pretty": "prettier --check 'src/**/*.{ts,tsx}' --write",
     "format": "yarn pretty && yarn lint",
-    "cy:run": "yarn run cypress run",
     "es-check": "es-check es5 './.next/static/**/*.js' -v"
   },
   "dependencies": {
@@ -33,15 +32,12 @@
     "@storybook/addon-essentials": "^6.1.21",
     "@storybook/react": "^6.1.21",
     "@storybook/addon-docs": "^6.1.21",
-    "@testing-library/cypress": "^7.0.4",
     "@types/classnames": "^2.2.11",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
     "@types/react-dom": "^17.0.1",
-    "@types/testing-library__cypress": "^5.0.8",
     "@types/yup": "^0.29.11",
-    "cypress": "^6.6.0",
     "es-check": "^5.2.0",
     "eslint": "^7.21.0",
     "jest": "^26.6.3",

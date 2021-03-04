@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "baseUrl": "./src"
   },
-  "exclude": ["node_modules", "cypress"],
+  "exclude": ["node_modules"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.mdx"]
 }
