@@ -99,12 +99,21 @@ For GraphQL APIs we recommend using [react-apollo](https://github.com/apollograp
 
 ## Accessibility
 
-This setup includes eslint rules for accessibility.
+It's always important to keep accessibility in mind when developing. See https://developer.mozilla.org/en-US/docs/Web/Accessibility for guides and information.
 
-Included in the `package.json` are a few libraries that provide accessible primitives for components many projects require.
+Concrete examples for more accessible applications:
+- Skip to main content link
+- Proper focus styles
+- Accessible color usage
+- Not using `<div />` as a `<button />`
+- Not using `<button />` as an `<a />`
+- Marking `<svg />`'s and other visual-only elements as `aria-hidden="true"` to prevent them from being announced to screen readers.
+- Properly using landmarks: `<header />`, `<nav />`, `<main />`, `<footer />`, `<aside />`, `<article />`, `<section />`
+- Properly using headings, see: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Heading_Elements
+- Add screen reader hints for buttons that only consist of icons: `<button><svg ... aria-hidden="true" /><span className="sr-only">This is a button!</span></button>`. More examples: https://tailwindcss.com/docs/screen-readers
 
 ### react-focus-on
-For creating accessible modals and more.
+react-focus-on is a nice library for creating modals and other interactive "dialog"-like interfaces. It manages focus states for you and provides accessible defaults.
 
 ## Animations
 
