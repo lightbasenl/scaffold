@@ -27,6 +27,10 @@ module.exports = withTM({
             key: "Referrer-Policy",
             value: "same-origin",
           },
+          {
+            key: "Strict-Transport-Security",
+            value: "max-age=31536000"
+          }
         ],
       },
     ]
