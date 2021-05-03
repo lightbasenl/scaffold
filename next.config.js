@@ -30,6 +30,10 @@ module.exports = withTM({
           {
             key: "Strict-Transport-Security",
             value: "max-age=31536000"
+          },
+          {
+            key: "Permissions-Policy",
+            value: "interest-cohort=()"
           }
         ],
       },
