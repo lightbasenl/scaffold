@@ -21,9 +21,8 @@ export default function Home() {
         <title>{t("common:appName")}</title>
       </Head>
 
-      {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-      <a href="#" className="sr-only focus:not-sr-only">
-        Skip to content
+      <a href="#main" className="sr-only focus:not-sr-only">
+        {t("common:skipToContent")}
       </a>
 
       <div className="container mx-auto min-h-screen flex flex-col justify-center items-center">
@@ -33,12 +32,12 @@ export default function Home() {
             variants={{
               hidden: {
                 stroke: "#FF5B4B",
-                strokeWidth: "2",
+                strokeWidth: 2,
                 fill: "rgba(255, 91, 75, 0)",
               },
               visible: {
                 stroke: "#FF5B4B",
-                strokeWidth: "2",
+                strokeWidth: 2,
                 fill: "rgba(255, 91, 75, 1)",
               },
             }}
@@ -54,12 +53,12 @@ export default function Home() {
             variants={{
               hidden: {
                 stroke: "#0F6EFC",
-                strokeWidth: "2",
+                strokeWidth: 2,
                 fill: "rgba(15, 110, 252, 0)",
               },
               visible: {
                 stroke: "#0F6EFC",
-                strokeWidth: "2",
+                strokeWidth: 2,
                 fill: "rgba(15, 110, 252, 1)",
               },
             }}
@@ -75,12 +74,12 @@ export default function Home() {
             variants={{
               hidden: {
                 stroke: "#292949",
-                strokeWidth: "2",
+                strokeWidth: 2,
                 fill: "rgba(41, 41, 73, 0)",
               },
               visible: {
                 stroke: "#292949",
-                strokeWidth: "2",
+                strokeWidth: 2,
                 fill: "rgba(41, 41, 73, 1)",
               },
             }}
@@ -95,50 +94,52 @@ export default function Home() {
 
         <div className="h-4" />
 
-        <h1 className="heading text-6xl font-medium">{t("common:appName")}</h1>
+        <main id="main">
+          <h1 className="heading text-6xl font-medium text-center">{t("common:appName")}</h1>
 
-        <motion.p
-          variants={{
-            hidden: {
-              opacity: "0",
-              translateY: "50%",
-            },
-            visible: {
-              opacity: "1",
-              translateY: "0%",
-            },
-          }}
-          initial="hidden"
-          animate="visible"
-          transition={{
-            default: { delay: 3, duration: 0.5, ease: "easeInOut" },
-            transform: { delay: 3, duration: 0.5, ease: "easeInOut" },
-          }}
-          className="text-3xl text-gray-500 mt-3"
-        >
-          {t("cta")}{" "}
-          <span role="img" aria-label="fire">
-            🔥
-          </span>
-        </motion.p>
-
-        <div className="h-16" />
-
-        <div className="flex">
-          <a
-            href="https://github.com/lightbasenl/scaffold"
-            className="shadow-md bg-blue-500 py-4 px-6 rounded-lg text-blue-100 font-bold hover:bg-blue-600 hover:underline focus:ring-2 ring-offset-2 ring-blue-600"
+          <motion.p
+            variants={{
+              hidden: {
+                opacity: "0",
+                translateY: "50%",
+              },
+              visible: {
+                opacity: "1",
+                translateY: "0%",
+              },
+            }}
+            initial="hidden"
+            animate="visible"
+            transition={{
+              default: { delay: 3, duration: 0.5, ease: "easeInOut" },
+              transform: { delay: 3, duration: 0.5, ease: "easeInOut" },
+            }}
+            className="text-3xl text-gray-500 mt-3 text-center"
           >
-            Documentation
-          </a>
-          <div className="w-3" />
-          <a
-            href="https://lightbase.nl/"
-            className="border shadow-md bg-white py-4 px-6 rounded-lg text-gray-700 font-bold hover:bg-gray-100 hover:underline focus:ring-2 ring-offset-2 ring-blue-600"
-          >
-            About us
-          </a>
-        </div>
+            {t("cta")}{" "}
+            <span role="img" aria-label="fire">
+              🔥
+            </span>
+          </motion.p>
+
+          <div className="h-16" />
+
+          <div className="flex items-center justify-center">
+            <a
+              href="https://docs.lightba.se/frontend/scaffold"
+              className="shadow-md bg-blue-500 py-4 px-6 rounded-lg text-blue-100 font-bold hover:bg-blue-600 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
+            >
+              Documentation
+            </a>
+            <div className="w-3" />
+            <a
+              href="https://lightbase.nl/"
+              className="border shadow-md bg-white py-4 px-6 rounded-lg text-gray-700 font-bold hover:bg-gray-100 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
+            >
+              About us
+            </a>
+          </div>
+        </main>
       </div>
     </>
   );
