@@ -32,4 +32,3 @@ jobs:
         run: |
           yarn test
           yarn build
-          yarn es-check
