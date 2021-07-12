@@ -1235,32 +1235,32 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@compas/cli@0.0.150", "@compas/cli@^0.0.150":
-  version "0.0.150"
-  resolved "https://registry.yarnpkg.com/@compas/cli/-/cli-0.0.150.tgz#c22bc31594513713bd798a80d683262d53fbe355"
-  integrity sha512-ye8PB+9fSzc/76KFJgC51jf5esuoW89kBmvKKTfYgsMPGYegSfStgxZVXCWDviuIKALxG1bRowaCaHDpuGPs4A==
+"@compas/cli@0.0.152":
+  version "0.0.152"
+  resolved "https://registry.yarnpkg.com/@compas/cli/-/cli-0.0.152.tgz#d36573e651bc65ec95ff9bf652d0fea3aa95434c"
+  integrity sha512-UFmcIP2Z41jF1aocu0R2+t5Vpj18Vde5xlvRLlzKMFNABEcHlowVNGrrwJ76yvH8c6ClKcT3nXtVvNPYkFVOCA==
   dependencies:
-    "@compas/stdlib" "0.0.150"
+    "@compas/stdlib" "0.0.152"
     c8 "7.7.3"
     chokidar "3.5.2"
     http-proxy "1.18.1"
     recast "0.20.4"
     tree-kill "1.2.2"
 
-"@compas/code-gen@^0.0.150":
-  version "0.0.150"
-  resolved "https://registry.yarnpkg.com/@compas/code-gen/-/code-gen-0.0.150.tgz#7b3f28e693d468475faa011056d96e5354b1946d"
-  integrity sha512-PPXCUZSPEMJ5/9DQK+k4eBmLIZrIaFwac3XT38gSFE1+wXdFktESZ1cYylZNt+BwLbW/GxBbfc/cEJjGA/lNpA==
+"@compas/code-gen@0.0.152":
+  version "0.0.152"
+  resolved "https://registry.yarnpkg.com/@compas/code-gen/-/code-gen-0.0.152.tgz#9c11907c33c03554b67558cfca7711e598ece88a"
+  integrity sha512-P+rfOZqlOQWhfuGxAkOwACBjZppV5OYGSPE3Bvfqqa0s833u4rx1qepl5Wa9E2nG0zipo91C7LQfJzJHHIwcBQ==
   dependencies:
-    "@compas/cli" "0.0.150"
-    "@compas/stdlib" "0.0.150"
+    "@compas/cli" "0.0.152"
+    "@compas/stdlib" "0.0.152"
 
-"@compas/stdlib@0.0.150", "@compas/stdlib@^0.0.150":
-  version "0.0.150"
-  resolved "https://registry.yarnpkg.com/@compas/stdlib/-/stdlib-0.0.150.tgz#9945bd58598df76bbe685082b76fd4b3fc758110"
-  integrity sha512-i0Ub/onfvOXsJwqtLW+KbL7ys5P0zwg8iYZQWDQf9Zergik777WmQosLMyTvgo4pdz0VhKn1O3dt2smHmZPLBw==
+"@compas/stdlib@0.0.152":
+  version "0.0.152"
+  resolved "https://registry.yarnpkg.com/@compas/stdlib/-/stdlib-0.0.152.tgz#cab2c302234ac063cf2af20caf52966ac754b25b"
+  integrity sha512-fNeKzPh7BNwM6qvD+PW6dwLvcQrI2fbPXOfpYgSnq0SUAFsokGZKcD4aNyBcwa09pqfEzpPzNHCEuuGKqRQwnA==
   dependencies:
-    "@types/node" "15.12.5"
+    "@types/node" "16.3.1"
     dotenv "10.0.0"
     lodash.merge "4.6.2"
 
@@ -3001,10 +3001,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.2.tgz#1f2b42c4be7156ff4a6f914b2fb03d05fa84e38d"
   integrity sha512-zjQ69G564OCIWIOHSXyQEEDpdpGl+G348RAKY0XXy9Z5kU9Vzv1GMNnkar/ZJ8dzXB3COzD9Mo9NtRZ4xfgUww==
 
-"@types/node@15.12.5":
-  version "15.12.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.5.tgz#9a78318a45d75c9523d2396131bd3cca54b2d185"
-  integrity sha512-se3yX7UHv5Bscf8f1ERKvQOD6sTyycH3hdaoozvaLxgUiY5lIGEeH37AD0G0Qi9kPqihPn0HOfd2yaIEN9VwEg==
+"@types/node@16.3.1":
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.3.1.tgz#24691fa2b0c3ec8c0d34bfcfd495edac5593ebb4"
+  integrity sha512-N87VuQi7HEeRJkhzovao/JviiqKjDKMVKxKMfUvSKw+MbkbW8R0nA3fi/MQhhlxV2fQ+2ReM+/Nt4efdrJx3zA==
 
 "@types/node@^14.0.10":
   version "14.17.3"
