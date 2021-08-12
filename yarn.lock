@@ -1235,32 +1235,32 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@compas/cli@0.0.150", "@compas/cli@^0.0.150":
-  version "0.0.150"
-  resolved "https://registry.yarnpkg.com/@compas/cli/-/cli-0.0.150.tgz#c22bc31594513713bd798a80d683262d53fbe355"
-  integrity sha512-ye8PB+9fSzc/76KFJgC51jf5esuoW89kBmvKKTfYgsMPGYegSfStgxZVXCWDviuIKALxG1bRowaCaHDpuGPs4A==
+"@compas/cli@0.0.157":
+  version "0.0.157"
+  resolved "https://registry.yarnpkg.com/@compas/cli/-/cli-0.0.157.tgz#6bda808db978074fb34b547ff1315af737912a1f"
+  integrity sha512-w1Mt4/q0VYX9qjxVCqRyytBghPe9AvUylrBJWg0qkyr1QX+sFs09t7acLWhIgXklNNy/PFaSFMkq8VJiO/ZL1A==
   dependencies:
-    "@compas/stdlib" "0.0.150"
-    c8 "7.7.3"
+    "@compas/stdlib" "0.0.157"
+    c8 "7.8.0"
     chokidar "3.5.2"
     http-proxy "1.18.1"
-    recast "0.20.4"
+    recast "0.20.5"
     tree-kill "1.2.2"
 
-"@compas/code-gen@^0.0.150":
-  version "0.0.150"
-  resolved "https://registry.yarnpkg.com/@compas/code-gen/-/code-gen-0.0.150.tgz#7b3f28e693d468475faa011056d96e5354b1946d"
-  integrity sha512-PPXCUZSPEMJ5/9DQK+k4eBmLIZrIaFwac3XT38gSFE1+wXdFktESZ1cYylZNt+BwLbW/GxBbfc/cEJjGA/lNpA==
+"@compas/code-gen@0.0.157":
+  version "0.0.157"
+  resolved "https://registry.yarnpkg.com/@compas/code-gen/-/code-gen-0.0.157.tgz#b3be9a7501dc69d6979d42ba09345e7040cf0e6e"
+  integrity sha512-hc6m8wQU02eweQ/ruAECG0AmIhhvhQI2Zka3uH4ziFvBqnlWrikD9r1SSHieSv9zxEx8puDXUqwMlNR2g85llA==
   dependencies:
-    "@compas/cli" "0.0.150"
-    "@compas/stdlib" "0.0.150"
+    "@compas/cli" "0.0.157"
+    "@compas/stdlib" "0.0.157"
 
-"@compas/stdlib@0.0.150", "@compas/stdlib@^0.0.150":
-  version "0.0.150"
-  resolved "https://registry.yarnpkg.com/@compas/stdlib/-/stdlib-0.0.150.tgz#9945bd58598df76bbe685082b76fd4b3fc758110"
-  integrity sha512-i0Ub/onfvOXsJwqtLW+KbL7ys5P0zwg8iYZQWDQf9Zergik777WmQosLMyTvgo4pdz0VhKn1O3dt2smHmZPLBw==
+"@compas/stdlib@0.0.157":
+  version "0.0.157"
+  resolved "https://registry.yarnpkg.com/@compas/stdlib/-/stdlib-0.0.157.tgz#cadc8239a6f46fa9874b29ece8defe58cdeb4903"
+  integrity sha512-gQEjGF1XB6vvOatR0jjTOkMkZK/kpjp0vOI0BpvuEuxF7ve/vylftSDHYHxkV/CpYKHfwJDVZEvvAFqlr5+2hA==
   dependencies:
-    "@types/node" "15.12.5"
+    "@types/node" "16.6.0"
     dotenv "10.0.0"
     lodash.merge "4.6.2"
 
@@ -3001,10 +3001,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.2.tgz#1f2b42c4be7156ff4a6f914b2fb03d05fa84e38d"
   integrity sha512-zjQ69G564OCIWIOHSXyQEEDpdpGl+G348RAKY0XXy9Z5kU9Vzv1GMNnkar/ZJ8dzXB3COzD9Mo9NtRZ4xfgUww==
 
-"@types/node@15.12.5":
-  version "15.12.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-15.12.5.tgz#9a78318a45d75c9523d2396131bd3cca54b2d185"
-  integrity sha512-se3yX7UHv5Bscf8f1ERKvQOD6sTyycH3hdaoozvaLxgUiY5lIGEeH37AD0G0Qi9kPqihPn0HOfd2yaIEN9VwEg==
+"@types/node@16.6.0":
+  version "16.6.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.6.0.tgz#0d5685f85066f94e97f19e8a67fe003c5fadacc4"
+  integrity sha512-OyiZPohMMjZEYqcVo/UJ04GyAxXOJEZO/FpzyXxcH4r/ArrVoXHf4MbUrkLp0Tz7/p1mMKpo5zJ6ZHl8XBNthQ==
 
 "@types/node@^14.0.10":
   version "14.17.3"
@@ -4613,10 +4613,10 @@ bytes@3.1.0, bytes@^3.0.0:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==
 
-c8@7.7.3:
-  version "7.7.3"
-  resolved "https://registry.yarnpkg.com/c8/-/c8-7.7.3.tgz#5af8f83b55dace03b353375e7a2ba85e2c13b17f"
-  integrity sha512-ZyA7n3w8i4ETV25tVYMHwJxCSnaOf/LfA8vOcuZOPbonuQfD7tBT/gMWZy7eczRpCDuHcvMXwoqAemg6R0p3+A==
+c8@7.8.0:
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/c8/-/c8-7.8.0.tgz#8fcfe848587d9d5796f22e9b0546a387a66d1b3b"
+  integrity sha512-x2Bx+IIEd608B1LmjiNQ/kizRPkCWo5XzuV57J9afPjAHSnYXALwbCSOkQ7cSaNXBNblfqcvdycj+klmL+j6yA==
   dependencies:
     "@bcoe/v8-coverage" "^0.2.3"
     "@istanbuljs/schema" "^0.1.2"
@@ -11268,10 +11268,10 @@ readdirp@~3.6.0:
   dependencies:
     picomatch "^2.2.1"
 
-recast@0.20.4:
-  version "0.20.4"
-  resolved "https://registry.yarnpkg.com/recast/-/recast-0.20.4.tgz#db55983eac70c46b3fff96c8e467d65ffb4a7abc"
-  integrity sha512-6qLIBGGRcwjrTZGIiBpJVC/NeuXpogXNyRQpqU1zWPUigCphvApoCs9KIwDYh1eDuJ6dAFlQoi/QUyE5KQ6RBQ==
+recast@0.20.5:
+  version "0.20.5"
+  resolved "https://registry.yarnpkg.com/recast/-/recast-0.20.5.tgz#8e2c6c96827a1b339c634dd232957d230553ceae"
+  integrity sha512-E5qICoPoNL4yU0H0NoBDntNB0Q5oMSNh9usFctYniLBluTthi3RsQVBXIJNbApOlvSwW/RGxIuokPcAc59J5fQ==
   dependencies:
     ast-types "0.14.2"
     esprima "~4.0.0"

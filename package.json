@@ -29,16 +29,15 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@compas/cli": "^0.0.150",
-    "@compas/code-gen": "^0.0.150",
-    "@compas/stdlib": "^0.0.150",
+    "@compas/cli": "0.0.157",
+    "@compas/code-gen": "0.0.157",
+    "@compas/stdlib": "0.0.157",
     "@lightbase/eslint-config-lightbase": "^2.15.0",
     "@storybook/addon-docs": "^6.3.2",
     "@storybook/addon-essentials": "6.3.2",
     "@storybook/addon-links": "6.3.2",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/react": "^6.3.2",
-    "storybook-addon-next-router": "^2.0.4",
     "@types/classnames": "^2.3.0",
     "@types/jest": "^26.0.24",
     "@types/node": "^16.0.0",
@@ -54,6 +53,7 @@
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^14.0.2",
     "prettier": "^2.3.2",
+    "storybook-addon-next-router": "^2.0.4",
     "ts-jest": "^27.0.3",
     "typescript": "^4.3.5"
   },
