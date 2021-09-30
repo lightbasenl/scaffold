@@ -1,7 +1,17 @@
 {
-  "extends": ["next", "@lightbase/eslint-config-lightbase/react"],
+  "extends": ["next", "prettier"],
   "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-parameter-properties": "off",
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/prefer-interface": "off",
+    "default-case": "off",
+    "@typescript-eslint/interface-name-prefix": "off",
     "react/react-in-jsx-scope": "off",
-    "jsx-a11y/anchor-is-valid": "off"
+    "jsx-a11y/anchor-is-valid": "off",
+    "curly": "error"
   }
 }
