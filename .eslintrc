@@ -1,6 +1,7 @@
 {
-  "extends": ["next", "prettier"],
+  "extends": ["plugin:import/typescript", "next", "plugin:prettier/recommended"],
   "rules": {
+    "import/order": ["error"],
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-parameter-properties": "off",
     "@typescript-eslint/camelcase": "off",
