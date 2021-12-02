@@ -1,4 +1,4 @@
-import { App, loadFromRemote } from "@compas/code-gen";
+import { App, loadApiStructureFromRemote } from "@compas/code-gen";
 import { mainFn, spawn } from "@compas/stdlib";
 import Axios from "axios";
 
@@ -10,13 +10,13 @@ async function main() {
   let fromRemote;
 
   try {
-    fromRemote = await loadFromRemote(
+    fromRemote = await loadApiStructureFromRemote(
       Axios,
       process.env.API_URL || process.env.NEXT_PUBLIC_API_URL,
     );
   } catch (e) {
     if (e.isAxiosError) {
-      fromRemote = await loadFromRemote(Axios, process.env.PROXY_URL);
+      fromRemote = await loadApiStructureFromRemote(Axios, process.env.PROXY_URL);
     } else {
       throw e;
     }

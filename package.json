@@ -29,9 +29,9 @@
     "yup": "^0.32.9"
   },
   "devDependencies": {
-    "@compas/cli": "^0.0.166",
-    "@compas/code-gen": "^0.0.166",
-    "@compas/stdlib": "^0.0.166",
+    "@compas/cli": "^0.0.176",
+    "@compas/code-gen": "^0.0.176",
+    "@compas/stdlib": "^0.0.176",
     "@storybook/addon-docs": "^6.3.8",
     "@storybook/addon-essentials": "6.3.8",
     "@storybook/addon-links": "6.3.8",
