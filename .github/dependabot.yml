@@ -1,0 +1,31 @@
+# Do not edit, sourced from lightbasenl/platform-components repo
+
+version: 2
+
+registries:
+  npm-github:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    username: mathijslightbase
+    password: ${{ secrets.REPO_AUTOMATION_TOKEN }}
+
+updates:
+  # NPM dependencies
+  - package-ecosystem: npm
+    registries: "*"
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "04:15"
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    ignore:
+      - dependency-name: "@compas/*"
+
+  # GitHub action updates
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: daily
+      time: "04:15"
+    open-pull-requests-limit: 10
