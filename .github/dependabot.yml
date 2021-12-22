@@ -2,17 +2,9 @@
 
 version: 2
 
-registries:
-  npm-github:
-    type: npm-registry
-    url: https://npm.pkg.github.com
-    username: mathijslightbase
-    password: ${{ secrets.REPO_AUTOMATION_TOKEN }}
-
 updates:
   # NPM dependencies
   - package-ecosystem: npm
-    registries: "*"
     directory: "/"
     schedule:
       interval: daily
