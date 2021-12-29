@@ -1,5 +1,5 @@
 module.exports = {
-  purge: ["./src/**/*.tsx"],
+  content: ["./src/**/*.tsx", "./stories/**/*.tsx"],
   theme: {
     extend: {
       colors: {
