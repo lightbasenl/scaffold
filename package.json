@@ -64,10 +64,11 @@
     "postcss-import": "^14.0.2",
     "prettier": "^2.5.1",
     "react-i18next": "^11.15.2",
+    "start-server-and-test": "^1.14.0",
     "storybook-addon-next-router": "^3.1.1",
     "ts-jest": "^27.1.2",
     "typescript": "^4.5.4",
-    "webpack": "5"
+    "webpack": "^5.65.0"
   },
   "browserslist": [
     "defaults",
