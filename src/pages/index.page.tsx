@@ -1,13 +1,15 @@
 import Head from "next/head";
 import { motion } from "framer-motion";
 import { useTranslation } from "next-i18next";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { GetStaticPropsContext } from "next";
+import getPageProps from "lib/getPageProps";
 
 export const getStaticProps = async (context: GetStaticPropsContext) => {
   return {
     props: {
-      ...(await serverSideTranslations(context.locale ?? "en", ["common", "home"])),
+      ...(await getPageProps(context, {
+        namespaces: ["home"],
+      })),
     },
   };
 };
