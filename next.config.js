@@ -1,14 +1,16 @@
 const { withPreset } = require("@lightbase/next-preset");
+const { withSentryConfig } = require("@sentry/nextjs");
 const { i18n } = require("./next-i18next.config");
+
+const SENTRY_ENABLED = false;
 
 // We used @lightbase/next-preset for shared Next.js configuration,
 // you can override these setting if you have to.
-module.exports = withPreset({
+const config = withPreset({
   preset: {
-    sentry: {
-      enabled: false, // Enable sentry here
-    },
     transpileModules: ["yup"],
   },
   i18n,
 });
+
+module.exports = SENTRY_ENABLED ? withSentryConfig(config) : config;
