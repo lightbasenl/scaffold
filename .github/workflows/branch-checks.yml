@@ -13,7 +13,7 @@ env:
   CI: true
 
 jobs:
-  format:
+  lint:
     timeout-minutes: 15
     strategy:
       matrix:
@@ -34,7 +34,7 @@ jobs:
       - name: Run lint
         run: |
           yarn install
-          yarn format
+          yarn lint
 
   test:
     timeout-minutes: 15

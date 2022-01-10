@@ -28,7 +28,7 @@ jobs:
       - name: Run lint
         run: |
           yarn install
-          yarn format
+          yarn lint
 
   test:
     timeout-minutes: 15
