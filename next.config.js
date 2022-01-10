@@ -8,7 +8,7 @@ const SENTRY_ENABLED = false;
 // you can override these setting if you have to.
 const config = withPreset({
   preset: {
-    transpileModules: ["yup"],
+    transpileModules: ["yup", "framesync", "popmotion", "style-value-types"],
   },
   i18n,
 });
