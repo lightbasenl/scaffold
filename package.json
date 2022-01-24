@@ -34,7 +34,7 @@
     "@compas/cli": "^0.0.181",
     "@compas/code-gen": "^0.0.181",
     "@compas/stdlib": "^0.0.181",
-    "@storybook/addon-docs": "^6.4.10",
+    "@storybook/addon-docs": "^6.4.14",
     "@storybook/addon-essentials": "6.4.10",
     "@storybook/addon-links": "6.4.10",
     "@storybook/addon-postcss": "^2.0.0",
