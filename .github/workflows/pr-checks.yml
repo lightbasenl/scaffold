@@ -17,18 +17,18 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
 
-      - name: Run lint
+      - name: Run format
         run: |
           yarn install
-          yarn lint
+          yarn format
 
   test:
     timeout-minutes: 15
@@ -40,15 +40,15 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
 
-      - name: Run lint
+      - name: Run test
         run: |
           yarn install
           yarn test --passWithNoTests
@@ -63,15 +63,15 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
           cache: "yarn"
 
-      - name: Run lint
+      - name: Run (release) build
         run: |
-          yarn install
-          yarn build
+          yarn
+          yarn release
