@@ -9,6 +9,7 @@ const SENTRY_ENABLED = false;
 const config = withPreset({
   preset: {
     transpileModules: ["yup", "framesync", "popmotion", "style-value-types"],
+    ignoreModules: ["next"],
   },
   i18n,
 });
