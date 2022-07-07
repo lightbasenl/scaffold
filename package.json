@@ -8,7 +8,8 @@
     "storybook": "start-storybook -p 6006 -c .storybook -s ./public",
     "test": "jest",
     "lint": "next lint",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "generate": "node ./scripts/generate.mjs"
   },
   "dependencies": {
     "@headlessui/react": "^1.5.0",
