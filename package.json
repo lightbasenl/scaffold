@@ -11,7 +11,8 @@
     "test": "jest",
     "lint": "next lint",
     "test:e2e": "playwright test",
-    "release": "WITH_SENTRY=true yarn build"
+    "release": "WITH_SENTRY=true yarn build",
+    "generate": "node ./scripts/generate.mjs"
   },
   "dependencies": {
     "@headlessui/react": "^1.5.0",
