@@ -5,6 +5,7 @@
     "dev": "next dev",
     "build": "next build",
     "format": "yarn pretty && next lint --fix",
+    "pretty": "prettier --check 'src/**/*.{json,md,ts,tsx,mjs}' --write",
     "start": "next start",
     "storybook": "start-storybook -p 6006 -c .storybook -s ./public",
     "test": "jest",
