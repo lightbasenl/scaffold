@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "format": "yarn pretty && next lint --fix",
     "start": "next start",
     "storybook": "start-storybook -p 6006 -c .storybook -s ./public",
     "test": "jest",
