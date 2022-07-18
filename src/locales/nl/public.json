@@ -1,0 +1,30 @@
+{
+  "common": {
+    "appName": "Scaffold",
+    "skipToContent": "Skip to content"
+  },
+  "home": {
+    "cta": "Laten we wat werk verzetten!",
+    "aboutUs": "Over ons",
+    "docs": "Documentatie",
+    "login": "Inloggen",
+    "logout": "Uitloggen"
+  },
+  "errors": {
+    "unknown": "Onbekende error"
+  },
+  "errorPages": {
+    "404": {
+      "metaTitle": "404 - Pagina niet gevonden",
+      "title": "Pagina niet gevonden",
+      "description": "We konden de pagina niet vinden.",
+      "goBack": "Ga terug"
+    },
+    "500": {
+      "metaTitle": "500 - Interne serverfout",
+      "title": "Interne serverfout",
+      "description": "Er was een probleem. De ontwikkelaars zijn op de hoogte gesteld. Probeer later opnieuw.",
+      "goBack": "Ga terug"
+    }
+  }
+}

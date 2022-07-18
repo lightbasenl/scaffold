@@ -1,12 +1,12 @@
 // _document is only rendered on the server side and not on the client side
 // Event handlers like onClick can't be added to this file
 
-import _Document, { Html, Head, Main, NextScript } from "next/document";
+import _Document, { Head, Html, Main, NextScript } from "next/document";
 
 class Document extends _Document {
   render() {
     return (
-      <Html lang="nl">
+      <Html lang="en">
         <Head>
           <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
           <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />

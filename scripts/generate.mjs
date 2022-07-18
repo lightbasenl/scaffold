@@ -7,20 +7,10 @@ mainFn(import.meta, main);
 async function main() {
   const app = new App({ verbose: true });
 
-  let fromRemote;
-
-  try {
-    fromRemote = await loadApiStructureFromRemote(
-      Axios,
-      process.env.API_URL || process.env.NEXT_PUBLIC_API_URL,
-    );
-  } catch (e) {
-    if (e.isAxiosError) {
-      fromRemote = await loadApiStructureFromRemote(Axios, process.env.PROXY_URL);
-    } else {
-      throw e;
-    }
-  }
+  let fromRemote = await loadApiStructureFromRemote(
+    Axios,
+    process.env.TENANT_API_URL ?? "https://api.scaffold.dev.lightbase.nl",
+  );
 
   app.extend(fromRemote);
 
@@ -30,5 +20,5 @@ async function main() {
     enabledGenerators: ["type", "apiClient", "reactQuery"],
   });
 
-  await spawn("yarn", ["pretty"]);
+  await spawn("yarn", ["format"]);
 }

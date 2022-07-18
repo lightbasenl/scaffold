@@ -1,0 +1,30 @@
+{
+  "common": {
+    "appName": "Scaffold",
+    "skipToContent": "Skip to content"
+  },
+  "home": {
+    "cta": "Let's get some work done!",
+    "aboutUs": "About us",
+    "docs": "Documentation",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "errors": {
+    "unknown": "Unknown error"
+  },
+  "errorPages": {
+    "404": {
+      "metaTitle": "404 - Page not found",
+      "title": "Page not found",
+      "description": "We couldn't find that page.",
+      "goBack": "Go back"
+    },
+    "500": {
+      "metaTitle": "500 - Internal server error",
+      "title": "Internal server error",
+      "description": "An issue occurred. Developers have been notified. Please try again later.",
+      "goBack": "Go back"
+    }
+  }
+}
