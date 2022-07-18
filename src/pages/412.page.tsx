@@ -4,7 +4,7 @@ import Head from "next/head";
 
 import tenantsConfig from "../../config/tenants.json";
 
-// This page is triggered by the middleware if no tenant can't be found.
+// This page is triggered by the middleware if no tenant can be found.
 export default function FourOneTwo() {
   const [hostname, setHostname] = useState<string | undefined>();
 
