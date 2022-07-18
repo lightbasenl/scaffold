@@ -59,7 +59,7 @@ jobs:
           node-version: 18
           cache: "yarn"
 
-      - name: Run (release) build
+      - name: Run build
         run: |
           yarn
-          yarn release
+          yarn build
