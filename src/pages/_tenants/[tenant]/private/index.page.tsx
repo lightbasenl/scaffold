@@ -1,9 +1,10 @@
-import { authRemoveCookies } from "auth/cookies";
 import type { GetServerSidePropsContext } from "next";
 
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { useTranslation } from "next-i18next";
+import { useQueryClient } from "react-query";
 
 import { useAuthLogout, useAuthMe } from "generated/auth/reactQueries";
 
@@ -12,9 +13,8 @@ import { getStaticPageProps } from "lib/pageProps";
 import useFeatureFlag from "hooks/useFeatureFlag";
 
 import LightbaseLogo from "assets/svg/logo.svg";
+import { authRemoveCookies } from "auth/cookies";
 import useAuthenticate from "auth/useAuthenticate";
-import { useRouter } from "next/router";
-import { useQueryClient } from "react-query";
 
 export async function getServerSideProps(ctx: GetServerSidePropsContext) {
   if (typeof ctx.params?.tenant !== "string") {

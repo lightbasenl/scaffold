@@ -1,19 +1,20 @@
-import { authCreateCookiesFromTokenPair } from "auth/cookies";
-import { useAuthAnonymousBasedLogin } from "generated/authAnonymousBased/reactQueries";
-import { AuthTokenPairApi } from "generated/common/types";
-import { useScaffoldCreateUser } from "generated/scaffold/reactQueries";
 import type { GetStaticPropsContext } from "next";
 
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 import { useTranslation } from "next-i18next";
+
+import { useAuthAnonymousBasedLogin } from "generated/authAnonymousBased/reactQueries";
+import type { AuthTokenPairApi } from "generated/common/types";
+import { useScaffoldCreateUser } from "generated/scaffold/reactQueries";
 
 import { buildStaticPaths, getStaticPageProps } from "lib/pageProps";
 
 import useFeatureFlag from "hooks/useFeatureFlag";
 
 import LightbaseLogo from "assets/svg/logo.svg";
-import { useRouter } from "next/router";
+import { authCreateCookiesFromTokenPair } from "auth/cookies";
 
 export const getStaticProps = async (ctx: GetStaticPropsContext) => {
   if (typeof ctx.params?.tenant !== "string") {

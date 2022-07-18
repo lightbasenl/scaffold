@@ -10,7 +10,8 @@
     "release": "WITH_SENTRY=true yarn build",
     "pretty": "prettier --check '**/*.{json,md,js,mjs}' --write",
     "format": "yarn pretty && yarn lint --fix",
-    "generate": "node ./scripts/generate.mjs"
+    "generate": "node ./scripts/generate.mjs",
+    "test": "true"
   },
   "dependencies": {
     "@lightbase/next-preset": "2.0.1",
