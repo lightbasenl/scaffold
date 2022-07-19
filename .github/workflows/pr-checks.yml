@@ -79,7 +79,7 @@ jobs:
           repository: "lightbasenl/scaffold-backend"
           # TODO: remove ref, always use main
           ref: "feat/scaffold-user"
-          token: ${{ secrets.REPO_AUTOMATION_TOKEN }}
+          token: ${{ secrets.SCAFFOLD_BACKEND_TOKEN }}
           path: "./backend"
 
 
