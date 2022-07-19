@@ -38,15 +38,14 @@ export default function useAuthenticate({
   enforceSessionType,
   enforceLoginType,
   requireAllPermissions,
-  requireSinglePermission
+  requireSinglePermission,
 }: {
-  enforceLoginType?: AuthSessionApi["loginType"]; enforceSessionType?: AuthSessionApi["type"]; requireAllPermissions?: AuthPermissionIdentifierApi[]; requireSinglePermission?: AuthPermissionIdentifierApi[];
+  enforceLoginType?: AuthSessionApi["loginType"];
+  enforceSessionType?: AuthSessionApi["type"];
+  requireAllPermissions?: AuthPermissionIdentifierApi[];
+  requireSinglePermission?: AuthPermissionIdentifierApi[];
 } = {}) {
-  const {
-    data,
-    isLoading,
-    isLoadingError
-  } = useAuthMe();
+  const { data, isLoading, isLoadingError } = useAuthMe();
   const router = useRouter();
 
   const routerPush = router.push;
@@ -57,8 +56,8 @@ export default function useAuthenticate({
     routerPush({
       pathname: "/",
       query: {
-        from: asPath
-      }
+        from: asPath,
+      },
     });
   }, [asPath, routerPush]);
 
