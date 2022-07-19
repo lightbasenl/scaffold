@@ -14,7 +14,7 @@ export function resolveTenantConfig(currentOrigin: string): SSRConfig {
 
     // Make sure to pass the origin to pages as well, so that axios instance can use the same
     // origin
-    const tenantOriginHeader = process.env.TENANT_ORIGIN ? process.env.TENANT_ORIGIN : undefined;
+    const tenantOriginHeader = process.env.TENANT_ORIGIN ? process.env.TENANT_ORIGIN : null;
 
     // Force use of the local api url instead of the api url found in the config.
     // This way you can develop against local api's

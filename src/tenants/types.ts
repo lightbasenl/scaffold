@@ -9,7 +9,7 @@ export type SSRConfig = {
   _lpcTenant: {
     tenant: string;
     apiUrl: string;
-    tenantOriginHeader?: string;
+    tenantOriginHeader: string | null;
   };
 };
 
