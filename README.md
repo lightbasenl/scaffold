@@ -43,6 +43,10 @@ for the `/412` error, which is served when an unknown tenant is encountered. `ge
 tenant parameter, which it uses to look up the required api url, so the api client can be injected in
 `_app.page.tsx`.
 
+The tenant configuration file (`config/tenants.json`) is normally managed in our backend repository and
+automatically synced to the frontend repository. It contains all the public urls and api urls that this
+platform supports.
+
 The scaffold also includes various utilities for authentication and authorization. It comes with Axios
 interceptors for injecting the JWT token into the request headers and for refreshing the tokens if necessary.
 `useAuthenticate` can be used for executing session and permission checks.
