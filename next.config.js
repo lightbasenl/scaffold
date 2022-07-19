@@ -8,8 +8,8 @@ const nextConfig = {
   swcMinify: true,
   output: "standalone",
   preset: {
-    // transpileModules: [],
-    // ignoreModules: [],
+    transpileModules: [],
+    ignoreModules: [],
   },
   i18n,
   webpack: config => {

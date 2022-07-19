@@ -78,3 +78,4 @@ export type CompasStructureResponseApi = any;
 export type FeatureFlagCurrentResponseApi = {"__FEATURE_EXAMPLE_FLAG": boolean, };
 export type MultitenantCurrentResponseApi = {"tenant": {"id": string, "name": string, "data": BackendTenantDataApi, }, };
 export type BackendTenantDataApi = CompasStructureResponseApi;
+export type ScaffoldCreateUserResponseApi = {"loginToken": string, };
