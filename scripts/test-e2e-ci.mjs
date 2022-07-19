@@ -86,7 +86,9 @@ function spawnApi(spawnOptions, { onError }) {
 
   return {
     collectLogs() {
-      return Buffer.concat(logs).toString("utf-8").substring(logs.length - 500);
+      return Buffer.concat(logs)
+        .toString("utf-8")
+        .substring(logs.length - 500);
     },
     exit() {
       return new Promise(r => {
