@@ -54,7 +54,7 @@ jobs:
 
       - name: Build production env vars
         run: |
-          echo 'WITH_SENTRY=true\nSENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}\nSENTRY_RELEASE=${{ github.sha }}\n' > .env.local.production
+          echo 'SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}\nSENTRY_RELEASE=${{ github.sha }}\n' > .env.local.production
 
       - name: Build and push Docker image
         uses: docker/build-push-action@e551b19e49efd4e98792db7592c17c09b89db8d8
