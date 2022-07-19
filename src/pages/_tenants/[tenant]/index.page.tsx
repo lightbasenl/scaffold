@@ -96,6 +96,7 @@ export default function Home() {
             </a>
             <div className="w-3" />
             <button
+              data-test="index.login"
               className="border shadow-md bg-white py-4 px-6 rounded-lg text-gray-700 font-bold hover:bg-gray-100 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
               onClick={scaffoldCreateUser}
             >

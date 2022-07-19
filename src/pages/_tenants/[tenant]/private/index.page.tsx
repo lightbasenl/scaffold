@@ -70,6 +70,7 @@ export default function Home() {
           <div className="flex items-center justify-center">
             <div className="w-3" />
             <button
+              data-test="private.index.logout"
               className="border shadow-md bg-white py-4 px-6 rounded-lg text-gray-700 font-bold hover:bg-gray-100 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
               onClick={authLogout}
             >

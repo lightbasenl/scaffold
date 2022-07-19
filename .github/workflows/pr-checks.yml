@@ -63,3 +63,47 @@ jobs:
         run: |
           yarn
           yarn build
+
+  e2e:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: "./frontend"
+
+      - uses: actions/checkout@v3
+        with:
+          repository: "lightbasenl/scaffold-backend"
+          # TODO: remove ref, always use main
+          ref: "feat/scaffold-user"
+          token: ${{ secrets.REPO_AUTOMATION_TOKEN }}
+          path: "./backend"
+
+
+      - name: Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "yarn"
+
+      - name: Install
+        run: |
+          cd ./backend
+          yarn
+          cd ../frontend
+          yarn
+          yarn playwright install chromium --with-deps
+
+      - name: Run e2e
+        run: |
+          yarn test:e2e:ci
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-results
+          path: test-results
