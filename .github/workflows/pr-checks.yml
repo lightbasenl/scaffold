@@ -101,6 +101,7 @@ jobs:
 
       - name: Run e2e
         run: |
+          cd ./frontend
           yarn test:e2e:ci
 
       - name: Upload test results
