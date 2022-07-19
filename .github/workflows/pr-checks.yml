@@ -100,6 +100,9 @@ jobs:
           yarn playwright install chromium --with-deps
 
       - name: Run e2e
+        env:
+          TENANT_ORIGIN: "scaffold.dev.lightbase.nl"
+          TENANT_API_URL: "http://localhost:3001"
         run: |
           cd ./frontend
           yarn test:e2e:ci
