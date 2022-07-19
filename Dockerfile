@@ -12,12 +12,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
-
-ARG sentryEnv
-ENV SENTRY_ENV $sentryEnv
-
-ARG allowRobots
-ENV ALLOW_ROBOTS $allowRobots
+ENV NODE_ENV "production"
 
 RUN yarn release
 
@@ -27,12 +22,6 @@ WORKDIR /app
 
 ENV NODE_ENV production
 ENV NEXT_TELEMETRY_DISABLED 1
-
-ARG sentryEnv
-ENV SENTRY_ENV $sentryEnv
-
-ARG allowRobots
-ENV ALLOW_ROBOTS $allowRobots
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs

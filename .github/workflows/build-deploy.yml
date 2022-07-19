@@ -1,0 +1,67 @@
+name: Build image and trigger CodePipeline
+on:
+  workflow_dispatch:
+# TODO(platform): enable builds on push to main
+#  push:
+#    branches:
+#      - main
+
+env:
+  # TODO(platform): use correct AWS account and regions
+  REGISTRY: account-id.dkr.ecr.eu-central-1.amazonaws.com
+  PROJECT_NAME: scaffold/frontend
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          # TODO(platform): set correct role and aws region
+          role-to-assume: arn:aws:iam::account-id:role/role-name
+          aws-region: eu-central-1
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@49ed152c8eca782a232dede0303416e8f356c37b
+        with:
+          registry: ${{ env.REGISTRY }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@69f6fc9d46f2f8bf0d5491e4aabe0bb8c6a4678a
+        with:
+          tags: |
+            type=ref,event=branch
+            type=sha,
+          images: ${{ env.REGISTRY }}/lightbasenl/${{ env.PROJECT_NAME }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@dc7b9719a96d48369863986a06765841d7ea23f6
+
+      - name: Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: "yarn"
+
+      - name: Build production env vars
+        run: |
+          echo 'WITH_SENTRY=true\nSENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}\nSENTRY_RELEASE=${{ github.sha }}\n' > .env.local.production
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@e551b19e49efd4e98792db7592c17c09b89db8d8
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
