@@ -9,20 +9,16 @@ env:
 jobs:
   format:
     timeout-minutes: 15
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [16]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
       - uses: actions/checkout@v3
 
-      - name: Node.js ${{ matrix.node }}
+      - name: Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 18
           cache: "yarn"
 
       - name: Run format
@@ -32,20 +28,16 @@ jobs:
 
   test:
     timeout-minutes: 15
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [16]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
       - uses: actions/checkout@v3
 
-      - name: Node.js ${{ matrix.node }}
+      - name: Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 18
           cache: "yarn"
 
       - name: Run test
@@ -55,23 +47,19 @@ jobs:
 
   build:
     timeout-minutes: 15
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: [16]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
       - uses: actions/checkout@v3
 
-      - name: Node.js ${{ matrix.node }}
+      - name: Node.js 18
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 18
           cache: "yarn"
 
-      - name: Run (release) build
+      - name: Run build
         run: |
-          yarn
-          yarn release
+          yarn install
+          yarn build

@@ -1,11 +1,24 @@
 {
-  "extends": ["plugin:import/typescript", "next", "plugin:prettier/recommended"],
-  "plugins": ["unused-imports"],
+  "extends": [
+    "plugin:import/typescript", "next", "plugin:prettier/recommended", "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["unused-imports", "no-relative-import-paths", "@typescript-eslint", "react-hooks"],
   "rules": {
+    "no-relative-import-paths/no-relative-import-paths": [
+      "error",
+      { "allowSameFolder": true, "rootDir": "src" }
+    ],
     "import/order": ["error", {
-      "warnOnUnassignedImports": true,
-      "newlines-between": "never",
-      "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+      "warnOnUnassignedImports": false,
+      "newlines-between": "always",
+      "alphabetize": {
+        "order": "asc"
+      },
+      "groups": ["type", "builtin", "external", "internal", "parent", "sibling", "index", "object"],
       "pathGroups": [
         {
           "pattern": "css/**",
@@ -28,7 +41,42 @@
           "position": "before"
         },
         {
-          "pattern": "{lib,pages,components,assets,hooks,locale,server,tenants}/**",
+          "pattern": "lib/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "cms/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "server/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "tenants/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "pages/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "hooks/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "components/**",
+          "group": "internal",
+          "position": "before"
+        },
+        {
+          "pattern": "{assets,locale}/**",
           "group": "internal"
         }
       ],
@@ -39,14 +87,9 @@
       ]
     }],
 
-    "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/no-parameter-properties": "off",
-    "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/prefer-interface": "off",
-    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/ban-ts-comment": "off",
 
     "@next/next/no-img-element": "off",
     "react/react-in-jsx-scope": "off",
@@ -54,6 +97,9 @@
     "unused-imports/no-unused-imports": "error",
 
     "default-case": "off",
-    "curly": "error"
+    "curly": "error",
+
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error"
   }
 }
