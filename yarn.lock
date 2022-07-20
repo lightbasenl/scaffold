@@ -1577,10 +1577,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@lightbase/next-preset@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@lightbase/next-preset/-/next-preset-2.0.0.tgz#6bd9ac06a815c9ca9068aa7c49d762ee21b58bcd"
-  integrity sha512-5lqT+rsN9QfQ7Ewb77/N6talR40xIC7z3NaSnYn2wengZy4BPrBA5wyT4TdAc2l7DC69RRBSjsTWHoaoAR9nLg==
+"@lightbase/next-preset@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@lightbase/next-preset/-/next-preset-2.0.1.tgz#40e0fd59302fa83d72a29dbfd7f49d4d02209e2a"
+  integrity sha512-X8JgDKrx/6rdYSf29dM1D552k9YsCw1yuYZ3bb785x8IRIf7kWjJPKjELLBfTfC49gVdWbq3I2y3mcvmXdiU5A==
   dependencies:
     acorn "^8.7.0"
     glob "^7.2.0"
@@ -6046,6 +6046,18 @@ eslint-plugin-react@^7.27.0:
     resolve "^2.0.0-next.3"
     semver "^6.3.0"
     string.prototype.matchall "^4.0.6"
+
+eslint-plugin-unused-imports@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unused-imports/-/eslint-plugin-unused-imports-2.0.0.tgz#d8db8c4d0cfa0637a8b51ce3fd7d1b6bc3f08520"
+  integrity sha512-3APeS/tQlTrFa167ThtP0Zm0vctjr4M44HMpeg1P4bK6wItarumq0Ma82xorMKdFsWpphQBlRPzw/pxiVELX1A==
+  dependencies:
+    eslint-rule-composer "^0.3.0"
+
+eslint-rule-composer@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-rule-composer/-/eslint-rule-composer-0.3.0.tgz#79320c927b0c5c0d3d3d2b76c8b4a488f25bbaf9"
+  integrity sha512-bt+Sh8CtDmn2OajxvNO+BX7Wn4CIWMpTRm3MaiKPCQcnnlm0CS2mhui6QaoeQugs+3Kj2ESKEEGJUdVafwhiCg==
 
 eslint-scope@5.1.1:
   version "5.1.1"
