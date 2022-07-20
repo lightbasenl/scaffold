@@ -36,7 +36,7 @@
     "@compas/code-gen": "^0.0.194",
     "@compas/stdlib": "^0.0.194",
     "@playwright/test": "^1.20.0",
-    "@storybook/addon-docs": "^6.4.19",
+    "@storybook/addon-docs": "^6.5.9",
     "@storybook/addon-essentials": "6.4.19",
     "@storybook/addon-links": "6.4.19",
     "@storybook/addon-postcss": "^2.0.0",
