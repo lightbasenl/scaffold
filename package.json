@@ -15,7 +15,7 @@
     "generate": "node ./scripts/generate.mjs"
   },
   "dependencies": {
-    "@headlessui/react": "^1.5.0",
+    "@headlessui/react": "^1.6.6",
     "@lightbase/next-preset": "^2.0.0",
     "@sentry/nextjs": "^6.19.1",
     "axios": "^0.26.1",
