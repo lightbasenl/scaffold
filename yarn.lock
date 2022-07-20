@@ -3305,10 +3305,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/yup@^0.29.13":
-  version "0.29.13"
-  resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.29.13.tgz#21b137ba60841307a3c8a1050d3bf4e63ad561e9"
-  integrity sha512-qRyuv+P/1t1JK1rA+elmK1MmCL1BapEzKKfbEhDBV/LMMse4lmhZ/XbgETI39JveDJRpLjmToOI6uFtMW/WR2g==
+"@types/yup@^0.29.14":
+  version "0.29.14"
+  resolved "https://registry.yarnpkg.com/@types/yup/-/yup-0.29.14.tgz#754f1dccedcc66fc2bbe290c27f5323b407ceb00"
+  integrity sha512-Ynb/CjHhE/Xp/4bhHmQC4U1Ox+I2OpfRYF3dnNgQqn1cHa6LK3H1wJMNPT02tSVZA6FYuXE2ITORfbnb6zBCSA==
 
 "@typescript-eslint/parser@^5.0.0":
   version "5.16.0"
@@ -6046,6 +6046,18 @@ eslint-plugin-react@^7.27.0:
     resolve "^2.0.0-next.3"
     semver "^6.3.0"
     string.prototype.matchall "^4.0.6"
+
+eslint-plugin-unused-imports@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-unused-imports/-/eslint-plugin-unused-imports-2.0.0.tgz#d8db8c4d0cfa0637a8b51ce3fd7d1b6bc3f08520"
+  integrity sha512-3APeS/tQlTrFa167ThtP0Zm0vctjr4M44HMpeg1P4bK6wItarumq0Ma82xorMKdFsWpphQBlRPzw/pxiVELX1A==
+  dependencies:
+    eslint-rule-composer "^0.3.0"
+
+eslint-rule-composer@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-rule-composer/-/eslint-rule-composer-0.3.0.tgz#79320c927b0c5c0d3d3d2b76c8b4a488f25bbaf9"
+  integrity sha512-bt+Sh8CtDmn2OajxvNO+BX7Wn4CIWMpTRm3MaiKPCQcnnlm0CS2mhui6QaoeQugs+3Kj2ESKEEGJUdVafwhiCg==
 
 eslint-scope@5.1.1:
   version "5.1.1"
