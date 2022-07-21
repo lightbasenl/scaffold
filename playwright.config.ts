@@ -1,34 +1,37 @@
-import path from "path";
-import { devices, PlaywrightTestConfig } from "@playwright/test";
+import type { PlaywrightTestConfig } from "@playwright/test";
+
+import path from "node:path";
+
+import { devices } from "@playwright/test";
+
+const TWENTY_SECONDS = 20000;
+
 const config: PlaywrightTestConfig = {
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  use: {
+    trace: "on-first-retry",
+    baseURL: "http://localhost:3000",
+    actionTimeout: TWENTY_SECONDS,
+    navigationTimeout: TWENTY_SECONDS,
+  },
+  timeout: TWENTY_SECONDS,
+  expect: {
+    timeout: TWENTY_SECONDS,
+  },
+  testDir: path.join(process.cwd(), "e2e"),
   projects: [
     {
-      name: "Desktop Chrome",
-      use: {
-        ...devices["Desktop Chrome"],
-      },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
   ],
-  use: {
-    headless: !!process.env.CI,
-    ignoreHTTPSErrors: true,
-    baseURL: "http://localhost:3000",
-    locale: "nl-NL",
-    video: "retain-on-failure",
-    actionTimeout: 40 * 1000,
-    navigationTimeout: 40 * 1000,
-  },
-  timeout: 120 * 1000,
-  expect: {
-    timeout: 10 * 1000,
-  },
-  testDir: path.join(__dirname, "e2e"),
-  outputDir: "test-results/",
   webServer: {
     command: "yarn start",
     port: 3000,
-    timeout: 120 * 1000,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
   },
+  outputDir: "test-results/",
 };
+
 export default config;

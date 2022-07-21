@@ -1,17 +1,41 @@
-const { withPreset } = require("@lightbase/next-preset");
 const { withSentryConfig } = require("@sentry/nextjs");
-const { i18n } = require("./next-i18next.config");
+const { withPreset } = require("@lightbase/next-preset");
+const { i18n } = require("./next-i18next.config.js");
 
-const SENTRY_ENABLED = false;
-
-// We used @lightbase/next-preset for shared Next.js configuration,
-// you can override these setting if you have to.
-const config = withPreset({
+/** @type {import("next").NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  output: "standalone",
   preset: {
-    transpileModules: ["yup", "framesync", "popmotion", "style-value-types"],
-    ignoreModules: ["next"],
+    transpileModules: [],
+    ignoreModules: [],
   },
   i18n,
-});
+  webpack: config => {
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: { and: [/\.(js|ts)x?$/] },
 
-module.exports = SENTRY_ENABLED ? withSentryConfig(config) : config;
+      use: {
+        loader: "@svgr/webpack",
+      },
+    });
+
+    return config;
+  },
+  rewrites() {
+    return [
+      {
+        source: "/robots.txt",
+        destination: "/api/robots",
+      },
+    ];
+  },
+  sentry: {
+    widenClientFileUpload: true,
+  },
+};
+
+module.exports =
+  process.env.WITH_SENTRY === "true" ? withSentryConfig(withPreset(nextConfig)) : withPreset(nextConfig);
