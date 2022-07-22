@@ -189,3 +189,25 @@ data,
 });
 return response.data;
 }
+
+
+
+/**
+ * Call this when `ctx.session.type === "checkTwoStep"` and `ctx.session.twoStepType === "passwordBasedOtp"`. Advances the session to
+ * `type: user` on successful verification.
+*
+*/
+export async function apiAuthPasswordBasedVerifyOtp(
+instance: AxiosInstance,
+body: T.AuthPasswordBasedVerifyOtpBodyInput,
+requestConfig: { signal?: AbortSignal|undefined } = {},
+): Promise<T.AuthPasswordBasedVerifyOtpResponseApi> {
+const data = body;
+const response = await instance.request({
+url: `auth/password-based/verify-otp`,
+method: "post",
+data,
+...requestConfig,
+});
+return response.data;
+}

@@ -4,7 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { useTranslation } from "next-i18next";
-import { useQueryClient } from "react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useAuthLogout, useAuthMe } from "generated/auth/reactQueries";
 
