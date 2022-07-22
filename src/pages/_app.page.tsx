@@ -5,10 +5,10 @@ import { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
 
 import { captureException } from "@sentry/hub";
+import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import axios from "axios";
 import { appWithTranslation } from "next-i18next";
 import { ErrorBoundary } from "react-error-boundary";
-import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 
 import { useAuthMe } from "generated/auth/reactQueries";
 import { ApiProvider } from "generated/common/reactQuery";

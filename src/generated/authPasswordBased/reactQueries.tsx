@@ -13,7 +13,7 @@ useMutation,
 useQuery,
 useQueryClient,
 QueryClient,
-} from "react-query";
+} from "@tanstack/react-query";
 import * as T from "../common/types";
 import {
 apiAuthPasswordBasedForgotPassword,
@@ -41,6 +41,10 @@ apiAuthPasswordBasedUpdatePassword,
 
 
 apiAuthPasswordBasedVerifyEmail,
+
+
+
+apiAuthPasswordBasedVerifyOtp,
 
 
 
@@ -276,6 +280,28 @@ options: UseMutationOptions<T.AuthPasswordBasedVerifyEmailResponseApi, AppErrorR
 const axiosInstance = useApi();
 return useMutation(
 (variables) => apiAuthPasswordBasedVerifyEmail(
+axiosInstance,
+variables.body, 
+),
+options,
+);
+}
+
+
+
+interface UseAuthPasswordBasedVerifyOtpProps {
+body: T.AuthPasswordBasedVerifyOtpBodyInput,
+}
+/**
+ * Call this when `ctx.session.type === "checkTwoStep"` and `ctx.session.twoStepType === "passwordBasedOtp"`. Advances the session to
+ * `type: user` on successful verification.
+*/
+export function useAuthPasswordBasedVerifyOtp(
+options: UseMutationOptions<T.AuthPasswordBasedVerifyOtpResponseApi, AppErrorResponse, UseAuthPasswordBasedVerifyOtpProps> = {},
+): UseMutationResult<T.AuthPasswordBasedVerifyOtpResponseApi, AppErrorResponse, UseAuthPasswordBasedVerifyOtpProps, unknown> {
+const axiosInstance = useApi();
+return useMutation(
+(variables) => apiAuthPasswordBasedVerifyOtp(
 axiosInstance,
 variables.body, 
 ),

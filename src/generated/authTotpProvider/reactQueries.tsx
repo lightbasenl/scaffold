@@ -13,7 +13,7 @@ useMutation,
 useQuery,
 useQueryClient,
 QueryClient,
-} from "react-query";
+} from "@tanstack/react-query";
 import * as T from "../common/types";
 import {
 apiAuthTotpProviderInfo,

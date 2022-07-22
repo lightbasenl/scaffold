@@ -18,6 +18,7 @@
   "dependencies": {
     "@lightbase/next-preset": "2.0.1",
     "@sentry/nextjs": "7.7.0",
+    "@tanstack/react-query": "4.0.10",
     "axios": "0.27.2",
     "jwt-decode": "3.1.2",
     "next": "12.2.2",
@@ -25,12 +26,11 @@
     "nookies": "2.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-error-boundary": "3.1.4",
-    "react-query": "4.0.0-beta.23"
+    "react-error-boundary": "3.1.4"
   },
   "devDependencies": {
-    "@compas/code-gen": "0.0.209",
-    "@compas/stdlib": "0.0.209",
+    "@compas/code-gen": "0.0.210",
+    "@compas/stdlib": "0.0.210",
     "@playwright/test": "1.23.4",
     "@svgr/webpack": "6.2.1",
     "@types/node": "18.0.4",
