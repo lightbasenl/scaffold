@@ -3,8 +3,8 @@ import type { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { useTranslation } from "next-i18next";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "next-i18next";
 
 import { useAuthLogout, useAuthMe } from "generated/auth/reactQueries";
 
