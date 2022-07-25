@@ -5,11 +5,12 @@ import { useRouter } from "next/router";
 
 import { useTranslation } from "next-i18next";
 
+import { useAuthMe } from "generated/auth/reactQueries";
 import { useAuthAnonymousBasedLogin } from "generated/authAnonymousBased/reactQueries";
 import type { AuthTokenPairApi } from "generated/common/types";
 import { useScaffoldCreateUser } from "generated/scaffold/reactQueries";
 
-import { buildStaticPaths, getStaticPageProps } from "lib/pageProps";
+import { buildStaticPaths, getPageProps } from "lib/pageProps";
 
 import useFeatureFlag from "hooks/useFeatureFlag";
 
@@ -23,7 +24,7 @@ export const getStaticProps = async (ctx: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await getStaticPageProps({ tenant: ctx.params?.tenant, locale: ctx.locale })),
+      ...(await getPageProps({ tenant: ctx.params?.tenant, locale: ctx.locale })),
     },
   };
 };
@@ -41,6 +42,7 @@ export default function Home() {
   const router = useRouter();
   const { t } = useTranslation();
   const flags = useFeatureFlag();
+  const { data: user } = useAuthMe();
 
   const { mutate: anonymousBasedLogin } = useAuthAnonymousBasedLogin({
     onSuccess(data: AuthTokenPairApi) {
@@ -98,12 +100,27 @@ export default function Home() {
             <button
               data-test="index.login"
               className="border shadow-md bg-white py-4 px-6 rounded-lg text-gray-700 font-bold hover:bg-gray-100 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
-              onClick={scaffoldCreateUser}
+              onClick={() => {
+                if (user) {
+                  return router.push("/private");
+                } else {
+                  scaffoldCreateUser({});
+                }
+              }}
             >
               {t("home.login")}
             </button>
           </div>
-          <p>{JSON.stringify(flags, null, 2)}</p>
+          <p>
+            {JSON.stringify(
+              {
+                flags,
+                user,
+              },
+              null,
+              2,
+            )}
+          </p>
         </main>
       </div>
     </>

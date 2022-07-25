@@ -25,8 +25,8 @@ translations.
 
 Another necessary item on our list is localization. We experienced that the setup of a `private` and `public`
 namespace suites us best. The files are located in `src/locales` and translations need to be provided via
-`serverSideTranslations` in `getStaticProps`. The included `getStaticPageProps` and `buildStaticPaths`
-functions will automatically handle the enabled locales and namespaces for you.
+`serverSideTranslations` in `getStaticProps`. The included `getPageProps` and `buildStaticPaths` functions
+will automatically handle the enabled locales and namespaces for you.
 
 ### Backend powered
 
@@ -39,7 +39,7 @@ Multitenant support is easier to use from the start than to add later, so why no
 determined by their host header, which in turn is validated via `src/middleware.api.ts` that uses the
 configuration in `config/tenants.json`. It rewrites the requests with a `_tenants/[tenant]` prefix, which is
 also the reason for the structure in the `src/pages` directory. Error pages are all tenant specific, except
-for the `/412` error, which is served when an unknown tenant is encountered. `getStaticPageProps` requires the
+for the `/412` error, which is served when an unknown tenant is encountered. `getPageProps` requires the
 tenant parameter, which it uses to look up the required api url, so the api client can be injected in
 `_app.page.tsx`.
 
@@ -65,48 +65,12 @@ And the final set;
 
 ## Scaffold usage
 
-Using the scaffold requires three steps;
+Using the scaffold requires four steps;
 
 - Execute `yarn create next-app --example=https://github.com/lightbasenl/scaffold`
+- Remove this README and rename `README.template.md` to `README.md`
 - Run through each occurrence of `TODO(platform)` and set your values
 - Replace this README with the below contents
-
----
-
-### My project
-
-This project is initialized via the [lightbasenl/scaffold](https://github.com/lightbasenl/scaffold).
-
-## Local development
-
-**Local api**
-
-Use the below configuration if you are also running the API locally (on its default port `3001`).
-
-```dotenv
-# .env.local
-TENANT_ORIGIN=scaffold.dev.lightbase.nl
-TENANT_API_URL=http://localhost:3001
-```
-
-**Remote api**
-
-Use this configuration if you want to use the API from the hosted development environment.
-
-```dotenv
-# .env.local
-TENANT_ORIGIN=scaffold.dev.lightbase.nl
-```
-
-## Production
-
-There are a few required environment variables in production;
-
-- **SENTRY_AUTH_TOKEN**: This is used to push the source-maps to Sentry, and create a new release
-- **SENTRY_RELEASE**: Should be set to the commit sha, so we can track which deploy introduced regressions
-- **SENTRY_ENV**: Tell Sentry which environment is (acceptance, staging, production)
-
----
 
 ## Scaffold development
 

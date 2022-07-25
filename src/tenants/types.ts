@@ -6,11 +6,13 @@ export type URLConfig = {
 };
 
 export type SSRConfig = {
-  _lpcTenant: {
-    tenant: string;
-    apiUrl: string;
-    tenantOriginHeader: string | null;
-  };
+  _lpcTenant: ResolvedTenant;
+};
+
+export type ResolvedTenant = {
+  tenant: string;
+  apiUrl: string;
+  tenantOriginHeader: string | null;
 };
 
 export type Tenant = {

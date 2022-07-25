@@ -1,5 +1,3 @@
-import type { GetServerSidePropsContext } from "next";
-
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -8,29 +6,20 @@ import { useTranslation } from "next-i18next";
 
 import { useAuthLogout, useAuthMe } from "generated/auth/reactQueries";
 
-import { getStaticPageProps } from "lib/pageProps";
+import { defaultServerSideProps } from "lib/serverSideHelpers";
 
 import useFeatureFlag from "hooks/useFeatureFlag";
 
 import LightbaseLogo from "assets/svg/logo.svg";
 import { authRemoveCookies } from "auth/cookies";
-import useAuthenticate from "auth/useAuthenticate";
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-  if (typeof ctx.params?.tenant !== "string") {
-    throw new Error("Tenant is required!");
-  }
-
-  return {
-    props: {
-      ...(await getStaticPageProps({
-        tenant: ctx.params.tenant,
-        locale: ctx.locale,
-        namespaces: ["private", "public"],
-      })),
-    },
-  };
-}
+export const getServerSideProps = defaultServerSideProps({
+  authDescription: {
+    enforceSessionType: "user",
+    enforceLoginType: "anonymousBased",
+  },
+  namespaces: ["private", "public"],
+});
 
 export default function Home() {
   const queryClient = useQueryClient();
@@ -39,8 +28,6 @@ export default function Home() {
 
   const { data: auth } = useAuthMe();
   const flags = useFeatureFlag();
-
-  useAuthenticate();
 
   const { mutate: authLogout } = useAuthLogout({
     onSuccess() {

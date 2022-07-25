@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { useTranslation } from "next-i18next";
 
-import { buildStaticPaths, getStaticPageProps } from "lib/pageProps";
+import { buildStaticPaths, getPageProps } from "lib/pageProps";
 
 import LightbaseLogo from "assets/svg/logo.svg";
 
@@ -16,7 +16,7 @@ export const getStaticProps = async (ctx: GetStaticPropsContext) => {
 
   return {
     props: {
-      ...(await getStaticPageProps({ tenant: ctx.params?.tenant, locale: ctx.locale })),
+      ...(await getPageProps({ tenant: ctx.params?.tenant, locale: ctx.locale })),
     },
   };
 };

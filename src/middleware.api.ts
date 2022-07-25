@@ -34,14 +34,6 @@ export default function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL("/412", req.url));
   }
 
-  // TODO(platform): include all private paths in this if-statement
-  if (url.pathname.startsWith("/private")) {
-    if (!req.cookies.has("accessToken")) {
-      // TODO(platform): redirect to correct login url
-      return NextResponse.redirect(new URL("/", req.url));
-    }
-  }
-
   // rewrite everything else to `/_tenants/[tenant]` dynamic route
   url.pathname = `/_tenants/${hostname}${url.pathname}`;
 

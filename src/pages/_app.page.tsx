@@ -58,7 +58,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       queryClient.invalidateQueries(useAuthMe.queryKey(), {
         // Only invalidate if stale in 2 minutes, otherwise we recently fetched the query anyway,
         // so we won't be logged out yet.
-        predicate: query => query.isStaleByTime(2 * 60 * 1000),
+        predicate: query =>
+          query.state.status === "success" &&
+          query.state.fetchStatus !== "fetching" &&
+          query.isStaleByTime(2 * 60 * 1000),
       });
 
     window.addEventListener("mousemove", doInvalidate);

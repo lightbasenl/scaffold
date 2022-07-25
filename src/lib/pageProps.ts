@@ -5,7 +5,7 @@ import { resolveTenantConfig } from "tenants/resolveTenantConfig";
 import tenantsConfig from "../../config/tenants.json";
 import i18nextConfig from "../../next-i18next.config.js";
 
-export async function getStaticPageProps({
+export async function getPageProps({
   tenant,
   locale,
   namespaces,

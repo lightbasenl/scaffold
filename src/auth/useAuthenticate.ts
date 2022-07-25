@@ -1,14 +1,19 @@
+import type { AuthDescription } from "auth/checks";
+
 import { useCallback, useEffect } from "react";
 
 import { useRouter } from "next/router";
 
 import { useAuthMe } from "generated/auth/reactQueries";
-import type { AuthPermissionIdentifierApi, AuthSessionApi } from "generated/common/types";
+
+import { authDescriptionCheck } from "auth/checks";
 
 /**
  * Expect a response on {@see useAuthMe}. Else redirects to `/`.
  *
  * This hook is also able to execute a some checks regarding the return user and session.
+ * It is preferable to keep a constant in your file `const authDescription: AuthDescription =
+ * {}` so this can be reused for `defaultServerSideProps`.
  *
  * @example
  * It can require a specific session type, enforcing that the user is past the `checkTwoStep`
@@ -34,87 +39,47 @@ import type { AuthPermissionIdentifierApi, AuthSessionApi } from "generated/comm
  *
  * All above checks can be combined
  */
-export default function useAuthenticate({
-  enforceSessionType,
-  enforceLoginType,
-  requireAllPermissions,
-  requireSinglePermission,
-}: {
-  enforceLoginType?: AuthSessionApi["loginType"];
-  enforceSessionType?: AuthSessionApi["type"];
-  requireAllPermissions?: AuthPermissionIdentifierApi[];
-  requireSinglePermission?: AuthPermissionIdentifierApi[];
-} = {}) {
+export default function useAuthenticate(authDescription: AuthDescription = {}) {
   const { data, isLoading, isLoadingError } = useAuthMe();
   const router = useRouter();
 
   const routerPush = router.push;
   const asPath = router.asPath;
 
-  // TODO(platform): redirect to login url
-  const redirectToLogin = useCallback(() => {
-    routerPush({
-      pathname: "/",
-      query: {
-        from: asPath,
-      },
-    });
-  }, [asPath, routerPush]);
+  const redirectCallback = useCallback(
+    (path: string) => {
+      routerPush({
+        pathname: path,
+        query: {
+          from: asPath,
+        },
+      });
+    },
+    [asPath, routerPush],
+  );
 
   useEffect(() => {
-    if (isLoading && !isLoadingError) {
-      return;
-    } else if (!isLoading) {
+    if (!isLoadingError) {
       return;
     }
 
-    redirectToLogin();
-  }, [redirectToLogin, isLoading, isLoadingError]);
-
-  useEffect(() => {
-    if (!data) {
+    if (isLoading) {
       return;
     }
 
-    if (enforceSessionType && enforceSessionType !== data.session.type) {
-      redirectToLogin();
-      return;
-    }
-
-    if (enforceLoginType && enforceLoginType !== data.session.loginType) {
-      redirectToLogin();
-      return;
-    }
-  }, [data, enforceLoginType, enforceSessionType, redirectToLogin]);
+    // TODO(platform): update redirect
+    redirectCallback("/401");
+  }, [redirectCallback, isLoading, isLoadingError]);
 
   useEffect(() => {
     if (!data) {
       return;
     }
 
-    for (const permission of requireAllPermissions ?? []) {
-      if (!data.user?.permissions.includes(permission)) {
-        redirectToLogin();
-        return;
-      }
-    }
-  }, [data, requireAllPermissions, redirectToLogin]);
+    const authResult = authDescriptionCheck(authDescription, data);
 
-  useEffect(() => {
-    if (!data) {
-      return;
+    if (authResult.redirect) {
+      redirectCallback(authResult.redirect);
     }
-
-    if ((requireSinglePermission ?? []).length === 0) {
-      return;
-    }
-
-    for (const permission of requireSinglePermission ?? []) {
-      if (data.user?.permissions.includes(permission)) {
-        return;
-      }
-    }
-
-    redirectToLogin();
-  }, [data, redirectToLogin, requireSinglePermission]);
+  }, [data, authDescription, redirectCallback]);
 }

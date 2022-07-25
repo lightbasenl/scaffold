@@ -1,4 +1,5 @@
 import type { AxiosRequestConfig } from "axios";
+import type { GetServerSidePropsContext } from "next";
 
 import axios from "axios";
 import { parseCookies } from "nookies";
@@ -18,16 +19,23 @@ import { authCreateCookiesFromTokenPair, authRemoveCookies } from "auth/cookies"
  *    - If fails, removes the refresh token and just lets all other requests go through
  *    - If successfully, runs all requests in the queue and resolves the current request
  */
-export function authAxiosRequestInterceptor(): (config: AxiosRequestConfig) => Promise<AxiosRequestConfig> {
+export function authAxiosRequestInterceptor(
+  context?: GetServerSidePropsContext,
+): (config: AxiosRequestConfig) => Promise<AxiosRequestConfig> {
   let isRefreshing = false;
   const queueWhileRefreshing: (() => void)[] = [];
 
+  // Only used in SSR context, keeping a local copy of the tokens before setting them as
+  // cookies. This is necessary since 'parseCookies' does not read the cookies that are
+  // already set on the response.
+  let tokenCache: AuthTokenPairApi | undefined = undefined;
+
   const interceptor = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> => {
-    let cookies: AuthTokenPairApi = parseCookies() as unknown as AuthTokenPairApi;
+    let cookies = tokenCache ?? (parseCookies(context) as AuthTokenPairApi);
 
     if (isRefreshing) {
       return new Promise<void>(r => {
-        queueWhileRefreshing.push(() => r());
+        queueWhileRefreshing.push(r);
       }).then(() => interceptor(config));
     }
 
@@ -39,11 +47,15 @@ export function authAxiosRequestInterceptor(): (config: AxiosRequestConfig) => P
           refreshToken: cookies.refreshToken,
         });
 
-        authCreateCookiesFromTokenPair(cookies);
+        if (context) {
+          tokenCache = cookies;
+        }
+
+        authCreateCookiesFromTokenPair(cookies, context);
       } catch {
         // If we can't refresh, we can safely remove the refresh token
         // This way this refresh logic isn't triggered for any subsequent requests
-        authRemoveCookies();
+        authRemoveCookies(context);
       }
 
       isRefreshing = false;
@@ -62,13 +74,16 @@ export function authAxiosRequestInterceptor(): (config: AxiosRequestConfig) => P
 
   return interceptor;
 }
+
 /**
  * Interceptor that removes tokens on unauthorized api calls
  */
-export function authAxiosResponseErrorInterceptor(): (error: unknown) => Promise<unknown> {
+export function authAxiosResponseErrorInterceptor(
+  context?: GetServerSidePropsContext,
+): (error: unknown) => Promise<unknown> {
   const interceptor = async (error: unknown): Promise<unknown> => {
     if (isAppErrorResponse(error) && error.response?.data?.key === "sessionStore.get.invalidSession") {
-      authRemoveCookies();
+      authRemoveCookies(context);
     }
 
     return Promise.reject(error);
