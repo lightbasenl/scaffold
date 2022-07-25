@@ -44,7 +44,7 @@ export function defaultServerSideProps({ authDescription, namespaces }: PageConf
       authCheckResult = authDescriptionCheck(authDescription, authMe);
     } catch (e) {
       // TODO(platform): update destination
-      authCheckResult.redirect = "/401";
+      authCheckResult.redirect = "/";
     }
 
     if (authCheckResult.redirect) {

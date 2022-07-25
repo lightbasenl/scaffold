@@ -59,6 +59,16 @@ jobs:
           node-version: 18
           cache: "yarn"
 
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ${{ github.workspace }}/.next/cache
+          key:
+            next-build-cache-${{ hashFiles('**/yarn.lock') }}-${{
+            hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            next-build-cache-${{ hashFiles('**/yarn.lock') }}-
+
       - name: Run build
         run: |
           yarn
@@ -87,6 +97,16 @@ jobs:
           node-version: 18
           cache: "yarn"
           cache-dependency-path: "**/yarn.lock"
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ${{ github.workspace }}/.next/cache
+          key:
+            next-build-cache-${{ hashFiles('**/yarn.lock') }}-${{
+            hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            next-build-cache-${{ hashFiles('**/yarn.lock') }}-
 
       - name: Install
         run: |

@@ -18,14 +18,14 @@ export function authDescriptionCheck(
   if (description.enforceSessionType && data.session.type !== description.enforceSessionType) {
     return {
       // TODO(platform): update destination
-      redirect: "/2fa",
+      redirect: "/",
     };
   }
 
   if (description.enforceLoginType && data.session.loginType !== description.enforceLoginType) {
     return {
       // TODO(platform): update destination
-      redirect: "/401",
+      redirect: "/",
     };
   }
 
@@ -34,7 +34,7 @@ export function authDescriptionCheck(
       if (!(data.user?.permissions ?? []).includes(permission)) {
         return {
           // TODO(platform): update destination
-          redirect: "/403",
+          redirect: "/",
         };
       }
     }
@@ -49,7 +49,7 @@ export function authDescriptionCheck(
 
     return {
       // TODO(platform): update destination
-      redirect: "/403",
+      redirect: "/",
     };
   }
 

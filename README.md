@@ -1,6 +1,12 @@
 # Lightbase frontend Scaffold
 
-Use via `yarn create next-app --example=https://github.com/lightbasenl/scaffold`
+Usage with `create-next-app`:
+
+```
+yarn create next-app --example=https://github.com/lightbasenl/scaffold
+# or for the old scaffold
+yarn create next-app --example=https://github.com/lightbasenl/scaffold/tree/previous
+```
 
 ## Scaffold features
 
