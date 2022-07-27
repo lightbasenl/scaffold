@@ -1283,13 +1283,13 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@playwright/test@1.24.0":
-  version "1.24.0"
-  resolved "https://registry.yarnpkg.com/@playwright/test/-/test-1.24.0.tgz#bef07eddeebba21358ab15e9b0b7a79df0479b76"
-  integrity sha512-sZLH2N6aWN9TtG+vMjNSomSfX0dSVHwWE+GhHQPV+ZeGcuZ/6CgMCGFuGjobgq/hNF9ZkuVOjeyoceZ0owKnHQ==
+"@playwright/test@1.24.1":
+  version "1.24.1"
+  resolved "https://registry.yarnpkg.com/@playwright/test/-/test-1.24.1.tgz#b70f5cd0909530e17c7610918b45f4af156f16c4"
+  integrity sha512-VJ9qekMis7Oze2Q/Vb+w1g2aPaJFRdl5vhTS6h82kG89Jb8trlU2WHY7oYzNRjvFPoVUMcWXiblH2bWcbEax/A==
   dependencies:
     "@types/node" "*"
-    playwright-core "1.24.0"
+    playwright-core "1.24.1"
 
 "@rushstack/eslint-patch@^1.1.3":
   version "1.1.4"
@@ -1567,15 +1567,15 @@
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
-"@types/node@*", "@types/node@18.0.6":
-  version "18.0.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.0.6.tgz#0ba49ac517ad69abe7a1508bc9b3a5483df9d5d7"
-  integrity sha512-/xUq6H2aQm261exT6iZTMifUySEt4GR5KX8eYyY+C4MSNPqSh9oNIP7tz2GLKTlFaiBbgZNxffoR3CVRG+cljw==
-
-"@types/node@18.6.1":
+"@types/node@*", "@types/node@18.6.1":
   version "18.6.1"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.6.1.tgz#828e4785ccca13f44e2fb6852ae0ef11e3e20ba5"
   integrity sha512-z+2vB6yDt1fNwKOeGbckpmirO+VBDuQqecXkgeIqDlaOtmKn6hPR/viQ8cxCfqLU4fTlvM3+YjM367TukWdxpg==
+
+"@types/node@18.0.6":
+  version "18.0.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.0.6.tgz#0ba49ac517ad69abe7a1508bc9b3a5483df9d5d7"
+  integrity sha512-/xUq6H2aQm261exT6iZTMifUySEt4GR5KX8eYyY+C4MSNPqSh9oNIP7tz2GLKTlFaiBbgZNxffoR3CVRG+cljw==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -3700,10 +3700,10 @@ pino@8.2.0:
     sonic-boom "^3.0.0"
     thread-stream "^2.0.0"
 
-playwright-core@1.24.0:
-  version "1.24.0"
-  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.24.0.tgz#ece821ceaf241bb7206329b1242b0cf6c1c60bdb"
-  integrity sha512-BkDWdVsoEEC8m2glQlfNu1EN2qvjBsLIg5bD0wjrfwv9zVHktIsp80yYFObAcWreLNYhfRP4PlXE04lr5R4DFQ==
+playwright-core@1.24.1:
+  version "1.24.1"
+  resolved "https://registry.yarnpkg.com/playwright-core/-/playwright-core-1.24.1.tgz#032eefaa8f674a4253a6c35a86787f2cbfcd8829"
+  integrity sha512-1RoSDe/oTQS1Ct7Pb8i+vcFKbKYpmVIBXk0IUiD8RvCUMnNl7EJF1OSQ9E8TZ5RYamWkW2Psir9e8Doyz1FnhQ==
 
 postcss-flexbugs-fixes@5.0.2:
   version "5.0.2"
