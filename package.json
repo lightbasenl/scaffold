@@ -21,7 +21,7 @@
     "@tanstack/react-query": "4.0.10",
     "axios": "0.27.2",
     "jwt-decode": "3.1.2",
-    "next": "12.2.2",
+    "next": "12.2.4",
     "next-i18next": "11.3.0",
     "nookies": "2.5.2",
     "react": "18.2.0",
