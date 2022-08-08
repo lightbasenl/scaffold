@@ -10,6 +10,9 @@
     "login": "Inloggen",
     "logout": "Uitloggen"
   },
+  "login": {
+    "cta": "Let's log in!"
+  },
   "errors": {
     "unknown": "Onbekende error"
   },

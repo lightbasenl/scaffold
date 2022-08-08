@@ -7,7 +7,7 @@ import { useTranslation } from "next-i18next";
 
 import { buildStaticPaths, getPageProps } from "lib/pageProps";
 
-import LightbaseLogo from "assets/svg/logo.svg";
+import { SvgLogo } from "assets/svg";
 
 export const getStaticProps = async (ctx: GetStaticPropsContext) => {
   if (typeof ctx.params?.tenant !== "string") {
@@ -43,7 +43,7 @@ export default function FiveOo() {
           <div className="flex flex-shrink-0 justify-center">
             <a href="/" className="inline-flex">
               <span className="sr-only">{t("common.appName")}</span>
-              <LightbaseLogo className="h-12 w-auto" />
+              <SvgLogo className="h-12 w-auto" />
             </a>
           </div>
           <div className="py-16">

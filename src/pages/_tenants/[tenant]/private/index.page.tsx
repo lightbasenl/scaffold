@@ -10,7 +10,7 @@ import { defaultServerSideProps } from "lib/serverSideHelpers";
 
 import useFeatureFlag from "hooks/useFeatureFlag";
 
-import LightbaseLogo from "assets/svg/logo.svg";
+import { SvgLogo } from "assets/svg";
 import { authRemoveCookies } from "auth/cookies";
 
 export const getServerSideProps = defaultServerSideProps({
@@ -49,7 +49,7 @@ export default function Home() {
       </a>
 
       <div className="container mx-auto min-h-screen flex flex-col justify-center items-center">
-        <LightbaseLogo className="h-12 w-auto" />
+        <SvgLogo className="h-12 w-auto" />
 
         <main id="main">
           <h1 className="heading text-6xl font-medium text-center">{t("private:common.appName")}</h1>

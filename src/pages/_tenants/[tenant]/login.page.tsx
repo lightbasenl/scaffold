@@ -1,5 +1,3 @@
-import type { GetStaticPropsContext } from "next";
-
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -10,35 +8,21 @@ import { useAuthAnonymousBasedLogin } from "generated/authAnonymousBased/reactQu
 import type { AuthTokenPairApi } from "generated/common/types";
 import { useScaffoldCreateUser } from "generated/scaffold/reactQueries";
 
-import { buildStaticPaths, getPageProps } from "lib/pageProps";
+import { defaultServerSideProps } from "lib/serverSideHelpers";
 
 import useFeatureFlag from "hooks/useFeatureFlag";
 
 import { SvgLogo } from "assets/svg";
 import { authCreateCookiesFromTokenPair } from "auth/cookies";
 
-export const getStaticProps = async (ctx: GetStaticPropsContext) => {
-  if (typeof ctx.params?.tenant !== "string") {
-    throw new Error("Tenant is required!");
-  }
+export const getServerSideProps = defaultServerSideProps({
+  authDescription: {
+    enforceSessionType: "guest",
+  },
+  namespaces: ["public"],
+});
 
-  return {
-    props: {
-      ...(await getPageProps({ tenant: ctx.params?.tenant, locale: ctx.locale })),
-    },
-  };
-};
-
-export async function getStaticPaths() {
-  const pageTree = buildStaticPaths([{}]);
-
-  return {
-    paths: pageTree,
-    fallback: "blocking",
-  };
-}
-
-export default function Home() {
+export default function Login() {
   const router = useRouter();
   const { t } = useTranslation();
   const flags = useFeatureFlag();
@@ -77,7 +61,7 @@ export default function Home() {
 
         <main id="main">
           <h1 className="heading text-6xl font-medium text-center">{t("common.appName")}</h1>
-          {t("home.cta")}{" "}
+          {t("login.cta")}{" "}
           <span role="img" aria-label="fire">
             🔥
           </span>
