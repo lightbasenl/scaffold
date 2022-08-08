@@ -12,18 +12,6 @@ const nextConfig = {
     ignoreModules: [],
   },
   i18n,
-  webpack: config => {
-    config.module.rules.push({
-      test: /\.svg$/,
-      issuer: { and: [/\.(js|ts)x?$/] },
-
-      use: {
-        loader: "@svgr/webpack",
-      },
-    });
-
-    return config;
-  },
   rewrites() {
     return [
       {
