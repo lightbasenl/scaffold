@@ -6,7 +6,7 @@ import type { AppProps } from "next/app";
 
 import { captureException } from "@sentry/hub";
 import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { appWithTranslation } from "next-i18next";
 import { ErrorBoundary } from "react-error-boundary";
 
@@ -26,7 +26,22 @@ function MyApp({ Component, pageProps }: AppProps) {
         defaultOptions: {
           queries: {
             staleTime: 5 * 60 * 1000, // 5 minutes
-            retry: false,
+            retry: (failureCount: number, error: unknown) => {
+              if (process.env.NODE_ENV !== "production") {
+                return false;
+              }
+
+              // Retry (max. 3 times) only if network error detected
+              if (
+                error instanceof AxiosError &&
+                error.message === "Network request failed" &&
+                failureCount <= 3
+              ) {
+                return true;
+              }
+
+              return false;
+            },
           },
         },
       }),
