@@ -30,6 +30,34 @@ async function main() {
     },
   });
 
+  // API has 10 (seconds) attempts to start
+  console.log("Waiting for API to start");
+  let apiListeningAttempts = 10;
+
+  while (apiListeningAttempts > 0) {
+    try {
+      await new Promise(resolve => {
+        setTimeout(resolve, 1000);
+      });
+
+      apiListeningAttempts--;
+      console.log(`Checking connection to API (${10 - apiListeningAttempts}/10)`);
+      await fetch(process.env.TENANT_API_URL);
+
+      // If fetch gets response else catch
+      apiListeningAttempts = -1;
+      console.log("API is listening");
+    } catch (e) {
+      console.error(`Error: ${e.cause.code}`);
+    }
+  }
+
+  if (apiListeningAttempts === 0) {
+    console.error("Killing e2e tests because of API not starting");
+    process.exit(1);
+    return;
+  }
+
   const { exitCode } = await spawn("yarn", ["test:e2e"]);
 
   await apiInstance.exit();
