@@ -18,23 +18,28 @@
     "test:e2e:ci": "node ./scripts/test-e2e-ci.mjs"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.7",
     "@lightbase/next-preset": "2.0.1",
     "@sentry/nextjs": "7.9.0",
     "@tanstack/react-query": "4.0.10",
     "axios": "0.27.2",
+    "classnames": "^2.3.1",
     "jwt-decode": "3.1.2",
     "next": "12.2.4",
     "next-i18next": "11.3.0",
     "nookies": "2.5.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-error-boundary": "3.1.4"
+    "react-error-boundary": "3.1.4",
+    "react-hook-form": "^7.34.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@compas/code-gen": "0.0.211",
     "@compas/stdlib": "0.0.211",
     "@playwright/test": "1.24.2",
     "@svgr/cli": "6.3.1",
+    "@tailwindcss/forms": "^0.5.2",
     "@types/node": "18.6.4",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",

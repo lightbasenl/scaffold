@@ -1,6 +1,7 @@
 import type { GetStaticPropsContext } from "next";
 
 import Head from "next/head";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { useTranslation } from "next-i18next";
@@ -82,21 +83,19 @@ export default function Home() {
             🔥
           </span>
           <div className="h-16" />
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center space-x-4">
             <a
               href="https://docs.lightba.se/frontend/scaffold"
               className="shadow-md bg-blue-500 py-4 px-6 rounded-lg text-blue-100 font-bold hover:bg-blue-600 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
             >
               {t("home.docs")}
             </a>
-            <div className="w-3" />
             <a
               href="https://lightbase.nl/"
               className="border shadow-md bg-white py-4 px-6 rounded-lg text-gray-700 font-bold hover:bg-gray-100 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
             >
               {t("home.aboutUs")}
             </a>
-            <div className="w-3" />
             <button
               data-test="index.login"
               className="border shadow-md bg-white py-4 px-6 rounded-lg text-gray-700 font-bold hover:bg-gray-100 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
@@ -110,6 +109,12 @@ export default function Home() {
             >
               {t("home.login")}
             </button>
+            <Link
+              href="/login"
+              className="border shadow-md bg-white py-4 px-6 rounded-lg text-gray-700 font-bold hover:bg-gray-100 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
+            >
+              {t("home.loginAccount")}
+            </Link>
           </div>
           <p>
             {JSON.stringify(

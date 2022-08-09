@@ -1,20 +1,26 @@
 {
   "common": {
     "appName": "Scaffold",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "errorTitle": "Er ging iets fout"
   },
   "home": {
     "cta": "Laten we wat werk verzetten!",
     "aboutUs": "Over ons",
     "docs": "Documentatie",
     "login": "Inloggen",
+    "loginAccount": "Inloggen met account",
     "logout": "Uitloggen"
   },
   "login": {
-    "cta": "Let's log in!"
+    "cta": "Laten we inloggen!",
+    "email": "Email",
+    "password": "Wachtwoord",
+    "signIn": "Inloggen"
   },
   "errors": {
-    "unknown": "Onbekende error"
+    "unknown": "Unknown error",
+    "authPasswordBased.login.unknownEmail": "Inloggegevens zijn ongeldig."
   },
   "errorPages": {
     "404": {
