@@ -1,17 +1,26 @@
 {
   "common": {
     "appName": "Scaffold",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "errorTitle": "Something went wrong"
   },
   "home": {
     "cta": "Let's get some work done!",
     "aboutUs": "About us",
     "docs": "Documentation",
     "login": "Login",
+    "loginAccount": "Login w/ account",
     "logout": "Logout"
   },
+  "login": {
+    "cta": "Let's log in!",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in"
+  },
   "errors": {
-    "unknown": "Unknown error"
+    "unknown": "Unknown error",
+    "authPasswordBased.login.unknownEmail": "Invalid login credentials provided."
   },
   "errorPages": {
     "404": {

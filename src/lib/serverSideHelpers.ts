@@ -43,8 +43,12 @@ export function defaultServerSideProps({ authDescription, namespaces }: PageConf
 
       authCheckResult = authDescriptionCheck(authDescription, authMe);
     } catch (e) {
-      // TODO(platform): update destination
-      authCheckResult.redirect = "/";
+      if (authDescription.enforceSessionType !== "guest") {
+        // TODO(platform): what to do when user is guest, but accesses non-guest route
+        authCheckResult.redirect = "/";
+      }
+
+      // User is a guest, accessing a guest route, continue
     }
 
     if (authCheckResult.redirect) {

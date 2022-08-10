@@ -3,7 +3,7 @@ import type { AuthMeResponseApi } from "generated/common/types";
 
 export interface AuthDescription {
   enforceLoginType?: AuthSessionApi["loginType"];
-  enforceSessionType?: AuthSessionApi["type"];
+  enforceSessionType?: AuthSessionApi["type"] | "guest";
   requireAllPermissions?: AuthPermissionIdentifierApi[];
   requireSinglePermission?: AuthPermissionIdentifierApi[];
 }
@@ -18,7 +18,8 @@ export function authDescriptionCheck(
   if (description.enforceSessionType && data.session.type !== description.enforceSessionType) {
     return {
       // TODO(platform): update destination
-      redirect: "/",
+      // Redirect user if accessing a guest-only route to private area.
+      redirect: description.enforceSessionType === "guest" ? "/private" : "/",
     };
   }
 

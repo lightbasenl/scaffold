@@ -11,7 +11,7 @@ export function translateErrorKeyOrReport({
   info?: unknown;
   options?: { alwaysReportError?: boolean };
 }): string {
-  const translated = t(key);
+  const translated = t(`errors.${key}`);
 
   if (translated === key) {
     Sentry.captureException(new Error(`Unknown error key: ${key}`), {
