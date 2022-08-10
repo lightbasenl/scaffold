@@ -10,7 +10,7 @@
     "release": "WITH_SENTRY=true yarn build",
     "pretty": "prettier --check '**/*.{json,md,js,mjs}' --write",
     "format": "yarn pretty && yarn lint --fix",
-    "generate": "yarn generate:queries",
+    "generate": "yarn generate:api",
     "generate:api": "node ./scripts/generate.mjs",
     "generate:svg": "yarn svgr --ignore-existing -d src/assets assets && yarn format",
     "test": "true",
