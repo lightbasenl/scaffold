@@ -37,7 +37,7 @@
   "devDependencies": {
     "@compas/code-gen": "0.0.211",
     "@compas/stdlib": "0.0.211",
-    "@playwright/test": "1.24.2",
+    "@playwright/test": "1.25.0",
     "@svgr/cli": "6.3.1",
     "@tailwindcss/forms": "^0.5.2",
     "@types/node": "18.6.4",
