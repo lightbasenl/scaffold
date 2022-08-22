@@ -32,7 +32,6 @@ npx create next-app --example=https://github.com/lightbasenl/scaffold
 
 Next, run through every occurrence of `TODO(platform)` and follow the instructions.
 
-
 # Commands
 
 The following commands are included:
@@ -50,7 +49,11 @@ The following commands are included:
 
 # Environment variables
 
-*List default required environment variables*
+| Command                  | Description                                                                                         |
+|--------------------------|-----------------------------------------------------------------------------------------------------|
+| `SENTRY_AUTH_TOKEN`      | This is used to push the source-maps to Sentry, and create a new release                            |
+| `SENTRY_RELEASE`         | This should be set to the commit SHA hash, so it can be tracked which deploy introduced regressions |
+| `NEXT_PUBLIC_SENTRY_DSN` | This is the Sentry DSN that should be used to log errors to                                         |
 
 # Directory structure
 
@@ -111,7 +114,7 @@ Some examples of base components are: `<Input />`, `<Checkbox />`, `<TextArea />
 
 # Testing
 
-## End to End testing
+## End-to-end testing
 
 *Describe using Playwright for End to End testing and where tests live, do not go into writing tests. Refer to Playwright’s docs for more information.*
 
