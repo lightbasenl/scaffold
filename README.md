@@ -4,21 +4,21 @@
 
 * [Getting started](#getting-started)
 * [Commands](#commands)
+* [Environment variables](#environment-variables)
 * [Directory structure](#directory-structure)
 * [Pages](#pages)
 * [Components](#components)
+* [Testing](#testing)
 * [Styling](#styling)
 * [Localisation](#localisation)
+* [Authentication](#authentication)
+* [Multi-tenancy](#multi-tenancy)
+* [API code generation](#api-code-generation)
+* [SVG generation](#svg-generation)
 * [Included libraries](#included-libraries)
 * [Default headers](#default-headers)
 * [Content Security Policy](#content-security-policy)
 * [Browser compatibility](#browser-compatibility)
-* [Testing](#testing)
-* [API code generation](#api-code-generation)
-* [SVG generation](#svg-generation)
-* [Authentication](#authentication)
-* [Multi-tenancy](#multi-tenancy)
-* [Environment variables](#environment-variables)
 * [Error monitoring](#error-monitoring)
 * [Dynamic `robots.txt`](#dynamic-robotstxt)
 * [Health check](#health-check)
@@ -47,6 +47,10 @@ The following commands are included:
 | `yarn generate:api` | Generate API code                         |
 | `yarn generate:svg` | Generate SVG components                   |
 | `yarn test:e2e`     | Run end-to-end tests                      |
+
+# Environment variables
+
+*List default required environment variables*
 
 # Directory structure
 
@@ -105,6 +109,18 @@ Components that can be used throughout the app are called base components. These
 
 Some examples of base components are: `<Input />`, `<Checkbox />`, `<TextArea />`, `<Button />`, etc.
 
+# Testing
+
+## End to End testing
+
+*Describe using Playwright for End to End testing and where tests live, do not go into writing tests. Refer to Playwright’s docs for more information.*
+
+*Mention that on CI a local backend instance is used.*
+
+## Unit testing
+
+*Describe using Jest for unit tests. Give some information about the kind of functions you might want to test. E.g. helpers in `src/lib`*
+
 # Styling
 
 [TailwindCSS](https://tailwindcss.com/) is used for styling.
@@ -125,6 +141,76 @@ Mention the ability of passing namespaces to be loaded to `defaultGetServerSideP
 
 *Mention using `buildStaticPaths` and `getPageProps` as `getStaticPaths` and `getStaticProps` exports.*
 
+# Authentication
+
+*Describe how authentication with our backends typically works.*
+
+*Mention the interceptors in `_app.page.tsx` and briefly describe what they do.*
+
+## Authorization
+
+### Authorization with `getServerSideProps`
+
+*Describe how to use the `authDescription`*
+
+### Client-side authorization
+
+*Describe how to render components with the `useAuthenticate` hook and mention layout shifts.*
+
+# Multi-tenancy
+
+*A general explanation of what multi-tenancy is and why we use it.*
+
+## Tenant configuration
+
+*Describe what the tenant config file is and how it’s typically updated (lpc sync).*
+
+## Tenant pages
+
+*Descibe that tenant pages live in `_tenants/[tenant]` and that they require a `getServerSideProps` export with `getPageProps` to work.*
+
+*Describe how tenant information is made available in pages.*
+
+*Give notice that the tenant information is used for creating the api instance in `_app.page.tsx`*
+
+### Static pages
+
+*Mention using `buildStaticPaths` and `getPageProps` as `getStaticPaths` and `getStaticProps` exports.*
+
+### Invalid tenant error page
+
+*Give notice that the UI for the invalid tenant error page can be updated in `412.page.tsx`*
+
+### Forcing a specific tenant
+
+You can use the `TENANT_ORIGIN` environment variable to make the tenant resolve to any of the tenant’s specified in the tenant configuration.
+
+```
+# .env.local
+TENANT_ORIGIN=scaffold.dev.lightbase.nl
+```
+
+### Local API
+
+You can use the `TENANT_API_URL` environment variable to specify a local API url to use for the tenant.
+
+```
+# .env.local
+TENANT_ORIGIN=scaffold.dev.lightbase.nl
+TENANT_API_URL=http://localhost:3001
+```
+
+# API code generation
+
+*Describe Compas and code generation in Scaffold.*
+
+# SVG generation
+
+*Describe how `yarn generate:svg` uses SVGO under the hood and that optimizations are applied automatically.*
+
+*Explain that svg’s are to be placed in `assets/svg` (is this `/assets` directory really needed?) and that the generated output is placed in `src/assets/svg`.*
+
+*Explain that, by default, existing files are not overwritten to allow for modification and that it’s easiest to delete a generated SVG component if they wish to regenerate it.*
 
 # Included libraries
 
@@ -227,93 +313,6 @@ module.exports = withPreset({
 });
 
 ```
-
-# Testing
-
-## End to End testing
-
-*Describe using Playwright for End to End testing and where tests live, do not go into writing tests. Refer to Playwright’s docs for more information.*
-
-*Mention that on CI a local backend instance is used.*
-
-## Unit testing
-
-*Describe using Jest for unit tests. Give some information about the kind of functions you might want to test. E.g. helpers in `src/lib`*
-
-# API code generation
-
-*Describe Compas and code generation in Scaffold.*
-
-# SVG generation
-
-*Describe how `yarn generate:svg` uses SVGO under the hood and that optimizations are applied automatically.*
-
-*Explain that svg’s are to be placed in `assets/svg` (is this `/assets` directory really needed?) and that the generated output is placed in `src/assets/svg`.*
-
-*Explain that, by default, existing files are not overwritten to allow for modification and that it’s easiest to delete a generated SVG component if they wish to regenerate it.*
-
-# Authentication
-
-*Describe how authentication with our backends typically works.*
-
-*Mention the interceptors in `_app.page.tsx` and briefly describe what they do.*
-
-## Authorization
-
-### Authorization with `getServerSideProps`
-
-*Describe how to use the `authDescription`*
-
-### Client-side authorization
-
-*Describe how to render components with the `useAuthenticate` hook and mention layout shifts.*
-
-# Multi-tenancy
-
-*A general explanation of what multi-tenancy is and why we use it.*
-
-## Tenant configuration
-
-*Describe what the tenant config file is and how it’s typically updated (lpc sync).*
-
-## Tenant pages
-
-*Descibe that tenant pages live in `_tenants/[tenant]` and that they require a `getServerSideProps` export with `getPageProps` to work.*
-
-*Describe how tenant information is made available in pages.*
-
-*Give notice that the tenant information is used for creating the api instance in `_app.page.tsx`*
-
-### Static pages
-
-*Mention using `buildStaticPaths` and `getPageProps` as `getStaticPaths` and `getStaticProps` exports.*
-
-### Invalid tenant error page
-
-*Give notice that the UI for the invalid tenant error page can be updated in `412.page.tsx`*
-
-### Forcing a specific tenant
-
-You can use the `TENANT_ORIGIN` environment variable to make the tenant resolve to any of the tenant’s specified in the tenant configuration.
-
-```
-# .env.local
-TENANT_ORIGIN=scaffold.dev.lightbase.nl
-```
-
-### Local API
-
-You can use the `TENANT_API_URL` environment variable to specify a local API url to use for the tenant.
-
-```
-# .env.local
-TENANT_ORIGIN=scaffold.dev.lightbase.nl
-TENANT_API_URL=http://localhost:3001
-```
-
-# Environment variables
-
-*List default required environment variables*
 
 # Error monitoring
 
