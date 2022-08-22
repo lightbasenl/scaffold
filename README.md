@@ -239,18 +239,23 @@ security practice. You can overwrite these headers by
 
 # Content Security Policy
 
-*Give a very brief description of what Content Security Policy is, refer to MDN for a more detailed explanation.*
+[CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) allows restricting what sources assets (CSS, JavaScript, Fonts, etc.) can be loaded from.
 
-*Explain that the policy is currently defined in `middleware.api.ts`.*
+By default, the following policy is set in `/src/middleware.api.ts`:
 
-*Show a list of the different policies set with a short description.*
+| Policy              | Value                                     |
+|---------------------|-------------------------------------------|
+| `default-src`       | `'self'`                  |
+| `frame-ancestors`   | `'none'`                    |
+| `style-src`         | `'self' 'unsafe-inline' fonts.googleapis.com`                      |
+| `font-src`          | `'self' fonts.gstatic.com` |
+| `script-src`        | `'self'`                  |
 
-*Highlight the fact that in development, some policies are less strict because Next.js needs them to provide tooling.*
+***Note**: In development, the policy is more lax to allow Next.js to provide developer tooling.*
 
 # Browser compatibility
 
-
-When next-preset is used, a check is run on `next build` to make sure that the
+When next-preset is used, a check is run on `yarn build` to make sure that the
 output does not contain any non-ES5 JavaScript code. This is done so your app
 does not unexpectedly break in certain browsers.
 
@@ -329,4 +334,4 @@ A dynamic `/robots.txt` is powered via `/api/robots` which defaults to disallowi
 
 # Health check
 
-We have a simple `/api/_health` so in production the load balancer knows when the Next.js server is running or not.
+There's a simple health check API route: `/api/_health`. In production, this API route can be used by DevOps tools to determine whether the Next.js server is running or not.
