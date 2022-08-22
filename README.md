@@ -116,13 +116,13 @@ Some examples of base components are: `<Input />`, `<Checkbox />`, `<TextArea />
 
 ## End-to-end testing
 
-*Describe using Playwright for End to End testing and where tests live, do not go into writing tests. Refer to Playwright’s docs for more information.*
+End-to-end tests are set up with [Playwright](https://playwright.dev/) and located in `/e2e`. 
 
-*Mention that on CI a local backend instance is used.*
+On CI, a clean backend instance is spun up to make sure the environment is always the same.
 
 ## Unit testing
 
-*Describe using Jest for unit tests. Give some information about the kind of functions you might want to test. E.g. helpers in `src/lib`*
+Unit tests use [Jest](https://jestjs.io/) and are located with the code they test. For example: if you have a function named `ucfirst` located in `/src/lib/ucfirst.ts`, the unit test should be located in `/src/lib/ucfirst.test.ts`.
 
 # Styling
 
