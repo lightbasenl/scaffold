@@ -205,7 +205,11 @@ TENANT_API_URL=http://localhost:3001
 
 # API code generation
 
-*Describe Compas and code generation in Scaffold.*
+In [Compas](https://compasjs.com/)-backed projects generation of API code (hooks, api client) is provided out of the box.
+
+The script handling generation is located in `/scripts/generate.mjs`.
+
+Generated code is available in `/src/generated`.
 
 # SVG generation
 
@@ -255,11 +259,11 @@ By default, the following policy is set in `/src/middleware.api.ts`:
 
 # Browser compatibility
 
-When next-preset is used, a check is run on `yarn build` to make sure that the
-output does not contain any non-ES5 JavaScript code. This is done so your app
-does not unexpectedly break in certain browsers.
+A check is run on `yarn build` to make sure that the output does 
+not contain any non-ES5 JavaScript code. This is done so your app
+does not unexpectedly break in older browsers.
 
-When offending output is found, the build fails and you're notified.
+When offending output is found the build fails, and you are notified.
 
 ```
 [PRESET] Checking browser compatibility...
