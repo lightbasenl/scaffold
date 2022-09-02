@@ -42,5 +42,5 @@ The following scenarios are supported:
 There are a few required environment variables in production;
 
 - **SENTRY_AUTH_TOKEN**: This is used to push the source-maps to Sentry, and create a new release
-- **SENTRY_RELEASE**: Should be set to the commit sha, so we can track which deploy introduced regressions
-- **SENTRY_ENV**: Tell Sentry which environment is (acceptance, staging, production)
+- **SENTRY_RELEASE**: Should be set to the commit sha, so we can track which deploy introduced regressions.
+  This is automatically done in the provided `.env` file.
