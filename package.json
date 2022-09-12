@@ -61,5 +61,8 @@
   },
   "browserslist": [
     "defaults"
+  ],
+  "workspaces": [
+    "vendor/**"
   ]
 }

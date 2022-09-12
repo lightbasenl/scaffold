@@ -4,6 +4,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+import { add } from "@lightbase/test";
 import { useTranslation } from "next-i18next";
 
 import { useAuthMe } from "generated/auth/reactQueries";
@@ -80,7 +81,7 @@ export default function Home() {
           <h1 className="heading text-6xl font-medium text-center">{t("common.appName")}</h1>
           {t("home.cta")}{" "}
           <span role="img" aria-label="fire">
-            🔥
+            🔥 Sum: {add(1, 2)}
           </span>
           <div className="h-16" />
           <div className="flex items-center justify-center space-x-4">
