@@ -132,57 +132,88 @@ to think about naming classes and managing (S)CSS files.
 
 # Localisation
 
-*General explanation of our integration with `next-i18next` and possibly localize?*
+[next-i18next](https://github.com/i18next/next-i18next) is set up out of the box. 
 
-Mention the ability of passing namespaces to be loaded to `defaultGetServerSideProps` and `getPageProps`
-
-## Private localisation files
-
-*Explain when you might want to use private localisation  and how it works.*
-
-## Static pages
-
-*Mention using `buildStaticPaths` and `getPageProps` as `getStaticPaths` and `getStaticProps` exports.*
+Localisation files are located in `src/locales`. Every file within this folder is a namespace, that can be loaded in a page by passing the namespaces parameter to `defaultServerSideProps` or `getPageProps`. By default, the `public` and `private` namespaces are included.
 
 # Authentication
 
-*Describe how authentication with our backends typically works.*
+Authentication with Compas-powered backends typically happens with an `Authorization` header.
 
-*Mention the interceptors in `_app.page.tsx` and briefly describe what they do.*
+The `authAxiosRequestInterceptor` and `authAxiosResponseErrorInterceptor` interceptors handle setting the headers and manage authentication cookies.
 
 ## Authorization
 
 ### Authorization with `getServerSideProps`
 
-*Describe how to use the `authDescription`*
+For server-side authorization, an `authDescription` can be passed to `defaultServerSideProps`.
+
+```tsx
+export const getServerSideProps = defaultServerSideProps({
+  authDescription: {
+    enforceSessionType: "user",
+    enforceLoginType: "anonymousBased",
+  },
+  namespaces: ["private", "public"],
+});
+```
 
 ### Client-side authorization
 
-*Describe how to render components with the `useAuthenticate` hook and mention layout shifts.*
+Client-side authorization can be done through the use of the `useAuthenticate` hook. Note however, that client-side authorization may cause [Cumulative Layout Shift](https://web.dev/cls/) in your application.
 
 # Multi-tenancy
 
-*A general explanation of what multi-tenancy is and why we use it.*
+Multi-tenancy is a feature that allows using the same application instance for multiple clients or oganisations.
 
 ## Tenant configuration
 
-*Describe what the tenant config file is and how it’s typically updated (lpc sync).*
+The tenant configuration is located in `config/tenants.json`. This file contains possible configurations for hostnames that serve the application.
+
+This file is typically managed by `@lpc/sync` and should not be changed manually.
 
 ## Tenant pages
 
-*Descibe that tenant pages live in `_tenants/[tenant]` and that they require a `getServerSideProps` export with `getPageProps` to work.*
+Tenant pages are located in `src/pages/_tenants/[tenants]` and must always have a `getServerSideProps` export with `defaultServerSideProps` or a `getStaticProps` export with `getPageProps`.
 
-*Describe how tenant information is made available in pages.*
+Tenant details can be read from the `TenantConfigContext` context with the `useContext` hook or from `pageProps` in `_app.page.tsx`.
 
-*Give notice that the tenant information is used for creating the api instance in `_app.page.tsx`*
+By default, the tenant details are used to create an API client in `_app.page.tsx`.
 
 ### Static pages
 
-*Mention using `buildStaticPaths` and `getPageProps` as `getStaticPaths` and `getStaticProps` exports.*
+Some extra steps need to be taken in order to generate tenant-aware static pages.
+
+A static page needs to call `getPageProps` inside `getStaticProps` and return paths returned by `buildStaticPaths` in `getStaticPaths`.
+
+E.g.
+
+```tsx
+export const getStaticProps = async (ctx: GetStaticPropsContext) => {
+  if (typeof ctx.params?.tenant !== "string") {
+    throw new Error("Tenant is required!");
+  }
+
+  return {
+    props: {
+      ...(await getPageProps({ tenant: ctx.params?.tenant, locale: ctx.locale })),
+    },
+  };
+};
+
+export async function getStaticPaths() {
+  const pageTree = buildStaticPaths([{}]);
+
+  return {
+    paths: pageTree,
+    fallback: "blocking",
+  };
+}
+```
 
 ### Invalid tenant error page
 
-*Give notice that the UI for the invalid tenant error page can be updated in `412.page.tsx`*
+The tenant error page can be customized in `412.page.tsx`.
 
 ### Forcing a specific tenant
 
@@ -213,19 +244,20 @@ Generated code is available in `/src/generated`.
 
 # SVG generation
 
-*Describe how `yarn generate:svg` uses SVGO under the hood and that optimizations are applied automatically.*
+`.svg` files can be automatically optimized using SVGO and turned into React components by using the `yarn generate:svg` command.
 
-*Explain that svg’s are to be placed in `assets/svg` (is this `/assets` directory really needed?) and that the generated output is placed in `src/assets/svg`.*
+SVG files can be placed in `assets/svg`, the generated output is placed in `src/assets/svg`.
 
-*Explain that, by default, existing files are not overwritten to allow for modification and that it’s easiest to delete a generated SVG component if they wish to regenerate it.*
+`yarn generate:svg` will not overwrite existing files in the `src/assets/svg` directory to accommodate changes. To re-generate an existing file, simply delete it and run `yarn generate:svg`.
 
 # Included libraries
 
-*List every important library as its own heading with some details about what we use it for and why it’s better for us than other alternatives  (max. 2 short paragraphs).*
+## @tanstack/react-query   
 
-*For react-query, describe the configured defaults*
+By default, React Query is configured with a `staleTime` of 5 minutes and will retry a request a maximum of 3 times if the request failed due to a network error.
 
-*Note: make sure Formik is replaced with react-hook-form in this section*
+## react-hook-form
+Previous versions of this scaffold shipped with [Formik](https://github.com/jaredpalmer/formik). However, time has learned us that [react-hook-form](https://react-hook-form.com/) is a much better fit for us and our projects.
 
 # Default headers
 
@@ -237,9 +269,9 @@ security practice. You can overwrite these headers by
 |--------------------------------------------------------------------------------------------------------------------|------------------------|
 | [`X-Frame-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)                     | `deny`                 |
 | [`X-Content-Type-Options`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options)       | `nosniff`              |
-| [`Referrer-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy)                     | `same-origin`          |                                                                                      |
-| [`Strict-Transport-Security`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security) | `max-age=31536000`     |                                                                                      |
-| [`Permissions-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy)                   | `interest-cohort=()`   |                                                                                      |
+| [`Referrer-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy)                     | `same-origin`          |                                                                                     
+| [`Strict-Transport-Security`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security) | `max-age=31536000`     |                                                                                     
+| [`Permissions-Policy`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy)                   | `interest-cohort=()`   |                                                                                      
 
 # Content Security Policy
 
