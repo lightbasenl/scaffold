@@ -7,7 +7,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
-    newNextLinkBehavior: true
+    newNextLinkBehavior: true,
   },
   output: "standalone",
   preset: {

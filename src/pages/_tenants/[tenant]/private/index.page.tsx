@@ -48,17 +48,17 @@ export default function Home() {
         {t("common.skipToContent")}
       </a>
 
-      <div className="container mx-auto min-h-screen flex flex-col justify-center items-center">
+      <div className="container mx-auto flex min-h-screen flex-col items-center justify-center">
         <SvgLogo className="h-12 w-auto" />
 
         <main id="main">
-          <h1 className="heading text-6xl font-medium text-center">{t("private:common.appName")}</h1>
+          <h1 className="heading text-center text-6xl font-medium">{t("private:common.appName")}</h1>
           <div className="h-16" />
           <div className="flex items-center justify-center">
             <div className="w-3" />
             <button
               data-test="private.index.logout"
-              className="border shadow-md bg-white py-4 px-6 rounded-lg text-gray-700 font-bold hover:bg-gray-100 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
+              className="rounded-lg border bg-white py-4 px-6 font-bold text-gray-700 shadow-md ring-blue-600 ring-offset-2 hover:bg-gray-100 hover:underline focus:outline-none focus:ring-2"
               onClick={authLogout}
             >
               {t("home.logout")}

@@ -1,0 +1,23 @@
+{
+  "name": "@lightbase/eslint-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./src/index.js",
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "5.38.0",
+    "@typescript-eslint/parser": "5.38.0",
+    "eslint": "8.23.1",
+    "eslint-config-next": "12.3.1",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-no-relative-import-paths": "1.4.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-unused-imports": "2.0.0",
+    "prettier": "2.7.1",
+    "prettier-plugin-tailwindcss": "0.1.13"
+  },
+  "files": [
+    "README.md",
+    "src/index.js"
+  ],
+  "gitHead": "7ab4ce3b371291b0560752f986e5e96278bf7028"
+}

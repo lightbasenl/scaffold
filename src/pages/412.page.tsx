@@ -32,7 +32,7 @@ export default function FourOneTwo() {
       <div className="min-h-screen bg-white px-4 py-16 sm:px-6 sm:py-24 md:grid md:place-items-center lg:px-8">
         <div className="mx-auto max-w-max">
           <main className="sm:flex">
-            <p className="text-4xl font-extrabold text-blox-blue-600 sm:text-5xl">412</p>
+            <p className="text-blox-blue-600 text-4xl font-extrabold sm:text-5xl">412</p>
             <div className="sm:ml-6">
               <div className="sm:border-l sm:border-gray-200 sm:pl-6">
                 <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">

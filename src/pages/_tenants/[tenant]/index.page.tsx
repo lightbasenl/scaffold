@@ -72,12 +72,12 @@ export default function Home() {
         {t("common.skipToContent")}
       </a>
 
-      <div className="container mx-auto min-h-screen flex flex-col justify-center items-center">
+      <div className="container mx-auto flex min-h-screen flex-col items-center justify-center">
         <SvgLogo className="h-12 w-auto" />
         <div className="h-4" />
 
         <main id="main">
-          <h1 className="heading text-6xl font-medium text-center">{t("common.appName")}</h1>
+          <h1 className="heading text-center text-6xl font-medium">{t("common.appName")}</h1>
           {t("home.cta")}{" "}
           <span role="img" aria-label="fire">
             🔥
@@ -86,19 +86,19 @@ export default function Home() {
           <div className="flex items-center justify-center space-x-4">
             <a
               href="https://docs.lightba.se/frontend/scaffold"
-              className="shadow-md bg-blue-500 py-4 px-6 rounded-lg text-blue-100 font-bold hover:bg-blue-600 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
+              className="rounded-lg bg-blue-500 py-4 px-6 font-bold text-blue-100 shadow-md ring-blue-600 ring-offset-2 hover:bg-blue-600 hover:underline focus:outline-none focus:ring-2"
             >
               {t("home.docs")}
             </a>
             <a
               href="https://lightbase.nl/"
-              className="border shadow-md bg-white py-4 px-6 rounded-lg text-gray-700 font-bold hover:bg-gray-100 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
+              className="rounded-lg border bg-white py-4 px-6 font-bold text-gray-700 shadow-md ring-blue-600 ring-offset-2 hover:bg-gray-100 hover:underline focus:outline-none focus:ring-2"
             >
               {t("home.aboutUs")}
             </a>
             <button
               data-test="index.login"
-              className="border shadow-md bg-white py-4 px-6 rounded-lg text-gray-700 font-bold hover:bg-gray-100 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
+              className="rounded-lg border bg-white py-4 px-6 font-bold text-gray-700 shadow-md ring-blue-600 ring-offset-2 hover:bg-gray-100 hover:underline focus:outline-none focus:ring-2"
               onClick={() => {
                 if (user) {
                   return router.push("/private");
@@ -111,7 +111,7 @@ export default function Home() {
             </button>
             <Link
               href="/login"
-              className="border shadow-md bg-white py-4 px-6 rounded-lg text-gray-700 font-bold hover:bg-gray-100 hover:underline focus:ring-2 ring-offset-2 ring-blue-600 focus:outline-none"
+              className="rounded-lg border bg-white py-4 px-6 font-bold text-gray-700 shadow-md ring-blue-600 ring-offset-2 hover:bg-gray-100 hover:underline focus:outline-none focus:ring-2"
             >
               {t("home.loginAccount")}
             </Link>
