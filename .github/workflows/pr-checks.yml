@@ -114,7 +114,7 @@ jobs:
 
       - name: Run e2e
         env:
-          TENANT_ORIGIN: "scaffold.dev.lightbase.nl"
+          TENANT_ORIGIN: "scaffold.acc.lightbase.nl"
           TENANT_API_URL: "http://localhost:3001"
         run: |
           cd ./frontend
