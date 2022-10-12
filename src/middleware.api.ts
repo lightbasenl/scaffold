@@ -5,7 +5,12 @@ import tenantsConfig from "../config/tenants.json";
 
 const PUBLIC_FILE = /\.(.*)$/;
 
-let ContentSecurityPolicy = `
+export default function middleware(req: NextRequest) {
+  const response = NextResponse.next();
+
+  const url = req.nextUrl;
+
+  let ContentSecurityPolicy = `
   default-src 'self';
   frame-ancestors 'none';
   style-src 'self' 'unsafe-inline' fonts.googleapis.com;
@@ -13,21 +18,16 @@ let ContentSecurityPolicy = `
   script-src 'self'
 `;
 
-if (process.env.NODE_ENV !== "production") {
-  // In development Next.js needs certain sources to be allowed for DX.
-  ContentSecurityPolicy = `
+  if (process.env.NODE_ENV !== "production") {
+    // In development Next.js needs certain sources to be allowed for DX.
+    ContentSecurityPolicy = `
     default-src 'self';
     frame-ancestors 'none';
     style-src 'self' 'unsafe-inline' fonts.googleapis.com;
     font-src 'self' fonts.gstatic.com;
     script-src 'self' 'unsafe-eval';
   `;
-}
-
-export default function middleware(req: NextRequest) {
-  const response = NextResponse.next();
-
-  const url = req.nextUrl;
+  }
 
   // Get hostname of request
   let hostname = req.headers.get("host") ?? "";
