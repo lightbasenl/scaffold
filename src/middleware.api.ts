@@ -15,7 +15,7 @@ export default function middleware(req: NextRequest) {
   frame-ancestors 'none';
   style-src 'self' 'unsafe-inline' fonts.googleapis.com;
   font-src 'self' fonts.gstatic.com;
-  script-src 'self'
+  script-src 'self';
 `;
 
   if (process.env.NODE_ENV !== "production") {
