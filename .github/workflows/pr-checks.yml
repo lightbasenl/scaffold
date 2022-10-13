@@ -125,4 +125,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: playwright-results
-          path: test-results
+          path: ./frontend/test-results
