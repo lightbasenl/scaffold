@@ -1,5 +1,5 @@
 import type { TFunction } from "next-i18next";
-import type { Path, UseFormSetError } from "react-hook-form";
+import type { FieldValues, Path, UseFormSetError } from "react-hook-form";
 
 import { useTranslation } from "next-i18next";
 
@@ -9,10 +9,10 @@ import { translateErrorKeyOrReport } from "lib/translateErrorKeyOrReport";
 
 import Alert from "components/Alert";
 
-export function translateValidationErrors<FormValues>(
+export function translateValidationErrors<TFieldValues extends FieldValues = FieldValues>(
   t: TFunction,
   error: AppErrorResponse,
-  setError: UseFormSetError<FormValues>,
+  setError: UseFormSetError<TFieldValues>,
 ) {
   let isFormError = false;
 
@@ -31,7 +31,7 @@ export function translateValidationErrors<FormValues>(
       }
     >,
   )) {
-    const field = key.replace("$.", "") as Path<FormValues>;
+    const field = key.replace("$.", "") as Path<TFieldValues>;
     const message = translateErrorKeyOrReport({
       t,
       key: errorObject?.key,
@@ -44,12 +44,12 @@ export function translateValidationErrors<FormValues>(
   return isFormError;
 }
 
-export default function FormErrorHandler<FormValues>({
+export default function FormErrorHandler<TFieldValues extends FieldValues = FieldValues>({
   error,
   setError,
 }: {
   error?: AppErrorResponse | null;
-  setError: UseFormSetError<FormValues>;
+  setError: UseFormSetError<TFieldValues>;
 }) {
   const { t } = useTranslation();
 

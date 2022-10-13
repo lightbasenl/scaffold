@@ -1,10 +1,12 @@
 import "css/tailwind.css";
 
+import type { SSRConfig as i18nSSRConfig } from "next-i18next";
+
 import { useEffect, useState } from "react";
 
 import type { AppProps } from "next/app";
 
-import { captureException } from "@sentry/hub";
+import { captureException } from "@sentry/nextjs";
 import { Hydrate, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { appWithTranslation } from "next-i18next";
@@ -14,12 +16,20 @@ import { useAuthMe } from "generated/auth/reactQueries";
 import { ApiProvider } from "generated/common/reactQuery";
 
 import { TenantConfigProvider } from "tenants/TenantConfigProvider";
+import type { SSRConfig } from "tenants/types";
 
 import ErrorPage from "pages/_error.page";
 
 import { authAxiosRequestInterceptor, authAxiosResponseErrorInterceptor } from "auth/interceptors";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({
+  Component,
+  pageProps,
+}: AppProps<{
+  _lpcTenant: SSRConfig["_lpcTenant"];
+  dehydratedState: unknown;
+  _nextI18Next: i18nSSRConfig["_nextI18Next"];
+}>) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
