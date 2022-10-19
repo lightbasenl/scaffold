@@ -89,6 +89,7 @@ module.exports = {
 
         "@typescript-eslint/consistent-type-imports": "error",
         "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/prefer-ts-expect-error": "error",
         "@typescript-eslint/ban-ts-comment": "off",
 
         "@next/next/no-img-element": "off",

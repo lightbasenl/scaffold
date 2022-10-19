@@ -4,9 +4,9 @@
   "private": true,
   "main": "./src/index.js",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "5.38.0",
-    "@typescript-eslint/parser": "5.38.0",
-    "eslint": "8.23.1",
+    "@typescript-eslint/eslint-plugin": "5.40.0",
+    "@typescript-eslint/parser": "5.40.0",
+    "eslint": "8.25.0",
     "eslint-config-next": "12.3.1",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-no-relative-import-paths": "1.4.0",
@@ -19,5 +19,5 @@
     "README.md",
     "src/index.js"
   ],
-  "gitHead": "3578023ca84f6730832087299d44429bc47a2bfd"
+  "gitHead": "049c6603bb60fe63712c55a766a5fcebccde7beb"
 }
