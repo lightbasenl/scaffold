@@ -6,10 +6,17 @@ mainFn(import.meta, main);
 
 async function main() {
   const app = new App({ verbose: true });
+  App.defaultEslintIgnore.push(
+    "@typescript-eslint/no-explicit-any",
+    "unused-imports/no-unused-imports",
+    "@typescript-eslint/no-unused-vars",
+    "@typescript-eslint/no-empty-interface",
+    "@typescript-eslint/ban-types",
+  );
 
   let fromRemote = await loadApiStructureFromRemote(
     Axios,
-    process.env.TENANT_API_URL ?? "https://api.scaffold.dev.lightbase.nl",
+    process.env.TENANT_API_URL ?? "https://api.scaffold.acc.lightbase.nl",
   );
 
   app.extend(fromRemote);
