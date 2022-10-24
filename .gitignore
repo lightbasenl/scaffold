@@ -37,3 +37,9 @@ yarn-error.log*
 
 # playwright
 test-results
+
+# Localazy
+localazy.keys.json
+
+src/locale/
+!src/locale/en

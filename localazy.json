@@ -1,0 +1,15 @@
+{
+  "upload": {
+    "type": "json",
+    "files": [
+      {
+        "pattern": "src/locale/en/*.json",
+        "lang": "en"
+      }
+    ]
+  },
+  "download": {
+    "files": "src/locale/${lang}/${file}",
+    "includeSourceLang": true
+  }
+}
