@@ -65,6 +65,10 @@ jobs:
           restore-keys: |
             next-build-cache-${{ hashFiles('./yarn.lock') }}-
 
+      - name: Push source translations to Localazy
+        run: |
+          npx @localazy/cli upload -r ${{ secrets.LOCALAZY_READ_KEY }} -w ${{ secrets.LOCALAZY_WRITE_KEY }}
+
       - name: Run build
         run: |
           yarn
