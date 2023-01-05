@@ -61,6 +61,7 @@ export default function Login() {
             viewBox="0 0 1155 678"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
           >
             <path
               fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)"
@@ -87,8 +88,7 @@ export default function Login() {
             <nav className="flex h-9 items-center justify-between" aria-label="Global">
               <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
                 <a href="/" className="-m-1.5 p-1.5">
-                  <span className="sr-only">Lightbase</span>
-                  <SvgLogo className="mx-auto h-12 w-auto" />
+                  <SvgLogo className="mx-auto h-12 w-auto" aria-label="Lightbase" />
                 </a>
               </div>
 
@@ -107,7 +107,7 @@ export default function Login() {
         <main id="main">
           <div className="relative px-6 lg:px-8">
             <div className="mx-auto max-w-3xl pt-20 pb-32 sm:pt-48 sm:pb-40">
-              <h2 className="mb-8 text-4xl font-bold tracking-tight sm:text-center">{t("login.cta")}</h2>
+              <h1 className="mb-8 text-4xl font-bold tracking-tight sm:text-center">{t("login.cta")}</h1>
 
               <div className="bg-white p-8 shadow sm:rounded-lg">
                 <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>

@@ -49,7 +49,7 @@ export default function Home() {
       </a>
 
       <div className="container mx-auto flex min-h-screen flex-col items-center justify-center">
-        <SvgLogo className="h-12 w-auto" />
+        <SvgLogo className="h-12 w-auto" aria-label="Lightbase" />
 
         <main id="main">
           <h1 className="heading text-center text-6xl font-medium">{t("private:common.appName")}</h1>
