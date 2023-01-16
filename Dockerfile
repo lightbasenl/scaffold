@@ -39,6 +39,9 @@ COPY --from=builder /app/package.json ./package.json
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# ensure keepAlive is in-sync with AWS ALB, to prevent 502's
+RUN echo ";server.keepAliveTimeout = 72000;" >> ./server.js
+
 USER nextjs
 EXPOSE 3000
 
