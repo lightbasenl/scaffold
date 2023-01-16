@@ -6,6 +6,7 @@
   },
   "home": {
     "cta": "Laten we wat werk verzetten!",
+    "description": "Scaffold is een Next.js template waar een aantal standaard features al zijn geïmplementeerd. Het is het raamwerk voor iedere nieuwe Next.js applicatie binnen Lightbase.",
     "aboutUs": "Over ons",
     "docs": "Documentatie",
     "login": "Inloggen",
