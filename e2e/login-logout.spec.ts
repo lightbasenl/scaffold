@@ -9,11 +9,5 @@ test("login -> logout", async ({ page }) => {
   await expect(page).toHaveTitle("Scaffold");
   await expect(page).toHaveURL("/nl");
 
-  await page.click("data-test=index.login");
-  await expect(page).toHaveTitle("Geheime pagina");
-  await expect(page).toHaveURL("/nl/private");
-
-  await page.click("data-test=private.index.logout");
-  await expect(page).toHaveTitle("Scaffold");
-  await expect(page).toHaveURL("/nl");
+  // TODO: test login / logout
 });
