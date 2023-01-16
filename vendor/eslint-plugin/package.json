@@ -4,20 +4,20 @@
   "private": true,
   "main": "./src/index.js",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "5.40.0",
-    "@typescript-eslint/parser": "5.40.0",
-    "eslint": "8.25.0",
-    "eslint-config-next": "12.3.1",
+    "@typescript-eslint/eslint-plugin": "5.47.0",
+    "@typescript-eslint/parser": "5.47.0",
+    "eslint": "8.30.0",
+    "eslint-config-next": "13.0.7",
     "eslint-config-prettier": "8.5.0",
-    "eslint-plugin-no-relative-import-paths": "1.4.0",
+    "eslint-plugin-no-relative-import-paths": "1.5.2",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-unused-imports": "2.0.0",
-    "prettier": "2.7.1",
-    "prettier-plugin-tailwindcss": "0.1.13"
+    "prettier": "2.8.1",
+    "prettier-plugin-tailwindcss": "0.2.1"
   },
   "files": [
     "README.md",
     "src/index.js"
   ],
-  "gitHead": "049c6603bb60fe63712c55a766a5fcebccde7beb"
+  "gitHead": "6c2875707a0a143775a3a71ad8b6418ec8127bba"
 }
