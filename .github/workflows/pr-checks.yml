@@ -106,7 +106,6 @@ jobs:
       - name: Install
         run: |
           cd ./backend
-          npm config set //npm.pkg.github.com/:_authToken ${{ secrets.SCAFFOLD_BACKEND_TOKEN }}
           yarn
           yarn compas generate application --skip-lint
           cd ../frontend
