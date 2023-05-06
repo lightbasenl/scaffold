@@ -1,11 +1,11 @@
-import type { AuthPermissionIdentifierApi, AuthSessionApi } from "generated/common/types";
-import type { AuthMeResponseApi } from "generated/common/types";
+import type { AuthPermissionIdentifier, AuthSession } from "generated/common/types";
+import type { AuthMeResponse } from "generated/common/types";
 
 export interface AuthDescription {
-  enforceLoginType?: AuthSessionApi["loginType"];
-  enforceSessionType?: AuthSessionApi["type"] | "guest";
-  requireAllPermissions?: AuthPermissionIdentifierApi[];
-  requireSinglePermission?: AuthPermissionIdentifierApi[];
+  enforceLoginType?: AuthSession["loginType"];
+  enforceSessionType?: AuthSession["type"] | "guest";
+  requireAllPermissions?: AuthPermissionIdentifier[];
+  requireSinglePermission?: AuthPermissionIdentifier[];
 }
 
 /**
@@ -13,7 +13,7 @@ export interface AuthDescription {
  */
 export function authDescriptionCheck(
   description: AuthDescription,
-  data: AuthMeResponseApi,
+  data: AuthMeResponse,
 ): { redirect?: string } {
   if (description.enforceSessionType && data.session.type !== description.enforceSessionType) {
     return {

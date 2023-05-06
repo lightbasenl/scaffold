@@ -1,30 +1,33 @@
-import { App, loadApiStructureFromRemote } from "@compas/code-gen";
-import { mainFn, spawn } from "@compas/stdlib";
+import { Generator, loadApiStructureFromRemote } from "@compas/code-gen";
+import { environment, mainFn, spawn } from "@compas/stdlib";
 import Axios from "axios";
 
+process.env.NODE_ENV = "development";
 mainFn(import.meta, main);
 
 async function main() {
-  const app = new App({ verbose: true });
-  App.defaultEslintIgnore.push(
-    "@typescript-eslint/no-explicit-any",
-    "unused-imports/no-unused-imports",
-    "@typescript-eslint/no-unused-vars",
-    "@typescript-eslint/no-empty-interface",
-    "@typescript-eslint/ban-types",
+  const generator = new Generator();
+
+  generator.addStructure(
+    await loadApiStructureFromRemote(
+      Axios,
+      environment.TENANT_API_URL ?? "https://api.scaffold.acc.lightbase.nl",
+    ),
   );
 
-  let fromRemote = await loadApiStructureFromRemote(
-    Axios,
-    process.env.TENANT_API_URL ?? "https://api.scaffold.acc.lightbase.nl",
-  );
-
-  app.extend(fromRemote);
-
-  await app.generate({
-    outputDirectory: "./src/generated",
-    isBrowser: true,
-    enabledGenerators: ["type", "apiClient", "reactQuery"],
+  generator.generate({
+    targetLanguage: "ts",
+    outputDirectory: "src/generated",
+    generators: {
+      apiClient: {
+        target: {
+          library: "axios",
+          targetRuntime: "browser",
+          // globalClients: true,
+          includeWrapper: "react-query",
+        },
+      },
+    },
   });
 
   await spawn("yarn", ["format"]);

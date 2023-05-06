@@ -1,4 +1,4 @@
-import type { FeatureFlagCurrentResponseApi } from "generated/common/types";
+import type { FeatureFlagCurrentResponse } from "generated/common/types";
 import { useFeatureFlagCurrent } from "generated/featureFlag/reactQueries";
 
 /**
@@ -6,9 +6,9 @@ import { useFeatureFlagCurrent } from "generated/featureFlag/reactQueries";
  *
  * Provides fallback values for features to false.
  */
-export default function useFeatureFlag(): FeatureFlagCurrentResponseApi {
+export default function useFeatureFlag(): FeatureFlagCurrentResponse {
   const { data } = useFeatureFlagCurrent({
-    options: {
+    queryOptions: {
       // @ts-expect-error since the feature flag response is strictly typed, this is needed,
       // else we need to update this file after each feature flag addition or removal.
       placeholderData: {},
