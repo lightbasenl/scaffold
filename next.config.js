@@ -25,6 +25,7 @@ const nextConfig = {
   },
   sentry: {
     widenClientFileUpload: true,
+    excludeServerRoutes: [/\/_health\/?$/],
   },
 };
 
