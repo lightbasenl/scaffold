@@ -3,7 +3,7 @@ import type { FieldValues, Path, UseFormSetError } from "react-hook-form";
 
 import { useTranslation } from "next-i18next";
 
-import type { AppErrorResponse } from "generated/common/reactQuery";
+import type { AppErrorResponse } from "generated/common/api-client";
 
 import { translateErrorKeyOrReport } from "lib/translateErrorKeyOrReport";
 

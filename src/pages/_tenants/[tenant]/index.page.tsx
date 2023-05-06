@@ -7,7 +7,7 @@ import { useTranslation } from "next-i18next";
 
 import { useAuthMe } from "generated/auth/reactQueries";
 import { useAuthAnonymousBasedLogin } from "generated/authAnonymousBased/reactQueries";
-import type { AuthTokenPairApi } from "generated/common/types";
+import type { AuthTokenPair } from "generated/common/types";
 import { useScaffoldCreateUser } from "generated/scaffold/reactQueries";
 
 import { buildStaticPaths, getPageProps } from "lib/pageProps";
@@ -45,7 +45,7 @@ export default function Home() {
   const { data: user } = useAuthMe();
 
   const { mutate: anonymousBasedLogin } = useAuthAnonymousBasedLogin({
-    onSuccess(data: AuthTokenPairApi) {
+    onSuccess(data: AuthTokenPair) {
       authCreateCookiesFromTokenPair(data);
       router.push("/private");
     },
@@ -54,9 +54,7 @@ export default function Home() {
   const { mutate: scaffoldCreateUser } = useScaffoldCreateUser({
     onSuccess(data) {
       anonymousBasedLogin({
-        body: {
-          token: data.loginToken,
-        },
+        token: data.loginToken,
       });
     },
   });

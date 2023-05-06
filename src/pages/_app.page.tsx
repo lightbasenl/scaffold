@@ -13,7 +13,7 @@ import { appWithTranslation } from "next-i18next";
 import { ErrorBoundary } from "react-error-boundary";
 
 import { useAuthMe } from "generated/auth/reactQueries";
-import { ApiProvider } from "generated/common/reactQuery";
+import { ApiProvider } from "generated/common/api-client-wrapper";
 
 import { TenantConfigProvider } from "tenants/TenantConfigProvider";
 import type { SSRConfig } from "tenants/types";

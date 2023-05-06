@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 import { useAuthPasswordBasedLogin } from "generated/authPasswordBased/reactQueries";
-import type { AuthPasswordBasedLoginBodyInput, AuthTokenPairApi } from "generated/common/types";
+import type { AuthPasswordBasedLoginBody, AuthTokenPair } from "generated/common/types";
 
 import { defaultServerSideProps } from "lib/serverSideHelpers";
 
@@ -39,14 +39,14 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<AuthPasswordBasedLoginBodyInput>({
+  } = useForm<AuthPasswordBasedLoginBody>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: AuthPasswordBasedLoginBodyInput) => authPasswordBasedLogin({ body: data });
+  const onSubmit = (data: AuthPasswordBasedLoginBody) => authPasswordBasedLogin(data);
 
   const { mutate: authPasswordBasedLogin, error } = useAuthPasswordBasedLogin({
-    onSuccess(data: AuthTokenPairApi) {
+    onSuccess(data: AuthTokenPair) {
       authCreateCookiesFromTokenPair(data);
       router.push("/private");
     },

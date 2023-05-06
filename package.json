@@ -35,8 +35,9 @@
     "yup": "0.32.11"
   },
   "devDependencies": {
-    "@compas/code-gen": "0.0.216",
-    "@compas/stdlib": "0.0.216",
+    "@compas/cli": "0.1.0",
+    "@compas/code-gen": "0.1.0",
+    "@compas/stdlib": "0.1.0",
     "@playwright/test": "1.27.1",
     "@svgr/cli": "6.4.0",
     "@tailwindcss/forms": "0.5.3",

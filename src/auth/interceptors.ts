@@ -5,8 +5,8 @@ import axios from "axios";
 import { parseCookies } from "nookies";
 
 import { apiAuthRefreshTokens } from "generated/auth/apiClient";
-import type { AppErrorResponse } from "generated/common/reactQuery";
-import type { AuthTokenPairApi } from "generated/common/types";
+import type { AppErrorResponse } from "generated/common/api-client";
+import type { AuthTokenPair } from "generated/common/types";
 
 import { authCreateCookiesFromTokenPair, authRemoveCookies } from "auth/cookies";
 
@@ -28,10 +28,10 @@ export function authAxiosRequestInterceptor(
   // Only used in SSR context, keeping a local copy of the tokens before setting them as
   // cookies. This is necessary since 'parseCookies' does not read the cookies that are
   // already set on the response.
-  let tokenCache: AuthTokenPairApi | undefined = undefined;
+  let tokenCache: AuthTokenPair | undefined = undefined;
 
   const interceptor = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> => {
-    let cookies = tokenCache ?? (parseCookies(context) as AuthTokenPairApi);
+    let cookies = tokenCache ?? (parseCookies(context) as AuthTokenPair);
 
     if (isRefreshing) {
       return new Promise<void>(r => {
