@@ -1,12 +1,12 @@
-import type { AuthPermissionIdentifierApi, AuthSessionApi } from "../generated/common/types";
-import type { AuthMeResponseApi } from "../generated/common/types";
+import type { AuthPermissionIdentifier, AuthSession } from "../generated/common/types";
+import type { AuthMeResponse } from "../generated/common/types";
 import { authRemoveCookies } from "./cookies";
 
 export interface AuthDescription {
-  enforceLoginType?: AuthSessionApi["loginType"];
-  enforceSessionType?: AuthSessionApi["type"];
-  requireAllPermissions?: AuthPermissionIdentifierApi[];
-  requireSinglePermission?: AuthPermissionIdentifierApi[];
+  enforceLoginType?: AuthSession["loginType"];
+  enforceSessionType?: AuthSession["type"];
+  requireAllPermissions?: AuthPermissionIdentifier[];
+  requireSinglePermission?: AuthPermissionIdentifier[];
 }
 
 /**
@@ -14,7 +14,7 @@ export interface AuthDescription {
  */
 export function authDescriptionCheck(
   description: AuthDescription,
-  data: AuthMeResponseApi,
+  data: AuthMeResponse,
 ): { redirect?: string } {
   if (description.enforceSessionType && data.session.type !== description.enforceSessionType) {
     authRemoveCookies();

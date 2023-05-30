@@ -1,7 +1,7 @@
-import type { AxiosRequestConfig } from "axios";
+import type { InternalAxiosRequestConfig } from "axios";
 import axios from "axios";
 import { apiAuthRefreshTokens } from "../generated/auth/apiClient";
-import type { AppErrorResponse } from "../generated/common/reactQuery";
+import type { AppErrorResponse } from "../generated/common/api-client";
 import { authCreateCookiesFromTokenPair, authParseCookies, authRemoveCookies } from "./cookies";
 
 /**
@@ -13,11 +13,13 @@ import { authCreateCookiesFromTokenPair, authParseCookies, authRemoveCookies } f
  *    - If fails, removes the refresh token and just lets all other requests go through
  *    - If successfully, runs all requests in the queue and resolves the current request
  */
-export function authAxiosRequestInterceptor(): (config: AxiosRequestConfig) => Promise<AxiosRequestConfig> {
+export function authAxiosRequestInterceptor(): (
+  config: InternalAxiosRequestConfig,
+) => Promise<InternalAxiosRequestConfig> {
   let isRefreshing = false;
   const queueWhileRefreshing: (() => void)[] = [];
 
-  const interceptor = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> => {
+  const interceptor = async (config: InternalAxiosRequestConfig): Promise<InternalAxiosRequestConfig> => {
     let cookies = authParseCookies();
 
     if (isRefreshing) {

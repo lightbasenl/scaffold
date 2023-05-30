@@ -32,14 +32,19 @@ export function Login() {
   }, [resetForm]);
 
   const { mutate } = useManagementRequestMagicLink({
-    onSuccess: (_data, variables) => {
-      setCookie(null, "slackUserId", variables.body.slackUserId, {
+    onSuccess: (data, variables) => {
+      setCookie(null, "slackUserId", variables.slackUserId, {
         maxAge: 30 * 24 * 60 * 60,
         secure: process.env.NODE_ENV === "production",
         path: "/_lightbase",
       });
 
       resetForm();
+
+      if (data.magicLink) {
+        // magicLink is a full url (http://localhost:3000/_lightbase/...), so we just force the browser to go there instead of trying to match up and slice and dice a relative path out of it.
+        window.location.href = data.magicLink;
+      }
     },
   });
 
@@ -54,9 +59,7 @@ export function Login() {
       <div className={tw`w-full max-w-xl rounded-xl bg-white p-8 shadow-md`}>
         <form
           onSubmit={handleSubmit(values => {
-            mutate({
-              body: values,
-            });
+            mutate(values);
           })}
           className={tw`space-y-8`}
         >
