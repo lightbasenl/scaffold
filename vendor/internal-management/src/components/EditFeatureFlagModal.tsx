@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { tw } from "twind";
 import Button from "../components/Button";
-import type { ManagementFeatureFlagItemApi } from "../generated/common/types";
+import type { ManagementFeatureFlagItem } from "../generated/common/types";
 import { useManagementFeatureFlagUpdate } from "../generated/managementFeatureFlag/reactQueries";
 
 export default function EditFeatureFlagModal({
@@ -13,7 +13,7 @@ export default function EditFeatureFlagModal({
 }: {
   show: boolean;
   onClose: () => void;
-  flag: ManagementFeatureFlagItemApi;
+  flag: ManagementFeatureFlagItem;
 }) {
   const { mutate, isLoading, error } = useManagementFeatureFlagUpdate(
     {
@@ -64,8 +64,9 @@ export default function EditFeatureFlagModal({
                   data-testid="FeatureFlag.modal"
                   onSubmit={handleSubmit(({ description }) => {
                     mutate({
-                      params: { featureFlagId: flag.id },
-                      body: { description, globalValue: flag.globalValue },
+                      featureFlagId: flag.id,
+                      description,
+                      globalValue: flag.globalValue,
                     });
                   })}
                   className={tw`relative w-full transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:max-w-lg`}

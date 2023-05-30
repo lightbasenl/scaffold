@@ -4,20 +4,20 @@
   "private": true,
   "main": "./src/index.tsx",
   "dependencies": {
-    "@emotion/hash": "^0.9.0",
-    "@emotion/react": "11.10.5",
-    "@headlessui/react": "1.7.4",
-    "@tanstack/react-query": "4.14.5",
-    "axios": "0.27.2",
+    "@emotion/hash": "^0.9.1",
+    "@emotion/react": "11.11.0",
+    "@headlessui/react": "1.7.14",
+    "@tanstack/react-query": "4.29.5",
+    "axios": "1.4.0",
     "jwt-decode": "3.1.2",
     "nookies": "^2.5.2",
-    "react-hook-form": "7.39.1",
-    "react-router-dom": "6.4.3",
-    "twind": "0.16.17"
+    "react-hook-form": "7.43.9",
+    "react-router-dom": "6.11.1",
+    "twind": "0.16.19"
   },
   "files": [
     "README.md",
     "src"
   ],
-  "gitHead": "c88109f2a740293ef6ca7ce2ee97d12f03378cdc"
+  "gitHead": "4dcfe0922a124f2c944f6dc24411c73dcdc2819b"
 }

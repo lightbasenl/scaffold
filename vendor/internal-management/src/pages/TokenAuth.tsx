@@ -13,7 +13,7 @@ export function TokenAuth() {
   const { mutate } = useAuthAnonymousBasedLogin({
     onSuccess: async response => {
       authCreateCookiesFromTokenPair(response);
-      await useAuthMe.invalidate(queryClient, null as never);
+      await useAuthMe.invalidate(queryClient);
       navigate("/");
     },
   });
@@ -21,9 +21,7 @@ export function TokenAuth() {
   useEffect(() => {
     if (!!token) {
       mutate({
-        body: {
-          token,
-        },
+        token,
       });
     } else {
       navigate("login");

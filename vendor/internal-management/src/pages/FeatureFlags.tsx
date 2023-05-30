@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import EditFeatureFlagModal from "../components/EditFeatureFlagModal";
 import SideBar from "../components/SideBar";
 import TopBar from "../components/TopBar";
-import type { ManagementFeatureFlagItemApi } from "../generated/common/types";
+import type { ManagementFeatureFlagItem } from "../generated/common/types";
 import {
   useManagementFeatureFlagList,
   useManagementFeatureFlagUpdate,
@@ -19,10 +19,7 @@ export function FeatureFlags() {
   });
 
   const { data: { list: featureFlags } = {} } = useManagementFeatureFlagList({
-    body: {
-      orderBy: ["name"],
-    },
-    query: {},
+    orderBy: ["name"],
   });
 
   return (
@@ -84,7 +81,7 @@ export function FeatureFlags() {
   );
 }
 
-function FeatureFlag({ flag }: { flag: ManagementFeatureFlagItemApi }) {
+function FeatureFlag({ flag }: { flag: ManagementFeatureFlagItem }) {
   const { mutate } = useManagementFeatureFlagUpdate({}, { invalidateQueries: true });
 
   const [mode, setMode] = useState<"default" | "edit">("default");
@@ -140,13 +137,9 @@ function FeatureFlag({ flag }: { flag: ManagementFeatureFlagItemApi }) {
             data-testid="FeatureFlag.toggle"
             onClick={() => {
               mutate({
-                params: {
-                  featureFlagId: flag.id,
-                },
-                body: {
-                  globalValue: !flag.globalValue,
-                  description: flag.description,
-                },
+                featureFlagId: flag.id,
+                globalValue: !flag.globalValue,
+                description: flag.description,
               });
             }}
             type="button"
