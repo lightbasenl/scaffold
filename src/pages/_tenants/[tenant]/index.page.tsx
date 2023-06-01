@@ -1,21 +1,16 @@
 import type { GetStaticPropsContext } from "next";
 
 import Head from "next/head";
-import { useRouter } from "next/router";
 
 import { useTranslation } from "next-i18next";
 
 import { useAuthMe } from "generated/auth/reactQueries";
-import { useAuthAnonymousBasedLogin } from "generated/authAnonymousBased/reactQueries";
-import type { AuthTokenPair } from "generated/common/types";
-import { useScaffoldCreateUser } from "generated/scaffold/reactQueries";
 
 import { buildStaticPaths, getPageProps } from "lib/pageProps";
 
 import useFeatureFlag from "hooks/useFeatureFlag";
 
 import { SvgLogo } from "assets/svg";
-import { authCreateCookiesFromTokenPair } from "auth/cookies";
 
 export const getStaticProps = async (ctx: GetStaticPropsContext) => {
   if (typeof ctx.params?.tenant !== "string") {
@@ -39,25 +34,9 @@ export async function getStaticPaths() {
 }
 
 export default function Home() {
-  const router = useRouter();
   const { t } = useTranslation();
   const flags = useFeatureFlag();
   const { data: user } = useAuthMe();
-
-  const { mutate: anonymousBasedLogin } = useAuthAnonymousBasedLogin({
-    onSuccess(data: AuthTokenPair) {
-      authCreateCookiesFromTokenPair(data);
-      router.push("/private");
-    },
-  });
-
-  const { mutate: scaffoldCreateUser } = useScaffoldCreateUser({
-    onSuccess(data) {
-      anonymousBasedLogin({
-        token: data.loginToken,
-      });
-    },
-  });
 
   return (
     <>

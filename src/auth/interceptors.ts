@@ -1,4 +1,4 @@
-import type { AxiosRequestConfig } from "axios";
+import type { InternalAxiosRequestConfig } from "axios";
 import type { GetServerSidePropsContext } from "next";
 
 import axios from "axios";
@@ -21,7 +21,7 @@ import { authCreateCookiesFromTokenPair, authRemoveCookies } from "auth/cookies"
  */
 export function authAxiosRequestInterceptor(
   context?: GetServerSidePropsContext,
-): (config: AxiosRequestConfig) => Promise<AxiosRequestConfig> {
+): (config: InternalAxiosRequestConfig) => Promise<InternalAxiosRequestConfig> {
   let isRefreshing = false;
   const queueWhileRefreshing: (() => void)[] = [];
 
@@ -30,7 +30,7 @@ export function authAxiosRequestInterceptor(
   // already set on the response.
   let tokenCache: AuthTokenPair | undefined = undefined;
 
-  const interceptor = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> => {
+  const interceptor = async (config: InternalAxiosRequestConfig): Promise<InternalAxiosRequestConfig> => {
     let cookies = tokenCache ?? (parseCookies(context) as AuthTokenPair);
 
     if (isRefreshing) {
