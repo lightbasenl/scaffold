@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { setup, tw } from "twind";
 import { authAxiosRequestInterceptor, authAxiosResponseErrorInterceptor } from "./auth/interceptors";
 import { Router } from "./components/Router";
-import { ApiProvider } from "./generated/common/reactQuery";
+import { ApiProvider } from "./generated/common/api-client-wrapper";
 
 setup({
   hash: string => "lbmgt-" + hash(string),

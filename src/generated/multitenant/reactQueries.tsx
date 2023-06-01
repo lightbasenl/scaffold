@@ -6,6 +6,7 @@ import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 import type { AppErrorResponse } from "generated/common/api-client";
+import type { Pretty } from "generated/common/api-client-wrapper";
 import { useApi } from "generated/common/api-client-wrapper";
 import type { MultitenantCurrentResponse } from "generated/common/types";
 
@@ -15,9 +16,11 @@ import { apiMultitenantCurrent } from "./apiClient";
  *
  */
 export function useMultitenantCurrent<TData = MultitenantCurrentResponse>(
-  opts: { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<MultitenantCurrentResponse, AppErrorResponse, TData>;
-  } = {},
+  opts: Pretty<
+    { requestConfig?: AxiosRequestConfig } & {
+      queryOptions?: UseQueryOptions<MultitenantCurrentResponse, AppErrorResponse, TData>;
+    }
+  > = {},
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
@@ -48,11 +51,11 @@ useMultitenantCurrent.queryKey = (): QueryKey => [...useMultitenantCurrent.baseK
 useMultitenantCurrent.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.fetchQuery(useMultitenantCurrent.queryKey(), () =>
-    apiMultitenantCurrent(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.fetchQuery(useMultitenantCurrent.queryKey(), () => {
+    return apiMultitenantCurrent(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -61,11 +64,11 @@ useMultitenantCurrent.fetch = (
 useMultitenantCurrent.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.prefetchQuery(useMultitenantCurrent.queryKey(), () =>
-    apiMultitenantCurrent(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.prefetchQuery(useMultitenantCurrent.queryKey(), () => {
+    return apiMultitenantCurrent(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -81,4 +84,6 @@ useMultitenantCurrent.setQueryData = (
   queryClient: QueryClient,
 
   data: MultitenantCurrentResponse,
-) => queryClient.setQueryData(useMultitenantCurrent.queryKey(), data);
+) => {
+  return queryClient.setQueryData(useMultitenantCurrent.queryKey(), data);
+};

@@ -12,6 +12,7 @@ import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { AppErrorResponse } from "generated/common/api-client";
+import type { Pretty } from "generated/common/api-client-wrapper";
 import { useApi } from "generated/common/api-client-wrapper";
 import type {
   AuthTotpProviderInfoResponse,
@@ -39,9 +40,11 @@ import {
  *
  */
 export function useAuthTotpProviderInfo<TData = AuthTotpProviderInfoResponse>(
-  opts: { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<AuthTotpProviderInfoResponse, AppErrorResponse, TData>;
-  } = {},
+  opts: Pretty<
+    { requestConfig?: AxiosRequestConfig } & {
+      queryOptions?: UseQueryOptions<AuthTotpProviderInfoResponse, AppErrorResponse, TData>;
+    }
+  > = {},
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
@@ -72,11 +75,11 @@ useAuthTotpProviderInfo.queryKey = (): QueryKey => [...useAuthTotpProviderInfo.b
 useAuthTotpProviderInfo.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.fetchQuery(useAuthTotpProviderInfo.queryKey(), () =>
-    apiAuthTotpProviderInfo(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.fetchQuery(useAuthTotpProviderInfo.queryKey(), () => {
+    return apiAuthTotpProviderInfo(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -85,11 +88,11 @@ useAuthTotpProviderInfo.fetch = (
 useAuthTotpProviderInfo.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.prefetchQuery(useAuthTotpProviderInfo.queryKey(), () =>
-    apiAuthTotpProviderInfo(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.prefetchQuery(useAuthTotpProviderInfo.queryKey(), () => {
+    return apiAuthTotpProviderInfo(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -105,7 +108,9 @@ useAuthTotpProviderInfo.setQueryData = (
   queryClient: QueryClient,
 
   data: AuthTotpProviderInfoResponse,
-) => queryClient.setQueryData(useAuthTotpProviderInfo.queryKey(), data);
+) => {
+  return queryClient.setQueryData(useAuthTotpProviderInfo.queryKey(), data);
+};
 
 /**
  * Remove the totp setup, we expect that users have short-lived sessions. So no
@@ -116,7 +121,7 @@ useAuthTotpProviderInfo.setQueryData = (
  *   is configured for this user.
  *
  */
-type UseAuthTotpProviderRemoveProps = { requestConfig?: AxiosRequestConfig };
+type UseAuthTotpProviderRemoveProps = Pretty<{ requestConfig?: AxiosRequestConfig }>;
 export function useAuthTotpProviderRemove(
   options: UseMutationOptions<
     AuthTotpProviderRemoveResponse,
@@ -149,9 +154,9 @@ export function useAuthTotpProviderRemove(
  * Tags: ["auth:totp:manage"]
  *
  */
-type UseAuthTotpProviderRemoveForUserProps = AuthTotpProviderRemoveForUserParams & {
-  requestConfig?: AxiosRequestConfig;
-};
+type UseAuthTotpProviderRemoveForUserProps = Pretty<
+  AuthTotpProviderRemoveForUserParams & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthTotpProviderRemoveForUser(
   options: UseMutationOptions<
     AuthTotpProviderRemoveForUserResponse,
@@ -183,7 +188,9 @@ export function useAuthTotpProviderRemoveForUser(
  *   already verified.
  *
  */
-type UseAuthTotpProviderSetupProps = AuthTotpProviderSetupBody & { requestConfig?: AxiosRequestConfig };
+type UseAuthTotpProviderSetupProps = Pretty<
+  AuthTotpProviderSetupBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthTotpProviderSetup(
   options: UseMutationOptions<
     AuthTotpProviderSetupResponse,
@@ -216,9 +223,9 @@ export function useAuthTotpProviderSetup(
  *   setup.
  *
  */
-type UseAuthTotpProviderSetupVerifyProps = AuthTotpProviderSetupVerifyBody & {
-  requestConfig?: AxiosRequestConfig;
-};
+type UseAuthTotpProviderSetupVerifyProps = Pretty<
+  AuthTotpProviderSetupVerifyBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthTotpProviderSetupVerify(
   options: UseMutationOptions<
     AuthTotpProviderSetupVerifyResponse,
@@ -254,7 +261,9 @@ export function useAuthTotpProviderSetupVerify(
  *   totp.
  *
  */
-type UseAuthTotpProviderVerifyProps = AuthTotpProviderVerifyBody & { requestConfig?: AxiosRequestConfig };
+type UseAuthTotpProviderVerifyProps = Pretty<
+  AuthTotpProviderVerifyBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthTotpProviderVerify(
   options: UseMutationOptions<
     AuthTotpProviderVerifyResponse,

@@ -80,7 +80,7 @@ files.
 
 ```tsx title="Button.tsx"
 const Button = () => (
-  <button className="rounded bg-blue-500 py-3 px-6 text-xl font-medium text-white hover:bg-blue-700">
+  <button className="rounded bg-blue-500 px-6 py-3 text-xl font-medium text-white hover:bg-blue-700">
     I'm a button!
   </button>
 );

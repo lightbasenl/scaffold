@@ -106,7 +106,7 @@ export default function Login() {
 
         <main id="main">
           <div className="relative px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl pt-20 pb-32 sm:pt-48 sm:pb-40">
+            <div className="mx-auto max-w-3xl pb-32 pt-20 sm:pb-40 sm:pt-48">
               <h1 className="mb-8 text-4xl font-bold tracking-tight sm:text-center">{t("login.cta")}</h1>
 
               <div className="bg-white p-8 shadow sm:rounded-lg">
@@ -145,7 +145,7 @@ export default function Login() {
                   <div>
                     <button
                       type="submit"
-                      className="flex w-full justify-center rounded-md border border-transparent bg-blue-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                      className="flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     >
                       {t("login.signIn")}
                     </button>

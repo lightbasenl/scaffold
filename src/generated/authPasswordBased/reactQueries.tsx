@@ -12,6 +12,7 @@ import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { AppErrorResponse } from "generated/common/api-client";
+import type { Pretty } from "generated/common/api-client-wrapper";
 import { useApi } from "generated/common/api-client-wrapper";
 import type {
   AuthPasswordBasedForgotPasswordBody,
@@ -49,9 +50,9 @@ import {
  *   platform
  *
  */
-type UseAuthPasswordBasedForgotPasswordProps = AuthPasswordBasedForgotPasswordBody & {
-  requestConfig?: AxiosRequestConfig;
-};
+type UseAuthPasswordBasedForgotPasswordProps = Pretty<
+  AuthPasswordBasedForgotPasswordBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthPasswordBasedForgotPassword(
   options: UseMutationOptions<
     AuthPasswordBasedForgotPasswordResponse,
@@ -78,9 +79,11 @@ export function useAuthPasswordBasedForgotPassword(
 }
 
 export function useAuthPasswordBasedListEmails<TData = AuthPasswordBasedListEmailsResponse>(
-  opts: { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<AuthPasswordBasedListEmailsResponse, AppErrorResponse, TData>;
-  } = {},
+  opts: Pretty<
+    { requestConfig?: AxiosRequestConfig } & {
+      queryOptions?: UseQueryOptions<AuthPasswordBasedListEmailsResponse, AppErrorResponse, TData>;
+    }
+  > = {},
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
@@ -111,11 +114,11 @@ useAuthPasswordBasedListEmails.queryKey = (): QueryKey => [...useAuthPasswordBas
 useAuthPasswordBasedListEmails.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.fetchQuery(useAuthPasswordBasedListEmails.queryKey(), () =>
-    apiAuthPasswordBasedListEmails(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.fetchQuery(useAuthPasswordBasedListEmails.queryKey(), () => {
+    return apiAuthPasswordBasedListEmails(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -124,11 +127,11 @@ useAuthPasswordBasedListEmails.fetch = (
 useAuthPasswordBasedListEmails.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.prefetchQuery(useAuthPasswordBasedListEmails.queryKey(), () =>
-    apiAuthPasswordBasedListEmails(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.prefetchQuery(useAuthPasswordBasedListEmails.queryKey(), () => {
+    return apiAuthPasswordBasedListEmails(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -144,7 +147,9 @@ useAuthPasswordBasedListEmails.setQueryData = (
   queryClient: QueryClient,
 
   data: AuthPasswordBasedListEmailsResponse,
-) => queryClient.setQueryData(useAuthPasswordBasedListEmails.queryKey(), data);
+) => {
+  return queryClient.setQueryData(useAuthPasswordBasedListEmails.queryKey(), data);
+};
 
 /**
  * Do a password based login, requires a verified email.
@@ -159,7 +164,9 @@ useAuthPasswordBasedListEmails.setQueryData = (
  *   email and password is invalid
  *
  */
-type UseAuthPasswordBasedLoginProps = AuthPasswordBasedLoginBody & { requestConfig?: AxiosRequestConfig };
+type UseAuthPasswordBasedLoginProps = Pretty<
+  AuthPasswordBasedLoginBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthPasswordBasedLogin(
   options: UseMutationOptions<
     AuthPasswordBasedTokenPair,
@@ -192,9 +199,9 @@ export function useAuthPasswordBasedLogin(
  *   use `verifyEmail`
  *
  */
-type UseAuthPasswordBasedResetPasswordProps = AuthPasswordBasedResetPasswordBody & {
-  requestConfig?: AxiosRequestConfig;
-};
+type UseAuthPasswordBasedResetPasswordProps = Pretty<
+  AuthPasswordBasedResetPasswordBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthPasswordBasedResetPassword(
   options: UseMutationOptions<
     AuthPasswordBasedResetPasswordResponse,
@@ -231,9 +238,9 @@ export function useAuthPasswordBasedResetPassword(
  *   another user
  *
  */
-type UseAuthPasswordBasedUpdateEmailProps = AuthPasswordBasedUpdateEmailBody & {
-  requestConfig?: AxiosRequestConfig;
-};
+type UseAuthPasswordBasedUpdateEmailProps = Pretty<
+  AuthPasswordBasedUpdateEmailBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthPasswordBasedUpdateEmail(
   options: UseMutationOptions<
     AuthPasswordBasedUpdateEmailResponse,
@@ -264,9 +271,9 @@ export function useAuthPasswordBasedUpdateEmail(
  *   a password based login, so can't use this functionality
  *
  */
-type UseAuthPasswordBasedUpdatePasswordProps = AuthPasswordBasedUpdatePasswordBody & {
-  requestConfig?: AxiosRequestConfig;
-};
+type UseAuthPasswordBasedUpdatePasswordProps = Pretty<
+  AuthPasswordBasedUpdatePasswordBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthPasswordBasedUpdatePassword(
   options: UseMutationOptions<
     AuthPasswordBasedUpdatePasswordResponse,
@@ -305,9 +312,9 @@ export function useAuthPasswordBasedUpdatePassword(
  *   `resetPassword` instead of `verifyEmail`
  *
  */
-type UseAuthPasswordBasedVerifyEmailProps = AuthPasswordBasedVerifyEmailBody & {
-  requestConfig?: AxiosRequestConfig;
-};
+type UseAuthPasswordBasedVerifyEmailProps = Pretty<
+  AuthPasswordBasedVerifyEmailBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthPasswordBasedVerifyEmail(
   options: UseMutationOptions<
     AuthPasswordBasedTokenPair,
@@ -338,9 +345,9 @@ export function useAuthPasswordBasedVerifyEmail(
  * `type: user` on successful verification.
  *
  */
-type UseAuthPasswordBasedVerifyOtpProps = AuthPasswordBasedVerifyOtpBody & {
-  requestConfig?: AxiosRequestConfig;
-};
+type UseAuthPasswordBasedVerifyOtpProps = Pretty<
+  AuthPasswordBasedVerifyOtpBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthPasswordBasedVerifyOtp(
   options: UseMutationOptions<
     AuthPasswordBasedVerifyOtpResponse,

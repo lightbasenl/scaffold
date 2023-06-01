@@ -1,13 +1,13 @@
 import jwtDecode from "jwt-decode";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
-import type { AuthTokenPairApi } from "../generated/common/types";
+import type { AuthTokenPair } from "../generated/common/types";
 
 /**
  * Use nookies to create cookies from the provided token pair.
  * The `context` can be `undefined` when this runs in the browser.
  * It decodes the tokens, so the cookies expire when the tokens expire.
  */
-export function authCreateCookiesFromTokenPair(tokenPair: AuthTokenPairApi) {
+export function authCreateCookiesFromTokenPair(tokenPair: AuthTokenPair) {
   const accessToken = jwtDecode(tokenPair.accessToken) as unknown as { exp: number };
   const refreshToken = jwtDecode(tokenPair.refreshToken) as unknown as { exp: number };
 
@@ -36,7 +36,7 @@ export function authRemoveCookies() {
 /**
  * Get the cookie values
  */
-export function authParseCookies(): AuthTokenPairApi {
+export function authParseCookies(): AuthTokenPair {
   const cookies = parseCookies();
 
   return {

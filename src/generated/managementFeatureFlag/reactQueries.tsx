@@ -12,6 +12,7 @@ import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { AppErrorResponse } from "generated/common/api-client";
+import type { Pretty } from "generated/common/api-client-wrapper";
 import { useApi } from "generated/common/api-client-wrapper";
 import type {
   ManagementFeatureFlagItemWrite,
@@ -34,10 +35,12 @@ import {
  *
  */
 export function useManagementFeatureFlagList<TData = ManagementFeatureFlagListResponse>(
-  opts: ManagementFeatureFlagListQuery &
-    ManagementFeatureFlagListBody & { requestConfig?: AxiosRequestConfig } & {
-      queryOptions?: UseQueryOptions<ManagementFeatureFlagListResponse, AppErrorResponse, TData>;
-    },
+  opts: Pretty<
+    ManagementFeatureFlagListQuery &
+      ManagementFeatureFlagListBody & { requestConfig?: AxiosRequestConfig } & {
+        queryOptions?: UseQueryOptions<ManagementFeatureFlagListResponse, AppErrorResponse, TData>;
+      }
+  >,
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
@@ -66,7 +69,7 @@ useManagementFeatureFlagList.baseKey = (): QueryKey => ["managementFeatureFlag",
  * Query key used by useManagementFeatureFlagList
  */
 useManagementFeatureFlagList.queryKey = (
-  opts: ManagementFeatureFlagListQuery & ManagementFeatureFlagListBody,
+  opts: Pretty<ManagementFeatureFlagListQuery & ManagementFeatureFlagListBody>,
 ): QueryKey => [
   ...useManagementFeatureFlagList.baseKey(),
   { offset: opts["offset"] ?? null, limit: opts["limit"] ?? null },
@@ -83,17 +86,18 @@ useManagementFeatureFlagList.queryKey = (
 useManagementFeatureFlagList.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: ManagementFeatureFlagListQuery &
-    ManagementFeatureFlagListBody & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<
+    ManagementFeatureFlagListQuery & ManagementFeatureFlagListBody & { requestConfig?: AxiosRequestConfig }
+  >,
 ) => {
-  return queryClient.fetchQuery(useManagementFeatureFlagList.queryKey(opts), () =>
-    apiManagementFeatureFlagList(
+  return queryClient.fetchQuery(useManagementFeatureFlagList.queryKey(opts), () => {
+    return apiManagementFeatureFlagList(
       axiosInstance,
       { offset: opts["offset"], limit: opts["limit"] },
       { where: opts["where"], orderBy: opts["orderBy"], orderBySpec: opts["orderBySpec"] },
       opts?.requestConfig,
-    ),
-  );
+    );
+  });
 };
 
 /**
@@ -102,17 +106,18 @@ useManagementFeatureFlagList.fetch = (
 useManagementFeatureFlagList.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: ManagementFeatureFlagListQuery &
-    ManagementFeatureFlagListBody & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<
+    ManagementFeatureFlagListQuery & ManagementFeatureFlagListBody & { requestConfig?: AxiosRequestConfig }
+  >,
 ) => {
-  return queryClient.prefetchQuery(useManagementFeatureFlagList.queryKey(opts), () =>
-    apiManagementFeatureFlagList(
+  return queryClient.prefetchQuery(useManagementFeatureFlagList.queryKey(opts), () => {
+    return apiManagementFeatureFlagList(
       axiosInstance,
       { offset: opts["offset"], limit: opts["limit"] },
       { where: opts["where"], orderBy: opts["orderBy"], orderBySpec: opts["orderBySpec"] },
       opts?.requestConfig,
-    ),
-  );
+    );
+  });
 };
 
 /**
@@ -120,7 +125,7 @@ useManagementFeatureFlagList.prefetch = (
  */
 useManagementFeatureFlagList.invalidate = (
   queryClient: QueryClient,
-  opts: ManagementFeatureFlagListQuery & ManagementFeatureFlagListBody,
+  opts: Pretty<ManagementFeatureFlagListQuery & ManagementFeatureFlagListBody>,
 ) => queryClient.invalidateQueries(useManagementFeatureFlagList.queryKey(opts));
 
 /**
@@ -128,27 +133,39 @@ useManagementFeatureFlagList.invalidate = (
  */
 useManagementFeatureFlagList.setQueryData = (
   queryClient: QueryClient,
-  opts: ManagementFeatureFlagListQuery & ManagementFeatureFlagListBody,
+  opts: Pretty<ManagementFeatureFlagListQuery & ManagementFeatureFlagListBody>,
   data: ManagementFeatureFlagListResponse,
-) => queryClient.setQueryData(useManagementFeatureFlagList.queryKey(opts), data);
+) => {
+  return queryClient.setQueryData(useManagementFeatureFlagList.queryKey(opts), data);
+};
 
 /**
  * Generated single route for 'featureFlag'.
  *
  */
 export function useManagementFeatureFlagSingle<TData = ManagementFeatureFlagSingleResponse>(
-  opts: ManagementFeatureFlagSingleParams & { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<ManagementFeatureFlagSingleResponse, AppErrorResponse, TData>;
-  },
+  opts: Pretty<
+    Partial<
+      ManagementFeatureFlagSingleParams & { requestConfig?: AxiosRequestConfig } & {
+        queryOptions?: UseQueryOptions<ManagementFeatureFlagSingleResponse, AppErrorResponse, TData>;
+      }
+    >
+  >,
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
   options.enabled =
     options.enabled === true ||
-    (options.enabled !== false && opts.featureFlagId !== undefined && opts.featureFlagId !== null);
+    (options.enabled !== false && opts["featureFlagId"] !== undefined && opts["featureFlagId"] !== null);
   return useQuery(
     useManagementFeatureFlagSingle.queryKey(opts),
     ({ signal }) => {
+      if (opts["featureFlagId"] === undefined || opts["featureFlagId"] === null) {
+        throw new Error(
+          "Not all required variables where provided. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+        );
+      }
+
       opts.requestConfig ??= {};
       opts.requestConfig.signal = signal;
 
@@ -169,10 +186,9 @@ useManagementFeatureFlagSingle.baseKey = (): QueryKey => ["managementFeatureFlag
 /**
  * Query key used by useManagementFeatureFlagSingle
  */
-useManagementFeatureFlagSingle.queryKey = (opts: ManagementFeatureFlagSingleParams): QueryKey => [
-  ...useManagementFeatureFlagSingle.baseKey(),
-  { featureFlagId: opts["featureFlagId"] },
-];
+useManagementFeatureFlagSingle.queryKey = (
+  opts: Pretty<Partial<ManagementFeatureFlagSingleParams>>,
+): QueryKey => [...useManagementFeatureFlagSingle.baseKey(), { featureFlagId: opts["featureFlagId"] }];
 
 /**
  * Fetch useManagementFeatureFlagSingle via the queryClient and return the result
@@ -180,15 +196,21 @@ useManagementFeatureFlagSingle.queryKey = (opts: ManagementFeatureFlagSinglePara
 useManagementFeatureFlagSingle.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: ManagementFeatureFlagSingleParams & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<Partial<ManagementFeatureFlagSingleParams & { requestConfig?: AxiosRequestConfig }>>,
 ) => {
-  return queryClient.fetchQuery(useManagementFeatureFlagSingle.queryKey(opts), () =>
-    apiManagementFeatureFlagSingle(
+  return queryClient.fetchQuery(useManagementFeatureFlagSingle.queryKey(opts), () => {
+    if (opts["featureFlagId"] === undefined || opts["featureFlagId"] === null) {
+      throw new Error(
+        "Not all required variables where provided. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+      );
+    }
+
+    return apiManagementFeatureFlagSingle(
       axiosInstance,
       { featureFlagId: opts["featureFlagId"] },
       opts?.requestConfig,
-    ),
-  );
+    );
+  });
 };
 
 /**
@@ -197,15 +219,21 @@ useManagementFeatureFlagSingle.fetch = (
 useManagementFeatureFlagSingle.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: ManagementFeatureFlagSingleParams & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<Partial<ManagementFeatureFlagSingleParams & { requestConfig?: AxiosRequestConfig }>>,
 ) => {
-  return queryClient.prefetchQuery(useManagementFeatureFlagSingle.queryKey(opts), () =>
-    apiManagementFeatureFlagSingle(
+  return queryClient.prefetchQuery(useManagementFeatureFlagSingle.queryKey(opts), () => {
+    if (opts["featureFlagId"] === undefined || opts["featureFlagId"] === null) {
+      throw new Error(
+        "Not all required variables where provided. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+      );
+    }
+
+    return apiManagementFeatureFlagSingle(
       axiosInstance,
       { featureFlagId: opts["featureFlagId"] },
       opts?.requestConfig,
-    ),
-  );
+    );
+  });
 };
 
 /**
@@ -213,7 +241,7 @@ useManagementFeatureFlagSingle.prefetch = (
  */
 useManagementFeatureFlagSingle.invalidate = (
   queryClient: QueryClient,
-  opts: ManagementFeatureFlagSingleParams,
+  opts: Pretty<Partial<ManagementFeatureFlagSingleParams>>,
 ) => queryClient.invalidateQueries(useManagementFeatureFlagSingle.queryKey(opts));
 
 /**
@@ -221,16 +249,25 @@ useManagementFeatureFlagSingle.invalidate = (
  */
 useManagementFeatureFlagSingle.setQueryData = (
   queryClient: QueryClient,
-  opts: ManagementFeatureFlagSingleParams,
+  opts: Pretty<Partial<ManagementFeatureFlagSingleParams>>,
   data: ManagementFeatureFlagSingleResponse,
-) => queryClient.setQueryData(useManagementFeatureFlagSingle.queryKey(opts), data);
+) => {
+  if (opts["featureFlagId"] === undefined || opts["featureFlagId"] === null) {
+    throw new Error(
+      "Not all required variables where provided. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+    );
+  }
+
+  return queryClient.setQueryData(useManagementFeatureFlagSingle.queryKey(opts), data);
+};
 
 /**
  * Generated update route for 'featureFlag'.
  *
  */
-type UseManagementFeatureFlagUpdateProps = ManagementFeatureFlagUpdateParams &
-  ManagementFeatureFlagItemWrite & { requestConfig?: AxiosRequestConfig };
+type UseManagementFeatureFlagUpdateProps = Pretty<
+  ManagementFeatureFlagUpdateParams & ManagementFeatureFlagItemWrite & { requestConfig?: AxiosRequestConfig }
+>;
 export function useManagementFeatureFlagUpdate(
   options: UseMutationOptions<
     ManagementFeatureFlagUpdateResponse,

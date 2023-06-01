@@ -6,6 +6,7 @@ import type { AxiosRequestConfig } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { AppErrorResponse } from "generated/common/api-client";
+import type { Pretty } from "generated/common/api-client-wrapper";
 import { useApi } from "generated/common/api-client-wrapper";
 import type {
   ManagementRequestMagicLinkBody,
@@ -17,9 +18,9 @@ import { apiManagementRequestMagicLink } from "./apiClient";
  * Sends a magic link via Slack. Locally it directly returns the url.
  *
  */
-type UseManagementRequestMagicLinkProps = ManagementRequestMagicLinkBody & {
-  requestConfig?: AxiosRequestConfig;
-};
+type UseManagementRequestMagicLinkProps = Pretty<
+  ManagementRequestMagicLinkBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useManagementRequestMagicLink(
   options: UseMutationOptions<
     ManagementRequestMagicLinkResponse,

@@ -6,6 +6,7 @@ import type { AxiosRequestConfig } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { AppErrorResponse } from "generated/common/api-client";
+import type { Pretty } from "generated/common/api-client-wrapper";
 import { useApi } from "generated/common/api-client-wrapper";
 import type { AuthAnonymousBasedLoginBody, AuthAnonymousBasedTokenPair } from "generated/common/types";
 
@@ -20,7 +21,9 @@ import { apiAuthAnonymousBasedLogin } from "./apiClient";
  *   log in.
  *
  */
-type UseAuthAnonymousBasedLoginProps = AuthAnonymousBasedLoginBody & { requestConfig?: AxiosRequestConfig };
+type UseAuthAnonymousBasedLoginProps = Pretty<
+  AuthAnonymousBasedLoginBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthAnonymousBasedLogin(
   options: UseMutationOptions<
     AuthAnonymousBasedTokenPair,

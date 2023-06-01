@@ -12,6 +12,7 @@ import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { AppErrorResponse } from "generated/common/api-client";
+import type { Pretty } from "generated/common/api-client-wrapper";
 import { useApi } from "generated/common/api-client-wrapper";
 import type {
   AuthPermissionCreateRoleBody,
@@ -55,7 +56,9 @@ import {
  * Tags: ["auth:permission:manage"]
  *
  */
-type UseAuthPermissionCreateRoleProps = AuthPermissionCreateRoleBody & { requestConfig?: AxiosRequestConfig };
+type UseAuthPermissionCreateRoleProps = Pretty<
+  AuthPermissionCreateRoleBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthPermissionCreateRole(
   options: UseMutationOptions<
     AuthPermissionCreateRoleResponse,
@@ -89,9 +92,11 @@ export function useAuthPermissionCreateRole(
  *
  */
 export function useAuthPermissionPermissionList<TData = AuthPermissionPermissionListResponse>(
-  opts: { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<AuthPermissionPermissionListResponse, AppErrorResponse, TData>;
-  } = {},
+  opts: Pretty<
+    { requestConfig?: AxiosRequestConfig } & {
+      queryOptions?: UseQueryOptions<AuthPermissionPermissionListResponse, AppErrorResponse, TData>;
+    }
+  > = {},
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
@@ -122,11 +127,11 @@ useAuthPermissionPermissionList.queryKey = (): QueryKey => [...useAuthPermission
 useAuthPermissionPermissionList.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.fetchQuery(useAuthPermissionPermissionList.queryKey(), () =>
-    apiAuthPermissionPermissionList(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.fetchQuery(useAuthPermissionPermissionList.queryKey(), () => {
+    return apiAuthPermissionPermissionList(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -135,11 +140,11 @@ useAuthPermissionPermissionList.fetch = (
 useAuthPermissionPermissionList.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.prefetchQuery(useAuthPermissionPermissionList.queryKey(), () =>
-    apiAuthPermissionPermissionList(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.prefetchQuery(useAuthPermissionPermissionList.queryKey(), () => {
+    return apiAuthPermissionPermissionList(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -155,7 +160,9 @@ useAuthPermissionPermissionList.setQueryData = (
   queryClient: QueryClient,
 
   data: AuthPermissionPermissionListResponse,
-) => queryClient.setQueryData(useAuthPermissionPermissionList.queryKey(), data);
+) => {
+  return queryClient.setQueryData(useAuthPermissionPermissionList.queryKey(), data);
+};
 
 /**
  * Remove a role. Only tenant specific roles can be removed.
@@ -163,9 +170,9 @@ useAuthPermissionPermissionList.setQueryData = (
  * Tags: ["auth:permission:manage"]
  *
  */
-type UseAuthPermissionRemoveRoleProps = AuthPermissionRemoveRoleParams & {
-  requestConfig?: AxiosRequestConfig;
-};
+type UseAuthPermissionRemoveRoleProps = Pretty<
+  AuthPermissionRemoveRoleParams & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthPermissionRemoveRole(
   options: UseMutationOptions<
     AuthPermissionRemoveRoleResponse,
@@ -201,8 +208,10 @@ export function useAuthPermissionRemoveRole(
  * Tags: ["auth:permission:manage"]
  *
  */
-type UseAuthPermissionRoleAddPermissionsProps = AuthPermissionRoleAddPermissionsParams &
-  AuthPermissionRoleAddPermissionsBody & { requestConfig?: AxiosRequestConfig };
+type UseAuthPermissionRoleAddPermissionsProps = Pretty<
+  AuthPermissionRoleAddPermissionsParams &
+    AuthPermissionRoleAddPermissionsBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthPermissionRoleAddPermissions(
   options: UseMutationOptions<
     AuthPermissionRoleAddPermissionsResponse,
@@ -236,9 +245,11 @@ export function useAuthPermissionRoleAddPermissions(
  *
  */
 export function useAuthPermissionRoleList<TData = AuthPermissionRoleListResponse>(
-  opts: { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<AuthPermissionRoleListResponse, AppErrorResponse, TData>;
-  } = {},
+  opts: Pretty<
+    { requestConfig?: AxiosRequestConfig } & {
+      queryOptions?: UseQueryOptions<AuthPermissionRoleListResponse, AppErrorResponse, TData>;
+    }
+  > = {},
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
@@ -269,11 +280,11 @@ useAuthPermissionRoleList.queryKey = (): QueryKey => [...useAuthPermissionRoleLi
 useAuthPermissionRoleList.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.fetchQuery(useAuthPermissionRoleList.queryKey(), () =>
-    apiAuthPermissionRoleList(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.fetchQuery(useAuthPermissionRoleList.queryKey(), () => {
+    return apiAuthPermissionRoleList(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -282,11 +293,11 @@ useAuthPermissionRoleList.fetch = (
 useAuthPermissionRoleList.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.prefetchQuery(useAuthPermissionRoleList.queryKey(), () =>
-    apiAuthPermissionRoleList(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.prefetchQuery(useAuthPermissionRoleList.queryKey(), () => {
+    return apiAuthPermissionRoleList(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -302,7 +313,9 @@ useAuthPermissionRoleList.setQueryData = (
   queryClient: QueryClient,
 
   data: AuthPermissionRoleListResponse,
-) => queryClient.setQueryData(useAuthPermissionRoleList.queryKey(), data);
+) => {
+  return queryClient.setQueryData(useAuthPermissionRoleList.queryKey(), data);
+};
 
 /**
  * Remove permissions from a role. Requires that the role exists and all provided
@@ -317,8 +330,10 @@ useAuthPermissionRoleList.setQueryData = (
  * Tags: ["auth:permission:manage"]
  *
  */
-type UseAuthPermissionRoleRemovePermissionsProps = AuthPermissionRoleRemovePermissionsParams &
-  AuthPermissionRoleRemovePermissionsBody & { requestConfig?: AxiosRequestConfig };
+type UseAuthPermissionRoleRemovePermissionsProps = Pretty<
+  AuthPermissionRoleRemovePermissionsParams &
+    AuthPermissionRoleRemovePermissionsBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthPermissionRoleRemovePermissions(
   options: UseMutationOptions<
     AuthPermissionRoleRemovePermissionsResponse,
@@ -350,9 +365,11 @@ export function useAuthPermissionRoleRemovePermissions(
  *
  */
 export function useAuthPermissionSummary<TData = AuthPermissionSummaryResponse>(
-  opts: { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<AuthPermissionSummaryResponse, AppErrorResponse, TData>;
-  } = {},
+  opts: Pretty<
+    { requestConfig?: AxiosRequestConfig } & {
+      queryOptions?: UseQueryOptions<AuthPermissionSummaryResponse, AppErrorResponse, TData>;
+    }
+  > = {},
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
@@ -383,11 +400,11 @@ useAuthPermissionSummary.queryKey = (): QueryKey => [...useAuthPermissionSummary
 useAuthPermissionSummary.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.fetchQuery(useAuthPermissionSummary.queryKey(), () =>
-    apiAuthPermissionSummary(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.fetchQuery(useAuthPermissionSummary.queryKey(), () => {
+    return apiAuthPermissionSummary(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -396,11 +413,11 @@ useAuthPermissionSummary.fetch = (
 useAuthPermissionSummary.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.prefetchQuery(useAuthPermissionSummary.queryKey(), () =>
-    apiAuthPermissionSummary(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.prefetchQuery(useAuthPermissionSummary.queryKey(), () => {
+    return apiAuthPermissionSummary(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -416,7 +433,9 @@ useAuthPermissionSummary.setQueryData = (
   queryClient: QueryClient,
 
   data: AuthPermissionSummaryResponse,
-) => queryClient.setQueryData(useAuthPermissionSummary.queryKey(), data);
+) => {
+  return queryClient.setQueryData(useAuthPermissionSummary.queryKey(), data);
+};
 
 /**
  * Assign the provided role to the provided user.
@@ -432,8 +451,10 @@ useAuthPermissionSummary.setQueryData = (
  * Tags: ["auth:permission:manage"]
  *
  */
-type UseAuthPermissionUserAssignRoleProps = AuthPermissionUserAssignRoleParams &
-  AuthPermissionUserAssignRoleBody & { requestConfig?: AxiosRequestConfig };
+type UseAuthPermissionUserAssignRoleProps = Pretty<
+  AuthPermissionUserAssignRoleParams &
+    AuthPermissionUserAssignRoleBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthPermissionUserAssignRole(
   options: UseMutationOptions<
     AuthPermissionUserAssignRoleResponse,
@@ -472,8 +493,10 @@ export function useAuthPermissionUserAssignRole(
  * Tags: ["auth:permission:manage"]
  *
  */
-type UseAuthPermissionUserRemoveRoleProps = AuthPermissionUserRemoveRoleParams &
-  AuthPermissionUserRemoveRoleBody & { requestConfig?: AxiosRequestConfig };
+type UseAuthPermissionUserRemoveRoleProps = Pretty<
+  AuthPermissionUserRemoveRoleParams &
+    AuthPermissionUserRemoveRoleBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthPermissionUserRemoveRole(
   options: UseMutationOptions<
     AuthPermissionUserRemoveRoleResponse,
@@ -507,17 +530,28 @@ export function useAuthPermissionUserRemoveRole(
  *
  */
 export function useAuthPermissionUserSummary<TData = AuthPermissionUserSummaryResponse>(
-  opts: AuthPermissionUserSummaryParams & { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<AuthPermissionUserSummaryResponse, AppErrorResponse, TData>;
-  },
+  opts: Pretty<
+    Partial<
+      AuthPermissionUserSummaryParams & { requestConfig?: AxiosRequestConfig } & {
+        queryOptions?: UseQueryOptions<AuthPermissionUserSummaryResponse, AppErrorResponse, TData>;
+      }
+    >
+  >,
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
   options.enabled =
-    options.enabled === true || (options.enabled !== false && opts.user !== undefined && opts.user !== null);
+    options.enabled === true ||
+    (options.enabled !== false && opts["user"] !== undefined && opts["user"] !== null);
   return useQuery(
     useAuthPermissionUserSummary.queryKey(opts),
     ({ signal }) => {
+      if (opts["user"] === undefined || opts["user"] === null) {
+        throw new Error(
+          "Not all required variables where provided. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+        );
+      }
+
       opts.requestConfig ??= {};
       opts.requestConfig.signal = signal;
 
@@ -534,10 +568,9 @@ useAuthPermissionUserSummary.baseKey = (): QueryKey => ["authPermission", "userS
 /**
  * Query key used by useAuthPermissionUserSummary
  */
-useAuthPermissionUserSummary.queryKey = (opts: AuthPermissionUserSummaryParams): QueryKey => [
-  ...useAuthPermissionUserSummary.baseKey(),
-  { user: opts["user"] },
-];
+useAuthPermissionUserSummary.queryKey = (
+  opts: Pretty<Partial<AuthPermissionUserSummaryParams>>,
+): QueryKey => [...useAuthPermissionUserSummary.baseKey(), { user: opts["user"] }];
 
 /**
  * Fetch useAuthPermissionUserSummary via the queryClient and return the result
@@ -545,11 +578,17 @@ useAuthPermissionUserSummary.queryKey = (opts: AuthPermissionUserSummaryParams):
 useAuthPermissionUserSummary.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: AuthPermissionUserSummaryParams & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<Partial<AuthPermissionUserSummaryParams & { requestConfig?: AxiosRequestConfig }>>,
 ) => {
-  return queryClient.fetchQuery(useAuthPermissionUserSummary.queryKey(opts), () =>
-    apiAuthPermissionUserSummary(axiosInstance, { user: opts["user"] }, opts?.requestConfig),
-  );
+  return queryClient.fetchQuery(useAuthPermissionUserSummary.queryKey(opts), () => {
+    if (opts["user"] === undefined || opts["user"] === null) {
+      throw new Error(
+        "Not all required variables where provided. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+      );
+    }
+
+    return apiAuthPermissionUserSummary(axiosInstance, { user: opts["user"] }, opts?.requestConfig);
+  });
 };
 
 /**
@@ -558,24 +597,40 @@ useAuthPermissionUserSummary.fetch = (
 useAuthPermissionUserSummary.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: AuthPermissionUserSummaryParams & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<Partial<AuthPermissionUserSummaryParams & { requestConfig?: AxiosRequestConfig }>>,
 ) => {
-  return queryClient.prefetchQuery(useAuthPermissionUserSummary.queryKey(opts), () =>
-    apiAuthPermissionUserSummary(axiosInstance, { user: opts["user"] }, opts?.requestConfig),
-  );
+  return queryClient.prefetchQuery(useAuthPermissionUserSummary.queryKey(opts), () => {
+    if (opts["user"] === undefined || opts["user"] === null) {
+      throw new Error(
+        "Not all required variables where provided. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+      );
+    }
+
+    return apiAuthPermissionUserSummary(axiosInstance, { user: opts["user"] }, opts?.requestConfig);
+  });
 };
 
 /**
  * Invalidate useAuthPermissionUserSummary via the queryClient
  */
-useAuthPermissionUserSummary.invalidate = (queryClient: QueryClient, opts: AuthPermissionUserSummaryParams) =>
-  queryClient.invalidateQueries(useAuthPermissionUserSummary.queryKey(opts));
+useAuthPermissionUserSummary.invalidate = (
+  queryClient: QueryClient,
+  opts: Pretty<Partial<AuthPermissionUserSummaryParams>>,
+) => queryClient.invalidateQueries(useAuthPermissionUserSummary.queryKey(opts));
 
 /**
  * Set query data for useAuthPermissionUserSummary via the queryClient
  */
 useAuthPermissionUserSummary.setQueryData = (
   queryClient: QueryClient,
-  opts: AuthPermissionUserSummaryParams,
+  opts: Pretty<Partial<AuthPermissionUserSummaryParams>>,
   data: AuthPermissionUserSummaryResponse,
-) => queryClient.setQueryData(useAuthPermissionUserSummary.queryKey(opts), data);
+) => {
+  if (opts["user"] === undefined || opts["user"] === null) {
+    throw new Error(
+      "Not all required variables where provided. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+    );
+  }
+
+  return queryClient.setQueryData(useAuthPermissionUserSummary.queryKey(opts), data);
+};

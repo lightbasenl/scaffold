@@ -12,6 +12,7 @@ import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { AppErrorResponse } from "generated/common/api-client";
+import type { Pretty } from "generated/common/api-client-wrapper";
 import { useApi } from "generated/common/api-client-wrapper";
 import type {
   AuthGetUserParams,
@@ -49,17 +50,28 @@ import {
  *
  */
 export function useAuthGetUser<TData = AuthGetUserResponse>(
-  opts: AuthGetUserParams & { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<AuthGetUserResponse, AppErrorResponse, TData>;
-  },
+  opts: Pretty<
+    Partial<
+      AuthGetUserParams & { requestConfig?: AxiosRequestConfig } & {
+        queryOptions?: UseQueryOptions<AuthGetUserResponse, AppErrorResponse, TData>;
+      }
+    >
+  >,
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
   options.enabled =
-    options.enabled === true || (options.enabled !== false && opts.user !== undefined && opts.user !== null);
+    options.enabled === true ||
+    (options.enabled !== false && opts["user"] !== undefined && opts["user"] !== null);
   return useQuery(
     useAuthGetUser.queryKey(opts),
     ({ signal }) => {
+      if (opts["user"] === undefined || opts["user"] === null) {
+        throw new Error(
+          "Not all required variables where provided. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+        );
+      }
+
       opts.requestConfig ??= {};
       opts.requestConfig.signal = signal;
 
@@ -76,7 +88,7 @@ useAuthGetUser.baseKey = (): QueryKey => ["auth", "getUser"];
 /**
  * Query key used by useAuthGetUser
  */
-useAuthGetUser.queryKey = (opts: AuthGetUserParams): QueryKey => [
+useAuthGetUser.queryKey = (opts: Pretty<Partial<AuthGetUserParams>>): QueryKey => [
   ...useAuthGetUser.baseKey(),
   { user: opts["user"] },
 ];
@@ -87,11 +99,17 @@ useAuthGetUser.queryKey = (opts: AuthGetUserParams): QueryKey => [
 useAuthGetUser.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: AuthGetUserParams & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<Partial<AuthGetUserParams & { requestConfig?: AxiosRequestConfig }>>,
 ) => {
-  return queryClient.fetchQuery(useAuthGetUser.queryKey(opts), () =>
-    apiAuthGetUser(axiosInstance, { user: opts["user"] }, opts?.requestConfig),
-  );
+  return queryClient.fetchQuery(useAuthGetUser.queryKey(opts), () => {
+    if (opts["user"] === undefined || opts["user"] === null) {
+      throw new Error(
+        "Not all required variables where provided. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+      );
+    }
+
+    return apiAuthGetUser(axiosInstance, { user: opts["user"] }, opts?.requestConfig);
+  });
 };
 
 /**
@@ -100,17 +118,23 @@ useAuthGetUser.fetch = (
 useAuthGetUser.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: AuthGetUserParams & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<Partial<AuthGetUserParams & { requestConfig?: AxiosRequestConfig }>>,
 ) => {
-  return queryClient.prefetchQuery(useAuthGetUser.queryKey(opts), () =>
-    apiAuthGetUser(axiosInstance, { user: opts["user"] }, opts?.requestConfig),
-  );
+  return queryClient.prefetchQuery(useAuthGetUser.queryKey(opts), () => {
+    if (opts["user"] === undefined || opts["user"] === null) {
+      throw new Error(
+        "Not all required variables where provided. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+      );
+    }
+
+    return apiAuthGetUser(axiosInstance, { user: opts["user"] }, opts?.requestConfig);
+  });
 };
 
 /**
  * Invalidate useAuthGetUser via the queryClient
  */
-useAuthGetUser.invalidate = (queryClient: QueryClient, opts: AuthGetUserParams) =>
+useAuthGetUser.invalidate = (queryClient: QueryClient, opts: Pretty<Partial<AuthGetUserParams>>) =>
   queryClient.invalidateQueries(useAuthGetUser.queryKey(opts));
 
 /**
@@ -118,15 +142,23 @@ useAuthGetUser.invalidate = (queryClient: QueryClient, opts: AuthGetUserParams) 
  */
 useAuthGetUser.setQueryData = (
   queryClient: QueryClient,
-  opts: AuthGetUserParams,
+  opts: Pretty<Partial<AuthGetUserParams>>,
   data: AuthGetUserResponse,
-) => queryClient.setQueryData(useAuthGetUser.queryKey(opts), data);
+) => {
+  if (opts["user"] === undefined || opts["user"] === null) {
+    throw new Error(
+      "Not all required variables where provided. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+    );
+  }
+
+  return queryClient.setQueryData(useAuthGetUser.queryKey(opts), data);
+};
 
 /**
  * Destroy the current session.
  *
  */
-type UseAuthLogoutProps = { requestConfig?: AxiosRequestConfig };
+type UseAuthLogoutProps = Pretty<{ requestConfig?: AxiosRequestConfig }>;
 export function useAuthLogout(
   options: UseMutationOptions<AuthLogoutResponse, AppErrorResponse, UseAuthLogoutProps> = {},
 ): UseMutationResult<AuthLogoutResponse, AppErrorResponse, UseAuthLogoutProps, unknown> {
@@ -142,9 +174,11 @@ export function useAuthLogout(
  *
  */
 export function useAuthMe<TData = AuthMeResponse>(
-  opts: { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<AuthMeResponse, AppErrorResponse, TData>;
-  } = {},
+  opts: Pretty<
+    { requestConfig?: AxiosRequestConfig } & {
+      queryOptions?: UseQueryOptions<AuthMeResponse, AppErrorResponse, TData>;
+    }
+  > = {},
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
@@ -175,9 +209,11 @@ useAuthMe.queryKey = (): QueryKey => [...useAuthMe.baseKey()];
 useAuthMe.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.fetchQuery(useAuthMe.queryKey(), () => apiAuthMe(axiosInstance, opts?.requestConfig));
+  return queryClient.fetchQuery(useAuthMe.queryKey(), () => {
+    return apiAuthMe(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -186,9 +222,11 @@ useAuthMe.fetch = (
 useAuthMe.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.prefetchQuery(useAuthMe.queryKey(), () => apiAuthMe(axiosInstance, opts?.requestConfig));
+  return queryClient.prefetchQuery(useAuthMe.queryKey(), () => {
+    return apiAuthMe(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -203,7 +241,9 @@ useAuthMe.setQueryData = (
   queryClient: QueryClient,
 
   data: AuthMeResponse,
-) => queryClient.setQueryData(useAuthMe.queryKey(), data);
+) => {
+  return queryClient.setQueryData(useAuthMe.queryKey(), data);
+};
 
 /**
  * Returns a new token pair based on the provided refresh token.
@@ -212,7 +252,7 @@ useAuthMe.setQueryData = (
  * - Inherits errors from [`sessionStoreRefreshTokens`](https://compasjs.com/features/session-handling.html#sessionstorerefreshtokens)
  *
  */
-type UseAuthRefreshTokensProps = AuthRefreshTokensBody & { requestConfig?: AxiosRequestConfig };
+type UseAuthRefreshTokensProps = Pretty<AuthRefreshTokensBody & { requestConfig?: AxiosRequestConfig }>;
 export function useAuthRefreshTokens(
   options: UseMutationOptions<AuthTokenPair, AppErrorResponse, UseAuthRefreshTokensProps> = {},
 ): UseMutationResult<AuthTokenPair, AppErrorResponse, UseAuthRefreshTokensProps, unknown> {
@@ -239,8 +279,9 @@ export function useAuthRefreshTokens(
  * Tags: ["auth:user:manage"]
  *
  */
-type UseAuthSetUserActiveProps = AuthSetUserActiveParams &
-  AuthSetUserActiveBody & { requestConfig?: AxiosRequestConfig };
+type UseAuthSetUserActiveProps = Pretty<
+  AuthSetUserActiveParams & AuthSetUserActiveBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthSetUserActive(
   options: UseMutationOptions<AuthSetUserActiveResponse, AppErrorResponse, UseAuthSetUserActiveProps> = {},
 ): UseMutationResult<AuthSetUserActiveResponse, AppErrorResponse, UseAuthSetUserActiveProps, unknown> {
@@ -267,8 +308,9 @@ export function useAuthSetUserActive(
  * Tags: ["auth:user:manage"]
  *
  */
-type UseAuthUpdateUserProps = AuthUpdateUserParams &
-  AuthUpdateUserBody & { requestConfig?: AxiosRequestConfig };
+type UseAuthUpdateUserProps = Pretty<
+  AuthUpdateUserParams & AuthUpdateUserBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useAuthUpdateUser(
   options: UseMutationOptions<AuthUpdateUserResponse, AppErrorResponse, UseAuthUpdateUserProps> = {},
 ): UseMutationResult<AuthUpdateUserResponse, AppErrorResponse, UseAuthUpdateUserProps, unknown> {
@@ -296,9 +338,11 @@ export function useAuthUpdateUser(
  *
  */
 export function useAuthUserList<TData = AuthUserListResponse>(
-  opts: AuthUserListBody & { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<AuthUserListResponse, AppErrorResponse, TData>;
-  },
+  opts: Pretty<
+    AuthUserListBody & { requestConfig?: AxiosRequestConfig } & {
+      queryOptions?: UseQueryOptions<AuthUserListResponse, AppErrorResponse, TData>;
+    }
+  >,
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
@@ -325,7 +369,7 @@ useAuthUserList.baseKey = (): QueryKey => ["auth", "userList"];
 /**
  * Query key used by useAuthUserList
  */
-useAuthUserList.queryKey = (opts: AuthUserListBody): QueryKey => [
+useAuthUserList.queryKey = (opts: Pretty<AuthUserListBody>): QueryKey => [
   ...useAuthUserList.baseKey(),
   { search: opts["search"] ?? null, filters: opts["filters"] ?? null },
 ];
@@ -336,11 +380,15 @@ useAuthUserList.queryKey = (opts: AuthUserListBody): QueryKey => [
 useAuthUserList.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: AuthUserListBody & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<AuthUserListBody & { requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.fetchQuery(useAuthUserList.queryKey(opts), () =>
-    apiAuthUserList(axiosInstance, { search: opts["search"], filters: opts["filters"] }, opts?.requestConfig),
-  );
+  return queryClient.fetchQuery(useAuthUserList.queryKey(opts), () => {
+    return apiAuthUserList(
+      axiosInstance,
+      { search: opts["search"], filters: opts["filters"] },
+      opts?.requestConfig,
+    );
+  });
 };
 
 /**
@@ -349,17 +397,21 @@ useAuthUserList.fetch = (
 useAuthUserList.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: AuthUserListBody & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<AuthUserListBody & { requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.prefetchQuery(useAuthUserList.queryKey(opts), () =>
-    apiAuthUserList(axiosInstance, { search: opts["search"], filters: opts["filters"] }, opts?.requestConfig),
-  );
+  return queryClient.prefetchQuery(useAuthUserList.queryKey(opts), () => {
+    return apiAuthUserList(
+      axiosInstance,
+      { search: opts["search"], filters: opts["filters"] },
+      opts?.requestConfig,
+    );
+  });
 };
 
 /**
  * Invalidate useAuthUserList via the queryClient
  */
-useAuthUserList.invalidate = (queryClient: QueryClient, opts: AuthUserListBody) =>
+useAuthUserList.invalidate = (queryClient: QueryClient, opts: Pretty<AuthUserListBody>) =>
   queryClient.invalidateQueries(useAuthUserList.queryKey(opts));
 
 /**
@@ -367,6 +419,8 @@ useAuthUserList.invalidate = (queryClient: QueryClient, opts: AuthUserListBody) 
  */
 useAuthUserList.setQueryData = (
   queryClient: QueryClient,
-  opts: AuthUserListBody,
+  opts: Pretty<AuthUserListBody>,
   data: AuthUserListResponse,
-) => queryClient.setQueryData(useAuthUserList.queryKey(opts), data);
+) => {
+  return queryClient.setQueryData(useAuthUserList.queryKey(opts), data);
+};
