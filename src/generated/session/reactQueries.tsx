@@ -12,6 +12,7 @@ import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import type { AppErrorResponse } from "generated/common/api-client";
+import type { Pretty } from "generated/common/api-client-wrapper";
 import { useApi } from "generated/common/api-client-wrapper";
 import type {
   SessionListResponse,
@@ -27,9 +28,11 @@ import { apiSessionList, apiSessionLogout, apiSessionSetDeviceNotificationToken 
  *
  */
 export function useSessionList<TData = SessionListResponse>(
-  opts: { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<SessionListResponse, AppErrorResponse, TData>;
-  } = {},
+  opts: Pretty<
+    { requestConfig?: AxiosRequestConfig } & {
+      queryOptions?: UseQueryOptions<SessionListResponse, AppErrorResponse, TData>;
+    }
+  > = {},
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
@@ -60,11 +63,11 @@ useSessionList.queryKey = (): QueryKey => [...useSessionList.baseKey()];
 useSessionList.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.fetchQuery(useSessionList.queryKey(), () =>
-    apiSessionList(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.fetchQuery(useSessionList.queryKey(), () => {
+    return apiSessionList(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -73,11 +76,11 @@ useSessionList.fetch = (
 useSessionList.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.prefetchQuery(useSessionList.queryKey(), () =>
-    apiSessionList(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.prefetchQuery(useSessionList.queryKey(), () => {
+    return apiSessionList(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -93,13 +96,15 @@ useSessionList.setQueryData = (
   queryClient: QueryClient,
 
   data: SessionListResponse,
-) => queryClient.setQueryData(useSessionList.queryKey(), data);
+) => {
+  return queryClient.setQueryData(useSessionList.queryKey(), data);
+};
 
 /**
  * Remove a specific session.
  *
  */
-type UseSessionLogoutProps = SessionLogoutBody & { requestConfig?: AxiosRequestConfig };
+type UseSessionLogoutProps = Pretty<SessionLogoutBody & { requestConfig?: AxiosRequestConfig }>;
 export function useSessionLogout(
   options: UseMutationOptions<SessionLogoutResponse, AppErrorResponse, UseSessionLogoutProps> = {},
   hookOptions: { invalidateQueries?: boolean } = {},
@@ -126,9 +131,9 @@ export function useSessionLogout(
  * Set the notification token for the current session.
  *
  */
-type UseSessionSetDeviceNotificationTokenProps = SessionSetDeviceNotificationTokenBody & {
-  requestConfig?: AxiosRequestConfig;
-};
+type UseSessionSetDeviceNotificationTokenProps = Pretty<
+  SessionSetDeviceNotificationTokenBody & { requestConfig?: AxiosRequestConfig }
+>;
 export function useSessionSetDeviceNotificationToken(
   options: UseMutationOptions<
     SessionSetDeviceNotificationTokenResponse,

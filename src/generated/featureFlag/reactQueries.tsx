@@ -6,6 +6,7 @@ import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 import type { AppErrorResponse } from "generated/common/api-client";
+import type { Pretty } from "generated/common/api-client-wrapper";
 import { useApi } from "generated/common/api-client-wrapper";
 import type { FeatureFlagCurrentResponse } from "generated/common/types";
 
@@ -15,9 +16,11 @@ import { apiFeatureFlagCurrent } from "./apiClient";
  *
  */
 export function useFeatureFlagCurrent<TData = FeatureFlagCurrentResponse>(
-  opts: { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<FeatureFlagCurrentResponse, AppErrorResponse, TData>;
-  } = {},
+  opts: Pretty<
+    { requestConfig?: AxiosRequestConfig } & {
+      queryOptions?: UseQueryOptions<FeatureFlagCurrentResponse, AppErrorResponse, TData>;
+    }
+  > = {},
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
@@ -48,11 +51,11 @@ useFeatureFlagCurrent.queryKey = (): QueryKey => [...useFeatureFlagCurrent.baseK
 useFeatureFlagCurrent.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.fetchQuery(useFeatureFlagCurrent.queryKey(), () =>
-    apiFeatureFlagCurrent(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.fetchQuery(useFeatureFlagCurrent.queryKey(), () => {
+    return apiFeatureFlagCurrent(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -61,11 +64,11 @@ useFeatureFlagCurrent.fetch = (
 useFeatureFlagCurrent.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.prefetchQuery(useFeatureFlagCurrent.queryKey(), () =>
-    apiFeatureFlagCurrent(axiosInstance, opts?.requestConfig),
-  );
+  return queryClient.prefetchQuery(useFeatureFlagCurrent.queryKey(), () => {
+    return apiFeatureFlagCurrent(axiosInstance, opts?.requestConfig);
+  });
 };
 
 /**
@@ -81,4 +84,6 @@ useFeatureFlagCurrent.setQueryData = (
   queryClient: QueryClient,
 
   data: FeatureFlagCurrentResponse,
-) => queryClient.setQueryData(useFeatureFlagCurrent.queryKey(), data);
+) => {
+  return queryClient.setQueryData(useFeatureFlagCurrent.queryKey(), data);
+};

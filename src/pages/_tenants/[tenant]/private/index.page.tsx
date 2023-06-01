@@ -58,7 +58,7 @@ export default function Home() {
             <div className="w-3" />
             <button
               data-test="private.index.logout"
-              className="rounded-lg border bg-white py-4 px-6 font-bold text-gray-700 shadow-md ring-blue-600 ring-offset-2 hover:bg-gray-100 hover:underline focus:outline-none focus:ring-2"
+              className="rounded-lg border bg-white px-6 py-4 font-bold text-gray-700 shadow-md ring-blue-600 ring-offset-2 hover:bg-gray-100 hover:underline focus:outline-none focus:ring-2"
               onClick={() => authLogout({})}
             >
               {t("home.logout")}

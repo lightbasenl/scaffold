@@ -123,7 +123,7 @@ export default function Home() {
 
         <main id="main">
           <div className="relative px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl pt-20 pb-32 sm:pt-48 sm:pb-40">
+            <div className="mx-auto max-w-3xl pb-32 pt-20 sm:pb-40 sm:pt-48">
               <div>
                 <h1 className="text-4xl font-bold tracking-tight sm:text-center sm:text-6xl">
                   {t("common.appName")}
@@ -146,7 +146,7 @@ export default function Home() {
               </div>
 
               <div className="my-8 flex sm:justify-center">
-                <div className="relative overflow-hidden rounded-full py-1.5 px-4 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                <div className="relative overflow-hidden rounded-full px-4 py-1.5 text-sm leading-6 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
                   <span className="text-gray-600">
                     <p>
                       Current feature flags:{" "}

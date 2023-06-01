@@ -264,7 +264,7 @@ export type AuthPermissionRoleAddPermissionsParams = {
 };
 
 export type AuthPermissionRoleAddPermissionsBody = {
-  permissions: AuthPermissionIdentifier[] | AuthPermissionIdentifier;
+  permissions: AuthPermissionIdentifier[];
 };
 
 export type AuthPermissionRoleAddPermissionsResponse = {
@@ -285,7 +285,7 @@ export type AuthPermissionRoleRemovePermissionsParams = {
 };
 
 export type AuthPermissionRoleRemovePermissionsBody = {
-  permissions: AuthPermissionIdentifier[] | AuthPermissionIdentifier;
+  permissions: AuthPermissionIdentifier[];
 };
 
 export type AuthPermissionRoleRemovePermissionsResponse = {
@@ -399,36 +399,30 @@ export type ManagementFeatureFlagListBody = {
     | {
         id?: string | undefined;
         idNotEqual?: string | undefined;
-        idIn?: string[] | string | undefined;
-        idNotIn?: string[] | string | undefined;
+        idIn?: string[] | undefined;
+        idNotIn?: string[] | undefined;
         name?: string | undefined;
         nameNotEqual?: string | undefined;
-        nameIn?: string[] | string | undefined;
-        nameNotIn?: string[] | string | undefined;
+        nameIn?: string[] | undefined;
+        nameNotIn?: string[] | undefined;
         nameLike?: string | undefined;
         nameILike?: string | undefined;
         nameNotLike?: string | undefined;
         createdAt?: Date | string | number | undefined;
         createdAtNotEqual?: Date | string | number | undefined;
-        createdAtIn?: (Date | string | number)[] | Date | string | number | undefined;
-        createdAtNotIn?: (Date | string | number)[] | Date | string | number | undefined;
+        createdAtIn?: (Date | string | number)[] | undefined;
+        createdAtNotIn?: (Date | string | number)[] | undefined;
         createdAtGreaterThan?: Date | string | number | undefined;
         createdAtLowerThan?: Date | string | number | undefined;
         updatedAt?: Date | string | number | undefined;
         updatedAtNotEqual?: Date | string | number | undefined;
-        updatedAtIn?: (Date | string | number)[] | Date | string | number | undefined;
-        updatedAtNotIn?: (Date | string | number)[] | Date | string | number | undefined;
+        updatedAtIn?: (Date | string | number)[] | undefined;
+        updatedAtNotIn?: (Date | string | number)[] | undefined;
         updatedAtGreaterThan?: Date | string | number | undefined;
         updatedAtLowerThan?: Date | string | number | undefined;
       }
     | undefined;
-  orderBy?:
-    | ("id" | "name" | "createdAt" | "updatedAt")[]
-    | "id"
-    | "name"
-    | "createdAt"
-    | "updatedAt"
-    | undefined;
+  orderBy?: ("id" | "name" | "createdAt" | "updatedAt")[] | undefined;
   orderBySpec?:
     | {
         id?: "ASC" | "DESC" | undefined;

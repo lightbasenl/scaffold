@@ -6,11 +6,12 @@ import type { AxiosRequestConfig } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import type { AppErrorResponse } from "generated/common/api-client";
+import type { Pretty } from "generated/common/api-client-wrapper";
 import { useApi } from "generated/common/api-client-wrapper";
 import type { ScaffoldCreateUserResponse } from "generated/common/types";
 
 import { apiScaffoldCreateUser } from "./apiClient";
-type UseScaffoldCreateUserProps = { requestConfig?: AxiosRequestConfig };
+type UseScaffoldCreateUserProps = Pretty<{ requestConfig?: AxiosRequestConfig }>;
 export function useScaffoldCreateUser(
   options: UseMutationOptions<ScaffoldCreateUserResponse, AppErrorResponse, UseScaffoldCreateUserProps> = {},
 ): UseMutationResult<ScaffoldCreateUserResponse, AppErrorResponse, UseScaffoldCreateUserProps, unknown> {

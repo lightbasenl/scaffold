@@ -95,7 +95,7 @@ export default function FiveOo() {
 
         <main id="main">
           <div className="relative px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl pt-20 pb-32 text-center sm:pt-48 sm:pb-40">
+            <div className="mx-auto max-w-3xl pb-32 pt-20 text-center sm:pb-40 sm:pt-48">
               <div>
                 <h1 className="text-4xl font-bold tracking-tight sm:text-center sm:text-6xl">
                   {t("errorPages.500.title")}
