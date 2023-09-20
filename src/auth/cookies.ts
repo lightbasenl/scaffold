@@ -20,13 +20,22 @@ export function authCreateCookiesFromTokenPair(
   // Deviates from the scaffold, since cfp.blox runs in an insecure context
   const secure = process.env.NODE_ENV === "production";
 
+  const accessTokenExpiresAt = new Date(accessToken.exp * 1000);
+  const refreshTokenExpiresAt = new Date(refreshToken.exp * 1000);
+
+  // We use absence of a cookie to determine if we should refresh. By subtracting a minute, we
+  // make sure that in flight requests always use a still valid cookie instead of the minor
+  // chance that it expires while in-flight.
+  accessTokenExpiresAt.setMinutes(accessTokenExpiresAt.getMinutes() - 1);
+  refreshTokenExpiresAt.setMinutes(refreshTokenExpiresAt.getMinutes() - 1);
+
   setCookie(context, "accessToken", tokenPair.accessToken, {
-    expires: new Date(accessToken.exp * 1000),
+    expires: accessTokenExpiresAt,
     secure,
     path: "/",
   });
   setCookie(context, "refreshToken", tokenPair.refreshToken, {
-    expires: new Date(refreshToken.exp * 1000),
+    expires: refreshTokenExpiresAt,
     secure,
     path: "/",
   });
