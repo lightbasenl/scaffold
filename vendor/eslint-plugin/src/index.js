@@ -8,6 +8,9 @@ module.exports = {
         "plugin:prettier/recommended",
       ],
       plugins: ["unused-imports", "no-relative-import-paths"],
+      parserOptions: {
+        warnOnUnsupportedTypeScriptVersion: false,
+      },
       rules: {
         "no-relative-import-paths/no-relative-import-paths": [
           "error",
