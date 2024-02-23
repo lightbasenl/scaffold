@@ -17,12 +17,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "yarn"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Run format
-        run: |
-          yarn install
-          yarn format
+        run: npm run format
 
   test:
     timeout-minutes: 15
@@ -36,12 +37,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "yarn"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Run test
-        run: |
-          yarn install
-          yarn test --passWithNoTests
+        run: npm run test --passWithNoTests
 
   build:
     timeout-minutes: 15
@@ -55,20 +57,22 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "yarn"
+          cache: "npm"
 
       - uses: actions/cache@v3
         with:
           path: |
             ${{ github.workspace }}/.next/cache
-          key: next-build-cache-${{ hashFiles('./yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          key:
+            next-build-cache-${{ hashFiles('./package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
           restore-keys: |
-            next-build-cache-${{ hashFiles('./yarn.lock') }}-
+            next-build-cache-${{ hashFiles('./package-lock.json') }}-
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Run build
-        run: |
-          yarn
-          yarn build
+        run: npm run build
 
   e2e:
     timeout-minutes: 15
@@ -90,27 +94,27 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "yarn"
-          cache-dependency-path: "**/yarn.lock"
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
 
       - uses: actions/cache@v3
         with:
           path: |
             ${{ github.workspace }}/frontend/.next/cache
           key:
-            next-build-cache-${{ hashFiles('./frontend/yarn.lock') }}-${{ hashFiles('./frontend/**.[jt]s',
-            './frontend/**.[jt]sx') }}
+            next-build-cache-${{ hashFiles('./frontend/package-lock.json') }}-${{
+            hashFiles('./frontend/**.[jt]s', './frontend/**.[jt]sx') }}
           restore-keys: |
-            next-build-cache-${{ hashFiles('./frontend/yarn.lock') }}-
+            next-build-cache-${{ hashFiles('./frontend/package-lock.json') }}-
 
       - name: Install
         run: |
           cd ./backend
-          yarn
-          yarn compas generate application --skip-lint
+          npm install
+          npx compas generate application --skip-lint
           cd ../frontend
-          yarn
-          yarn playwright install --with-deps chromium
+          npm install
+          npx playwright install --with-deps chromium
 
       - name: Run e2e
         env:
@@ -118,7 +122,7 @@ jobs:
           TENANT_API_URL: "http://localhost:3001"
         run: |
           cd ./frontend
-          yarn test:e2e:ci
+          npm run test:e2e:ci
 
       - name: Upload test results
         if: always()
