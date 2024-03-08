@@ -1,0 +1,40 @@
+# Dependabot config file version
+version: 2
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: "monday"
+    groups:
+      all:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: wednesday
+    # Fail-safe limit
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    groups:
+      # Single group for Next.js. Its updates may require different major / minor updates of dependencies.
+      next:
+        patterns:
+          - "next"
+
+      # Updates for production dependencies
+      production:
+        dependency-type: production
+
+      # Updates for development dependencies
+      development:
+        dependency-type: development
+
+      security:
+        applies-to: security-updates
+        patterns:
+          - "*"
