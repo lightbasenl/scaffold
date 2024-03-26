@@ -94,6 +94,7 @@ module.exports = {
         "@typescript-eslint/no-explicit-any": "error",
         "@typescript-eslint/prefer-ts-expect-error": "error",
         "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/no-floating-promises": "error",
 
         "@next/next/no-img-element": "off",
         "react/react-in-jsx-scope": "off",
@@ -102,6 +103,8 @@ module.exports = {
 
         "default-case": "off",
         curly: "error",
+
+        "no-constant-binary-expression": "error",
 
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "error",
