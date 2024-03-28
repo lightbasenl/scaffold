@@ -1,9 +1,9 @@
-[Reviewers guide](https://www.notion.so/lightbase/Pull-request-PR-reviews-Frontend-66f65f2fc91948a79d8f53a138e6f422)
+**Description**
 
 **Checklist**
 
-Please check the following items before submitting the PR. Add relevant explanations for the below points
-under the description.
+Please check the following items before submitting the PR. Add relevant explanations for the below points in
+the description.
 
 - [ ] The PR title is in line with the following examples:
   - `chore(ci): add speedups to lint job`
@@ -27,16 +27,18 @@ under the description.
     [technical debt](https://www.notion.so/Technical-debt-refactoring-eabbdee2b66945d7b55517f92cca20bb) is
     marked with a TODO comment.
   - Obsolete comments are removed.
-- [ ] The PR does not add a new dependency. Follow
-      [this document](https://www.notion.so/lightbase/Introducing-dependencies-ac169cfeafb44782bded308810237737)
-      and add the link to in the description.
-- [ ] The PR does not contain changes to the design system.
-- [ ] The PR does not add 'exclusions' on the design system.
-- [ ] The PR reuses existing components.
-- [ ] The PR does not introduce new base components.
-- [ ] The PR uses translations for all necessary strings.
-- [ ] The PR does not include unrelated changes.
-- [ ] The PR does not include `// @ts-expect-error` / `// eslint-disable` comments.
-- [ ] The PR does not mix dependency updates and refactoring with features and fixes.
 
-**Description**
+<!-- Other points to manually check and if necessary, elaborate on in the description
+
+- The PR does not add a new dependency. Follow [this document](https://www.notion.so/lightbase/Introducing-dependencies-ac169cfeafb44782bded308810237737) and add the link to in the description.
+- The PR does not contain changes to the design system.
+- The PR does not add 'exclusions' on the design system.
+- The PR reuses existing components.
+- The PR does not introduce new base components.
+- The PR uses translations for all necessary strings.
+- The PR does not include unrelated changes.
+- The PR does not include `// @ts-expect-error` / `// eslint-disable` comments.
+- The PR does not mix dependency updates and refactoring with features and fixes.
+-->
+
+[Reviewers guide](https://www.notion.so/lightbase/Pull-request-PR-reviews-Frontend-66f65f2fc91948a79d8f53a138e6f422)
