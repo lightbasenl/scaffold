@@ -92,7 +92,7 @@ export function Login() {
                   </Disclosure.Button>
                 </div>
 
-                <Disclosure.Panel className={tw`space-y-4 space-y-2 rounded-xl bg-blue-50 p-4  `}>
+                <Disclosure.Panel className={tw`space-y-2 space-y-4 rounded-xl bg-blue-50 p-4  `}>
                   <h2 className={tw`text-sm font-bold tracking-wide text-blue-900`}>
                     How to find your Slack User ID
                   </h2>

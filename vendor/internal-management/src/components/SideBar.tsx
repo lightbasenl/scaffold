@@ -10,8 +10,8 @@ export default function SideBar() {
           to="/"
           className={({ isActive }) =>
             isActive
-              ? tw`block bg-[#f1f1f1] py-3 px-6 text-sm font-medium text-gray-800`
-              : tw`block py-3 px-6 text-sm font-medium text-gray-600 hover:text-gray-800`
+              ? tw`block bg-[#f1f1f1] px-6 py-3 text-sm font-medium text-gray-800`
+              : tw`block px-6 py-3 text-sm font-medium text-gray-600 hover:text-gray-800`
           }
         >
           Feature flags

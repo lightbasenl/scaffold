@@ -4,6 +4,7 @@ import type { UseMutationOptions, UseMutationResult } from "@tanstack/react-quer
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosRequestConfig } from "axios";
 import type { AppErrorResponse } from "../common/api-client";
+import type { Pretty } from "../common/api-client-wrapper";
 import { useApi } from "../common/api-client-wrapper";
 import type { AuthAnonymousBasedLoginBody, AuthAnonymousBasedTokenPair } from "../common/types";
 import { apiAuthAnonymousBasedLogin } from "./apiClient";
@@ -17,28 +18,31 @@ import { apiAuthAnonymousBasedLogin } from "./apiClient";
  *   log in.
  *
  */
-type UseAuthAnonymousBasedLoginProps = AuthAnonymousBasedLoginBody & { requestConfig?: AxiosRequestConfig };
-export function useAuthAnonymousBasedLogin(
+type UseAuthAnonymousBasedLoginProps = Pretty<
+  AuthAnonymousBasedLoginBody & { requestConfig?: AxiosRequestConfig }
+>;
+export function useAuthAnonymousBasedLogin<Context = unknown>(
   options: UseMutationOptions<
     AuthAnonymousBasedTokenPair,
     AppErrorResponse,
-    UseAuthAnonymousBasedLoginProps
+    UseAuthAnonymousBasedLoginProps,
+    Context
   > = {},
 ): UseMutationResult<
   AuthAnonymousBasedTokenPair,
   AppErrorResponse,
   UseAuthAnonymousBasedLoginProps,
-  unknown
+  Context
 > {
   const axiosInstance = useApi();
   const queryClient = useQueryClient();
-  return useMutation(
-    variables =>
+  return useMutation({
+    mutationFn: variables =>
       apiAuthAnonymousBasedLogin(
         axiosInstance,
         { token: variables["token"], device: variables["device"] },
         variables?.requestConfig,
       ),
-    options,
-  );
+    ...options,
+  });
 }

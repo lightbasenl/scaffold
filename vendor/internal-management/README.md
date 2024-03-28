@@ -16,7 +16,11 @@ Props:
 - `tenantOrigin`: optional tenant origin, to send to tenant aware backends.
 
 ```tsx
-// In pages/_tenants/[tenant]/_lightbase/[...management].tsx
+// In pages/_tenants/[tenant]/_lightbase/[[...management]].tsx
+// Or in app/%5Flightbase/[[...management]]/page.tsx
+//           ^ _ directories are not turned in to routes by default
+
+"use client";
 
 import { InternalManagement } from "@lightbase/internal-management";
 

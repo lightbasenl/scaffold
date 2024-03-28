@@ -1,5 +1,5 @@
 import hash from "@emotion/hash";
-import { Global, css } from "@emotion/react";
+import { css, Global } from "@emotion/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import Head from "next/head";
@@ -22,7 +22,15 @@ setup({
  * Includes its own QueryClient and Axios instance, and is not dependant on the auth setup of
  * the host.
  */
-export function InternalManagement({ apiUrl, tenantOrigin }: { apiUrl: string; tenantOrigin?: string }) {
+export function InternalManagement({
+  apiUrl,
+  tenantOrigin,
+  tenants,
+}: {
+  apiUrl: string;
+  tenantOrigin?: string;
+  tenants?: string[];
+}) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
@@ -83,7 +91,7 @@ export function InternalManagement({ apiUrl, tenantOrigin }: { apiUrl: string; t
 
           <QueryClientProvider client={queryClient}>
             <ApiProvider instance={axiosInstance}>
-              <Router />
+              <Router tenants={tenants} />
             </ApiProvider>
           </QueryClientProvider>
         </div>

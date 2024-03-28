@@ -4,7 +4,7 @@ import { FeatureFlags } from "../pages/FeatureFlags";
 import { Login } from "../pages/Login";
 import { TokenAuth } from "../pages/TokenAuth";
 
-export function Router() {
+export function Router({ tenants }: { tenants?: string[] }) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export function Router() {
     [
       {
         path: "/",
-        element: <FeatureFlags />,
+        element: <FeatureFlags tenants={tenants} />,
         errorElement: <ErrorBoundary />,
       },
       {

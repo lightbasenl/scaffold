@@ -4,6 +4,7 @@ import type { UseMutationOptions, UseMutationResult } from "@tanstack/react-quer
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { AxiosRequestConfig } from "axios";
 import type { AppErrorResponse } from "../common/api-client";
+import type { Pretty } from "../common/api-client-wrapper";
 import { useApi } from "../common/api-client-wrapper";
 import type { ManagementRequestMagicLinkBody, ManagementRequestMagicLinkResponse } from "../common/types";
 import { apiManagementRequestMagicLink } from "./apiClient";
@@ -11,30 +12,31 @@ import { apiManagementRequestMagicLink } from "./apiClient";
  * Sends a magic link via Slack. Locally it directly returns the url.
  *
  */
-type UseManagementRequestMagicLinkProps = ManagementRequestMagicLinkBody & {
-  requestConfig?: AxiosRequestConfig;
-};
-export function useManagementRequestMagicLink(
+type UseManagementRequestMagicLinkProps = Pretty<
+  ManagementRequestMagicLinkBody & { requestConfig?: AxiosRequestConfig }
+>;
+export function useManagementRequestMagicLink<Context = unknown>(
   options: UseMutationOptions<
     ManagementRequestMagicLinkResponse,
     AppErrorResponse,
-    UseManagementRequestMagicLinkProps
+    UseManagementRequestMagicLinkProps,
+    Context
   > = {},
 ): UseMutationResult<
   ManagementRequestMagicLinkResponse,
   AppErrorResponse,
   UseManagementRequestMagicLinkProps,
-  unknown
+  Context
 > {
   const axiosInstance = useApi();
   const queryClient = useQueryClient();
-  return useMutation(
-    variables =>
+  return useMutation({
+    mutationFn: variables =>
       apiManagementRequestMagicLink(
         axiosInstance,
         { slackUserId: variables["slackUserId"] },
         variables?.requestConfig,
       ),
-    options,
-  );
+    ...options,
+  });
 }
