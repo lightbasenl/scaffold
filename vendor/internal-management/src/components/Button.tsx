@@ -9,7 +9,7 @@ const sizes = {
 
 const variants = {
   primary: "border-transparent text-white bg-blue-600 hover:bg-blue-700 focus:ring-blue-500",
-  default: "bg-gray-50",
+  default: "bg-gray-50 hover:bg-gray-100",
 };
 
 export type ButtonProps = DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {

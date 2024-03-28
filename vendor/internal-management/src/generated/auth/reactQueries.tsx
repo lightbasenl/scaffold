@@ -3,6 +3,7 @@
 import type {
   QueryClient,
   QueryKey,
+  Updater,
   UseMutationOptions,
   UseMutationResult,
   UseQueryOptions,
@@ -10,10 +11,12 @@ import type {
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import type { AppErrorResponse } from "../common/api-client";
+import type { Pretty } from "../common/api-client-wrapper";
 import { useApi } from "../common/api-client-wrapper";
 import type {
   AuthGetUserParams,
   AuthGetUserResponse,
+  AuthImpersonateStopSessionResponse,
   AuthLogoutResponse,
   AuthMeResponse,
   AuthRefreshTokensBody,
@@ -29,6 +32,7 @@ import type {
 } from "../common/types";
 import {
   apiAuthGetUser,
+  apiAuthImpersonateStopSession,
   apiAuthLogout,
   apiAuthMe,
   apiAuthRefreshTokens,
@@ -46,24 +50,38 @@ import {
  *
  */
 export function useAuthGetUser<TData = AuthGetUserResponse>(
-  opts: AuthGetUserParams & { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<AuthGetUserResponse, AppErrorResponse, TData>;
-  },
+  opts: Pretty<
+    Partial<
+      AuthGetUserParams & { requestConfig?: AxiosRequestConfig } & {
+        queryOptions?: Omit<
+          UseQueryOptions<AuthGetUserResponse, AppErrorResponse, TData>,
+          "queryFn" | "queryKey"
+        >;
+      }
+    >
+  >,
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
   options.enabled =
-    options.enabled === true || (options.enabled !== false && opts.user !== undefined && opts.user !== null);
-  return useQuery(
-    useAuthGetUser.queryKey(opts),
-    ({ signal }) => {
+    options.enabled === true ||
+    (options.enabled !== false && opts["user"] !== undefined && opts["user"] !== null);
+  return useQuery({
+    queryKey: useAuthGetUser.queryKey(opts),
+    queryFn: ({ signal }) => {
+      if (opts["user"] === undefined || opts["user"] === null) {
+        throw new Error(
+          "Not all required variables where provided to 'useAuthGetUser'. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+        );
+      }
+
       opts.requestConfig ??= {};
       opts.requestConfig.signal = signal;
 
       return apiAuthGetUser(axiosInstance, { user: opts["user"] }, opts?.requestConfig);
     },
-    options,
-  );
+    ...options,
+  });
 }
 /**
  * Base key used by useAuthGetUser.queryKey()
@@ -73,7 +91,7 @@ useAuthGetUser.baseKey = (): QueryKey => ["auth", "getUser"];
 /**
  * Query key used by useAuthGetUser
  */
-useAuthGetUser.queryKey = (opts: AuthGetUserParams): QueryKey => [
+useAuthGetUser.queryKey = (opts: Pretty<Partial<AuthGetUserParams>>): QueryKey => [
   ...useAuthGetUser.baseKey(),
   { user: opts["user"] },
 ];
@@ -84,11 +102,20 @@ useAuthGetUser.queryKey = (opts: AuthGetUserParams): QueryKey => [
 useAuthGetUser.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: AuthGetUserParams & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<Partial<AuthGetUserParams & { requestConfig?: AxiosRequestConfig }>>,
 ) => {
-  return queryClient.fetchQuery(useAuthGetUser.queryKey(opts), () =>
-    apiAuthGetUser(axiosInstance, { user: opts["user"] }, opts?.requestConfig),
-  );
+  return queryClient.fetchQuery({
+    queryKey: useAuthGetUser.queryKey(opts),
+    queryFn: () => {
+      if (opts["user"] === undefined || opts["user"] === null) {
+        throw new Error(
+          "Not all required variables where provided to 'useAuthGetUser.fetchQuery'. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+        );
+      }
+
+      return apiAuthGetUser(axiosInstance, { user: opts["user"] }, opts?.requestConfig);
+    },
+  });
 };
 
 /**
@@ -97,39 +124,87 @@ useAuthGetUser.fetch = (
 useAuthGetUser.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: AuthGetUserParams & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<Partial<AuthGetUserParams & { requestConfig?: AxiosRequestConfig }>>,
 ) => {
-  return queryClient.prefetchQuery(useAuthGetUser.queryKey(opts), () =>
-    apiAuthGetUser(axiosInstance, { user: opts["user"] }, opts?.requestConfig),
-  );
+  return queryClient.prefetchQuery({
+    queryKey: useAuthGetUser.queryKey(opts),
+    queryFn: () => {
+      if (opts["user"] === undefined || opts["user"] === null) {
+        throw new Error(
+          "Not all required variables where provided to 'useAuthGetUser.prefetchQuery'. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+        );
+      }
+
+      return apiAuthGetUser(axiosInstance, { user: opts["user"] }, opts?.requestConfig);
+    },
+  });
 };
 
 /**
  * Invalidate useAuthGetUser via the queryClient
  */
-useAuthGetUser.invalidate = (queryClient: QueryClient, opts: AuthGetUserParams) =>
-  queryClient.invalidateQueries(useAuthGetUser.queryKey(opts));
+useAuthGetUser.invalidate = (queryClient: QueryClient, opts: Pretty<Partial<AuthGetUserParams>>) =>
+  queryClient.invalidateQueries({ queryKey: useAuthGetUser.queryKey(opts) });
 
 /**
  * Set query data for useAuthGetUser via the queryClient
  */
 useAuthGetUser.setQueryData = (
   queryClient: QueryClient,
-  opts: AuthGetUserParams,
-  data: AuthGetUserResponse,
-) => queryClient.setQueryData(useAuthGetUser.queryKey(opts), data);
+  opts: Pretty<Partial<AuthGetUserParams>>,
+  data: Updater<AuthGetUserResponse, AuthGetUserResponse>,
+) => {
+  if (opts["user"] === undefined || opts["user"] === null) {
+    throw new Error(
+      "Not all required variables where provided to 'useAuthGetUser.setQueryData'. This happens when you manually set 'queryOptions.enabled' or when you use 'refetch'. Both skip the generated 'queryOptions.enabled'. Make sure that all necessary arguments are set.",
+    );
+  }
+
+  return queryClient.setQueryData(useAuthGetUser.queryKey(opts), data);
+};
+
+/**
+ * Stop an impersonating session. Requires that the current session belongs to the impersonator. Impersonate sessions can only be started from the platform backends.
+ *
+ * Callers should bust all local caches and redirect the user to the correct location.
+ *
+ */
+type UseAuthImpersonateStopSessionProps = Pretty<{ requestConfig?: AxiosRequestConfig }>;
+export function useAuthImpersonateStopSession<Context = unknown>(
+  options: UseMutationOptions<
+    AuthImpersonateStopSessionResponse,
+    AppErrorResponse,
+    UseAuthImpersonateStopSessionProps,
+    Context
+  > = {},
+): UseMutationResult<
+  AuthImpersonateStopSessionResponse,
+  AppErrorResponse,
+  UseAuthImpersonateStopSessionProps,
+  Context
+> {
+  const axiosInstance = useApi();
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: variables => apiAuthImpersonateStopSession(axiosInstance, variables?.requestConfig),
+    ...options,
+  });
+}
 
 /**
  * Destroy the current session.
  *
  */
-type UseAuthLogoutProps = { requestConfig?: AxiosRequestConfig };
-export function useAuthLogout(
-  options: UseMutationOptions<AuthLogoutResponse, AppErrorResponse, UseAuthLogoutProps> = {},
-): UseMutationResult<AuthLogoutResponse, AppErrorResponse, UseAuthLogoutProps, unknown> {
+type UseAuthLogoutProps = Pretty<{ requestConfig?: AxiosRequestConfig }>;
+export function useAuthLogout<Context = unknown>(
+  options: UseMutationOptions<AuthLogoutResponse, AppErrorResponse, UseAuthLogoutProps, Context> = {},
+): UseMutationResult<AuthLogoutResponse, AppErrorResponse, UseAuthLogoutProps, Context> {
   const axiosInstance = useApi();
   const queryClient = useQueryClient();
-  return useMutation(variables => apiAuthLogout(axiosInstance, variables?.requestConfig), options);
+  return useMutation({
+    mutationFn: variables => apiAuthLogout(axiosInstance, variables?.requestConfig),
+    ...options,
+  });
 }
 
 /**
@@ -139,22 +214,24 @@ export function useAuthLogout(
  *
  */
 export function useAuthMe<TData = AuthMeResponse>(
-  opts: { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<AuthMeResponse, AppErrorResponse, TData>;
-  } = {},
+  opts: Pretty<
+    { requestConfig?: AxiosRequestConfig } & {
+      queryOptions?: Omit<UseQueryOptions<AuthMeResponse, AppErrorResponse, TData>, "queryFn" | "queryKey">;
+    }
+  > = {},
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
-  return useQuery(
-    useAuthMe.queryKey(),
-    ({ signal }) => {
+  return useQuery({
+    queryKey: useAuthMe.queryKey(),
+    queryFn: ({ signal }) => {
       opts.requestConfig ??= {};
       opts.requestConfig.signal = signal;
 
       return apiAuthMe(axiosInstance, opts?.requestConfig);
     },
-    options,
-  );
+    ...options,
+  });
 }
 /**
  * Base key used by useAuthMe.queryKey()
@@ -172,9 +249,14 @@ useAuthMe.queryKey = (): QueryKey => [...useAuthMe.baseKey()];
 useAuthMe.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.fetchQuery(useAuthMe.queryKey(), () => apiAuthMe(axiosInstance, opts?.requestConfig));
+  return queryClient.fetchQuery({
+    queryKey: useAuthMe.queryKey(),
+    queryFn: () => {
+      return apiAuthMe(axiosInstance, opts?.requestConfig);
+    },
+  });
 };
 
 /**
@@ -183,15 +265,21 @@ useAuthMe.fetch = (
 useAuthMe.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts?: { requestConfig?: AxiosRequestConfig },
+  opts?: Pretty<{ requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.prefetchQuery(useAuthMe.queryKey(), () => apiAuthMe(axiosInstance, opts?.requestConfig));
+  return queryClient.prefetchQuery({
+    queryKey: useAuthMe.queryKey(),
+    queryFn: () => {
+      return apiAuthMe(axiosInstance, opts?.requestConfig);
+    },
+  });
 };
 
 /**
  * Invalidate useAuthMe via the queryClient
  */
-useAuthMe.invalidate = (queryClient: QueryClient) => queryClient.invalidateQueries(useAuthMe.queryKey());
+useAuthMe.invalidate = (queryClient: QueryClient) =>
+  queryClient.invalidateQueries({ queryKey: useAuthMe.queryKey() });
 
 /**
  * Set query data for useAuthMe via the queryClient
@@ -199,8 +287,10 @@ useAuthMe.invalidate = (queryClient: QueryClient) => queryClient.invalidateQueri
 useAuthMe.setQueryData = (
   queryClient: QueryClient,
 
-  data: AuthMeResponse,
-) => queryClient.setQueryData(useAuthMe.queryKey(), data);
+  data: Updater<AuthMeResponse, AuthMeResponse>,
+) => {
+  return queryClient.setQueryData(useAuthMe.queryKey(), data);
+};
 
 /**
  * Returns a new token pair based on the provided refresh token.
@@ -209,21 +299,21 @@ useAuthMe.setQueryData = (
  * - Inherits errors from [`sessionStoreRefreshTokens`](https://compasjs.com/features/session-handling.html#sessionstorerefreshtokens)
  *
  */
-type UseAuthRefreshTokensProps = AuthRefreshTokensBody & { requestConfig?: AxiosRequestConfig };
-export function useAuthRefreshTokens(
-  options: UseMutationOptions<AuthTokenPair, AppErrorResponse, UseAuthRefreshTokensProps> = {},
-): UseMutationResult<AuthTokenPair, AppErrorResponse, UseAuthRefreshTokensProps, unknown> {
+type UseAuthRefreshTokensProps = Pretty<AuthRefreshTokensBody & { requestConfig?: AxiosRequestConfig }>;
+export function useAuthRefreshTokens<Context = unknown>(
+  options: UseMutationOptions<AuthTokenPair, AppErrorResponse, UseAuthRefreshTokensProps, Context> = {},
+): UseMutationResult<AuthTokenPair, AppErrorResponse, UseAuthRefreshTokensProps, Context> {
   const axiosInstance = useApi();
   const queryClient = useQueryClient();
-  return useMutation(
-    variables =>
+  return useMutation({
+    mutationFn: variables =>
       apiAuthRefreshTokens(
         axiosInstance,
         { refreshToken: variables["refreshToken"] },
         variables?.requestConfig,
       ),
-    options,
-  );
+    ...options,
+  });
 }
 
 /**
@@ -236,23 +326,29 @@ export function useAuthRefreshTokens(
  * Tags: ["auth:user:manage"]
  *
  */
-type UseAuthSetUserActiveProps = AuthSetUserActiveParams &
-  AuthSetUserActiveBody & { requestConfig?: AxiosRequestConfig };
-export function useAuthSetUserActive(
-  options: UseMutationOptions<AuthSetUserActiveResponse, AppErrorResponse, UseAuthSetUserActiveProps> = {},
-): UseMutationResult<AuthSetUserActiveResponse, AppErrorResponse, UseAuthSetUserActiveProps, unknown> {
+type UseAuthSetUserActiveProps = Pretty<
+  AuthSetUserActiveParams & AuthSetUserActiveBody & { requestConfig?: AxiosRequestConfig }
+>;
+export function useAuthSetUserActive<Context = unknown>(
+  options: UseMutationOptions<
+    AuthSetUserActiveResponse,
+    AppErrorResponse,
+    UseAuthSetUserActiveProps,
+    Context
+  > = {},
+): UseMutationResult<AuthSetUserActiveResponse, AppErrorResponse, UseAuthSetUserActiveProps, Context> {
   const axiosInstance = useApi();
   const queryClient = useQueryClient();
-  return useMutation(
-    variables =>
+  return useMutation({
+    mutationFn: variables =>
       apiAuthSetUserActive(
         axiosInstance,
         { user: variables["user"] },
         { active: variables["active"] },
         variables?.requestConfig,
       ),
-    options,
-  );
+    ...options,
+  });
 }
 
 /**
@@ -264,23 +360,24 @@ export function useAuthSetUserActive(
  * Tags: ["auth:user:manage"]
  *
  */
-type UseAuthUpdateUserProps = AuthUpdateUserParams &
-  AuthUpdateUserBody & { requestConfig?: AxiosRequestConfig };
-export function useAuthUpdateUser(
-  options: UseMutationOptions<AuthUpdateUserResponse, AppErrorResponse, UseAuthUpdateUserProps> = {},
-): UseMutationResult<AuthUpdateUserResponse, AppErrorResponse, UseAuthUpdateUserProps, unknown> {
+type UseAuthUpdateUserProps = Pretty<
+  AuthUpdateUserParams & AuthUpdateUserBody & { requestConfig?: AxiosRequestConfig }
+>;
+export function useAuthUpdateUser<Context = unknown>(
+  options: UseMutationOptions<AuthUpdateUserResponse, AppErrorResponse, UseAuthUpdateUserProps, Context> = {},
+): UseMutationResult<AuthUpdateUserResponse, AppErrorResponse, UseAuthUpdateUserProps, Context> {
   const axiosInstance = useApi();
   const queryClient = useQueryClient();
-  return useMutation(
-    variables =>
+  return useMutation({
+    mutationFn: variables =>
       apiAuthUpdateUser(
         axiosInstance,
         { user: variables["user"] },
         { name: variables["name"] },
         variables?.requestConfig,
       ),
-    options,
-  );
+    ...options,
+  });
 }
 
 /**
@@ -293,15 +390,20 @@ export function useAuthUpdateUser(
  *
  */
 export function useAuthUserList<TData = AuthUserListResponse>(
-  opts: AuthUserListBody & { requestConfig?: AxiosRequestConfig } & {
-    queryOptions?: UseQueryOptions<AuthUserListResponse, AppErrorResponse, TData>;
-  },
+  opts: Pretty<
+    AuthUserListBody & { requestConfig?: AxiosRequestConfig } & {
+      queryOptions?: Omit<
+        UseQueryOptions<AuthUserListResponse, AppErrorResponse, TData>,
+        "queryFn" | "queryKey"
+      >;
+    }
+  >,
 ) {
   const axiosInstance = useApi();
   const options = opts?.queryOptions ?? {};
-  return useQuery(
-    useAuthUserList.queryKey(opts),
-    ({ signal }) => {
+  return useQuery({
+    queryKey: useAuthUserList.queryKey(opts),
+    queryFn: ({ signal }) => {
       opts.requestConfig ??= {};
       opts.requestConfig.signal = signal;
 
@@ -311,8 +413,8 @@ export function useAuthUserList<TData = AuthUserListResponse>(
         opts?.requestConfig,
       );
     },
-    options,
-  );
+    ...options,
+  });
 }
 /**
  * Base key used by useAuthUserList.queryKey()
@@ -322,7 +424,7 @@ useAuthUserList.baseKey = (): QueryKey => ["auth", "userList"];
 /**
  * Query key used by useAuthUserList
  */
-useAuthUserList.queryKey = (opts: AuthUserListBody): QueryKey => [
+useAuthUserList.queryKey = (opts: Pretty<AuthUserListBody>): QueryKey => [
   ...useAuthUserList.baseKey(),
   { search: opts["search"] ?? null, filters: opts["filters"] ?? null },
 ];
@@ -333,11 +435,18 @@ useAuthUserList.queryKey = (opts: AuthUserListBody): QueryKey => [
 useAuthUserList.fetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: AuthUserListBody & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<AuthUserListBody & { requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.fetchQuery(useAuthUserList.queryKey(opts), () =>
-    apiAuthUserList(axiosInstance, { search: opts["search"], filters: opts["filters"] }, opts?.requestConfig),
-  );
+  return queryClient.fetchQuery({
+    queryKey: useAuthUserList.queryKey(opts),
+    queryFn: () => {
+      return apiAuthUserList(
+        axiosInstance,
+        { search: opts["search"], filters: opts["filters"] },
+        opts?.requestConfig,
+      );
+    },
+  });
 };
 
 /**
@@ -346,24 +455,33 @@ useAuthUserList.fetch = (
 useAuthUserList.prefetch = (
   queryClient: QueryClient,
   axiosInstance: AxiosInstance,
-  opts: AuthUserListBody & { requestConfig?: AxiosRequestConfig },
+  opts: Pretty<AuthUserListBody & { requestConfig?: AxiosRequestConfig }>,
 ) => {
-  return queryClient.prefetchQuery(useAuthUserList.queryKey(opts), () =>
-    apiAuthUserList(axiosInstance, { search: opts["search"], filters: opts["filters"] }, opts?.requestConfig),
-  );
+  return queryClient.prefetchQuery({
+    queryKey: useAuthUserList.queryKey(opts),
+    queryFn: () => {
+      return apiAuthUserList(
+        axiosInstance,
+        { search: opts["search"], filters: opts["filters"] },
+        opts?.requestConfig,
+      );
+    },
+  });
 };
 
 /**
  * Invalidate useAuthUserList via the queryClient
  */
-useAuthUserList.invalidate = (queryClient: QueryClient, opts: AuthUserListBody) =>
-  queryClient.invalidateQueries(useAuthUserList.queryKey(opts));
+useAuthUserList.invalidate = (queryClient: QueryClient, opts: Pretty<AuthUserListBody>) =>
+  queryClient.invalidateQueries({ queryKey: useAuthUserList.queryKey(opts) });
 
 /**
  * Set query data for useAuthUserList via the queryClient
  */
 useAuthUserList.setQueryData = (
   queryClient: QueryClient,
-  opts: AuthUserListBody,
-  data: AuthUserListResponse,
-) => queryClient.setQueryData(useAuthUserList.queryKey(opts), data);
+  opts: Pretty<AuthUserListBody>,
+  data: Updater<AuthUserListResponse, AuthUserListResponse>,
+) => {
+  return queryClient.setQueryData(useAuthUserList.queryKey(opts), data);
+};

@@ -6,6 +6,7 @@ import type { AxiosInstance } from "axios";
 import type { PropsWithChildren } from "react";
 import React from "react";
 import { createContext, useContext } from "react";
+export type Pretty<T> = { [K in keyof T]: T[K] } & {};
 
 const ApiContext = createContext<AxiosInstance | undefined>(undefined);
 

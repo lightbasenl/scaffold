@@ -65,6 +65,10 @@ export type AuthGetUserResponse = {
   user: AuthUserSummary;
 };
 
+export type AuthImpersonateStopSessionResponse = {
+  success: true;
+};
+
 export type AuthLogoutResponse = {
   success: true;
 };
@@ -80,6 +84,7 @@ export type AuthSession = {
   loginType: AuthLoginType;
   twoStepType?: AuthTwoStepType | undefined;
   userId: string;
+  impersonatorUserId?: string | undefined;
 };
 
 export type AuthMeResponse = {
@@ -142,10 +147,22 @@ export type AuthUserListResponse = {
   users: AuthUserSummary[];
 };
 
+/**
+ * Web push information object. This is the result of 'PushSubscription.toJSON()'.
+ */
+export type SessionWebPushInformation = {
+  endpoint: string;
+  keys: {
+    p256dh: string;
+    auth: string;
+  };
+};
+
 export type SessionLoginDevice = {
   platform: "apple" | "android" | "desktop" | "other";
   name: string;
   notificationToken?: string | undefined;
+  webPushInformation?: SessionWebPushInformation | undefined;
 };
 
 export type AuthAnonymousBasedLoginBody = {
@@ -176,36 +193,30 @@ export type ManagementFeatureFlagListBody = {
     | {
         id?: string | undefined;
         idNotEqual?: string | undefined;
-        idIn?: string[] | string | undefined;
-        idNotIn?: string[] | string | undefined;
+        idIn?: string[] | undefined;
+        idNotIn?: string[] | undefined;
         name?: string | undefined;
         nameNotEqual?: string | undefined;
-        nameIn?: string[] | string | undefined;
-        nameNotIn?: string[] | string | undefined;
+        nameIn?: string[] | undefined;
+        nameNotIn?: string[] | undefined;
         nameLike?: string | undefined;
         nameILike?: string | undefined;
         nameNotLike?: string | undefined;
         createdAt?: Date | string | number | undefined;
         createdAtNotEqual?: Date | string | number | undefined;
-        createdAtIn?: (Date | string | number)[] | Date | string | number | undefined;
-        createdAtNotIn?: (Date | string | number)[] | Date | string | number | undefined;
+        createdAtIn?: (Date | string | number)[] | undefined;
+        createdAtNotIn?: (Date | string | number)[] | undefined;
         createdAtGreaterThan?: Date | string | number | undefined;
         createdAtLowerThan?: Date | string | number | undefined;
         updatedAt?: Date | string | number | undefined;
         updatedAtNotEqual?: Date | string | number | undefined;
-        updatedAtIn?: (Date | string | number)[] | Date | string | number | undefined;
-        updatedAtNotIn?: (Date | string | number)[] | Date | string | number | undefined;
+        updatedAtIn?: (Date | string | number)[] | undefined;
+        updatedAtNotIn?: (Date | string | number)[] | undefined;
         updatedAtGreaterThan?: Date | string | number | undefined;
         updatedAtLowerThan?: Date | string | number | undefined;
       }
     | undefined;
-  orderBy?:
-    | ("id" | "name" | "createdAt" | "updatedAt")[]
-    | "id"
-    | "name"
-    | "createdAt"
-    | "updatedAt"
-    | undefined;
+  orderBy?: ("id" | "name" | "createdAt" | "updatedAt")[] | undefined;
   orderBySpec?:
     | {
         id?: "ASC" | "DESC" | undefined;
@@ -224,6 +235,11 @@ export type ManagementFeatureFlagItem = {
   globalValue: boolean;
   description: string;
   name: string;
+
+  /**
+   * Specific settings for a tenant. We map the value based on the tenant name. If there is no specific setting for the tenant the globalValue is used.
+   */
+  tenantValues?: { [key: string]: boolean } | undefined;
 
   /**
    * Automatically generated 'createdAt', containing an ISO timestamp.
@@ -262,6 +278,11 @@ export type ManagementFeatureFlagUpdateParams = {
 export type ManagementFeatureFlagItemWrite = {
   globalValue?: boolean | "true" | "false" | undefined;
   description?: string | undefined;
+
+  /**
+   * Specific settings for a tenant. We map the value based on the tenant name. If there is no specific setting for the tenant the globalValue is used.
+   */
+  tenantValues?: { [key: string]: boolean | "true" | "false" } | undefined;
 };
 
 export type ManagementFeatureFlagUpdateResponse = {

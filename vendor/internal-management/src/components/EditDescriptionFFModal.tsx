@@ -1,4 +1,4 @@
-import { Transition, Dialog, Portal } from "@headlessui/react";
+import { Dialog, Portal, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { tw } from "twind";
@@ -6,7 +6,7 @@ import Button from "../components/Button";
 import type { ManagementFeatureFlagItem } from "../generated/common/types";
 import { useManagementFeatureFlagUpdate } from "../generated/managementFeatureFlag/reactQueries";
 
-export default function EditFeatureFlagModal({
+export default function EditDescriptionFFModal({
   show,
   onClose,
   flag,
@@ -15,7 +15,7 @@ export default function EditFeatureFlagModal({
   onClose: () => void;
   flag: ManagementFeatureFlagItem;
 }) {
-  const { mutate, isLoading, error } = useManagementFeatureFlagUpdate(
+  const { mutate, status, error } = useManagementFeatureFlagUpdate(
     {
       onSuccess: () => {
         onClose();
@@ -61,12 +61,13 @@ export default function EditFeatureFlagModal({
               >
                 <Dialog.Panel
                   as="form"
-                  data-testid="FeatureFlag.modal"
+                  data-testid="DescriptionFeatureFlag.modal"
                   onSubmit={handleSubmit(({ description }) => {
                     mutate({
                       featureFlagId: flag.id,
                       description,
                       globalValue: flag.globalValue,
+                      tenantValues: flag.tenantValues,
                     });
                   })}
                   className={tw`relative w-full transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:max-w-lg`}
@@ -111,10 +112,17 @@ export default function EditFeatureFlagModal({
                     </div>
                   </div>
                   <div className={tw`border-t px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6`}>
-                    <Button data-testid="FeatureFlag.modal.submit" type="submit" isLoading={isLoading}>
+                    <Button
+                      data-testid="DescriptionFeatureFlag.modal.submit"
+                      type="submit"
+                      isLoading={
+                        // Compatible between RQ4 & RQ5
+                        ["loading", "pending"].includes(status as string)
+                      }
+                    >
                       Save
                     </Button>
-                    <Button variant="default" className="ml-2 lg:ml-0 lg:mr-2" onClick={onClose}>
+                    <Button variant="default" className={tw`ml-2 lg:ml-0 lg:mr-2`} onClick={onClose}>
                       Cancel
                     </Button>
                   </div>

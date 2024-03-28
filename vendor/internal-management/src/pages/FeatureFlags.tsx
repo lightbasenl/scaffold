@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { tw } from "twind";
 import useAuthenticate from "../auth/useAuthenticate";
 import Button from "../components/Button";
-import EditFeatureFlagModal from "../components/EditFeatureFlagModal";
+import EditDescriptionFFModal from "../components/EditDescriptionFFModal";
+import EditTenantSettingsFFModal from "../components/EditTentantSettingsFFModal";
 import SideBar from "../components/SideBar";
 import TopBar from "../components/TopBar";
 import type { ManagementFeatureFlagItem } from "../generated/common/types";
@@ -11,7 +12,7 @@ import {
   useManagementFeatureFlagUpdate,
 } from "../generated/managementFeatureFlag/reactQueries";
 
-export function FeatureFlags() {
+export function FeatureFlags({ tenants }: { tenants?: string[] }) {
   useAuthenticate({
     enforceLoginType: "anonymousBased",
     enforceSessionType: "user",
@@ -32,12 +33,12 @@ export function FeatureFlags() {
           <TopBar />
           <div className={tw`h-full`}>
             <div className={tw`relative h-full w-full overflow-y-auto bg-[#fafafa]`}>
-              <div className={tw`py-6 px-4 sm:px-6 lg:px-8`}>
+              <div className={tw`px-4 py-6 sm:px-6 lg:px-8`}>
                 <h1 className={tw`text-lg font-medium text-[#2f2e35]`}>Feature flags</h1>
               </div>
               <div className={tw`px-4`}>
                 <div className={tw`flex flex-col`}>
-                  <div className={tw`-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8`}>
+                  <div className={tw`-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8`}>
                     <div className={tw`inline-block min-w-full py-2 align-middle md:px-6 lg:px-8`}>
                       <div
                         className={tw`overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg`}
@@ -64,7 +65,7 @@ export function FeatureFlags() {
                           </thead>
                           <tbody className={tw`divide-y divide-[#f8f8f8] bg-white`}>
                             {(featureFlags ?? []).map(it => (
-                              <FeatureFlag flag={it} key={it.id} />
+                              <FeatureFlag flag={it} tenants={tenants} key={it.id} />
                             ))}
                           </tbody>
                         </table>
@@ -81,10 +82,11 @@ export function FeatureFlags() {
   );
 }
 
-function FeatureFlag({ flag }: { flag: ManagementFeatureFlagItem }) {
+function FeatureFlag({ flag, tenants }: { flag: ManagementFeatureFlagItem; tenants?: string[] }) {
   const { mutate } = useManagementFeatureFlagUpdate({}, { invalidateQueries: true });
 
-  const [mode, setMode] = useState<"default" | "edit">("default");
+  const [modeDescription, setModeDescription] = useState<"default" | "edit">("default");
+  const [modeTenantSettings, setModeTenantSettings] = useState<"default" | "edit">("default");
 
   return (
     <>
@@ -104,7 +106,7 @@ function FeatureFlag({ flag }: { flag: ManagementFeatureFlagItem }) {
             <span>{flag.description ? flag.description : "No description provided"}</span>
             <button
               data-testid="FeatureFlag.editDescription"
-              onClick={() => setMode("edit")}
+              onClick={() => setModeDescription("edit")}
               className={tw`rounded-full p-1 ring-blue-300 focus:outline-none focus:ring-2`}
             >
               <svg
@@ -140,6 +142,7 @@ function FeatureFlag({ flag }: { flag: ManagementFeatureFlagItem }) {
                 featureFlagId: flag.id,
                 globalValue: !flag.globalValue,
                 description: flag.description,
+                tenantValues: flag.tenantValues,
               });
             }}
             type="button"
@@ -155,16 +158,41 @@ function FeatureFlag({ flag }: { flag: ManagementFeatureFlagItem }) {
               </>
             )}
           </Button>
+          {tenants && tenants.length > 0 && (
+            <Button
+              data-testid="FeatureFlag.editTenantSettings"
+              onClick={() => setModeTenantSettings("edit")}
+              type="button"
+              className="w-[150px] ml-2 items-center justify-center"
+              variant={"default"}
+            >
+              Tenant settings
+              {Object.keys(flag.tenantValues ?? {}).length > 0 &&
+                ` (${Object.keys(flag.tenantValues ?? {}).length})`}
+              <span className={tw`sr-only`}>, {flag.name}</span>
+            </Button>
+          )}
         </td>
       </tr>
 
-      <EditFeatureFlagModal
+      <EditDescriptionFFModal
         flag={flag}
-        show={mode === "edit"}
+        show={modeDescription === "edit"}
         onClose={() => {
-          setMode("default");
+          setModeDescription("default");
         }}
       />
+
+      {tenants && tenants.length > 0 && (
+        <EditTenantSettingsFFModal
+          flag={flag}
+          tenants={tenants}
+          show={modeTenantSettings === "edit"}
+          onClose={() => {
+            setModeTenantSettings("default");
+          }}
+        />
+      )}
     </>
   );
 }

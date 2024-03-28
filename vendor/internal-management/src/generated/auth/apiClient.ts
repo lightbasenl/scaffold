@@ -4,6 +4,7 @@ import type { AxiosInstance, AxiosRequestConfig } from "axios";
 import type {
   AuthGetUserParams,
   AuthGetUserResponse,
+  AuthImpersonateStopSessionResponse,
   AuthLogoutResponse,
   AuthMeResponse,
   AuthRefreshTokensBody,
@@ -34,6 +35,26 @@ export async function apiAuthGetUser(
   const response = await axiosInstance.request({
     url: `auth/user/${params.user}`,
     method: "GET",
+    ...requestConfig,
+  });
+  return response.data;
+}
+
+/**
+ * Stop an impersonating session. Requires that the current session belongs to the impersonator. Impersonate sessions can only be started from the platform backends.
+ *
+ * Callers should bust all local caches and redirect the user to the correct location.
+ *
+ * Tags: []
+ *
+ */
+export async function apiAuthImpersonateStopSession(
+  axiosInstance: AxiosInstance,
+  requestConfig?: AxiosRequestConfig,
+): Promise<AuthImpersonateStopSessionResponse> {
+  const response = await axiosInstance.request({
+    url: `auth/impersonate-stop-session`,
+    method: "POST",
     ...requestConfig,
   });
   return response.data;
